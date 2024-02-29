@@ -1,6 +1,6 @@
 # DIAMAS
 
-Este paquete tiene que contener:
+Este paquete contiene:
 - Código de la herramienta
 - BBDD
 - Manual de despliegue
