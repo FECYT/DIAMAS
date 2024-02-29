@@ -1,0 +1,59 @@
+<div class="container">
+    <router-outlet></router-outlet>
+    <app-usuario></app-usuario>
+    <div class="espacio"></div>
+    <h2>{{ 'GESTION_TITLE' | translate }}</h2>
+    <div class="espacio"></div>
+    <div class="row gestion">
+        <mat-card class="button-card ficha sombra" (click)="administrarPeriodos()">
+            <div class="text-left"><svg xmlns="http://www.w3.org/2000/svg" width="84.184" height="96.21" viewBox="0 0 84.184 96.21">
+                <path id="Icon_awesome-calendar-check" data-name="Icon awesome-calendar-check" d="M81.929,30.066H2.255A2.255,2.255,0,0,1,0,27.811V21.046a9.02,9.02,0,0,1,9.02-9.02h9.02V2.255A2.255,2.255,0,0,1,20.294,0h7.516a2.255,2.255,0,0,1,2.255,2.255v9.771H54.118V2.255A2.255,2.255,0,0,1,56.373,0h7.516a2.255,2.255,0,0,1,2.255,2.255v9.771h9.02a9.02,9.02,0,0,1,9.02,9.02v6.765A2.255,2.255,0,0,1,81.929,30.066ZM2.255,36.079H81.929a2.255,2.255,0,0,1,2.255,2.255V87.19a9.02,9.02,0,0,1-9.02,9.02H9.02A9.02,9.02,0,0,1,0,87.19V38.334A2.255,2.255,0,0,1,2.255,36.079Zm62.63,18.029-5.293-5.336a2.255,2.255,0,0,0-3.189-.013L36.477,68.524l-8.64-8.71a2.255,2.255,0,0,0-3.189-.013l-5.336,5.293a2.255,2.255,0,0,0-.013,3.189L34.821,83.931a2.255,2.255,0,0,0,3.189.013L64.872,57.3a2.255,2.255,0,0,0,.013-3.189Z" fill="#2b2b5e"/>
+              </svg></div>
+            <h3>{{ 'EDICIONES_TITLE' | translate }}</h3>
+        </mat-card>
+
+        <mat-card class="button-card ficha sombra" (click)="administrarCategorias()">
+            <div class="text-left"><svg xmlns="http://www.w3.org/2000/svg" width="83.684" height="83.684" viewBox="0 0 83.684 83.684">
+                <path id="Icon_awesome-tag" data-name="Icon awesome-tag" d="M0,41.207V7.845A7.845,7.845,0,0,1,7.845,0H41.207a7.845,7.845,0,0,1,5.547,2.3L81.386,36.929a7.845,7.845,0,0,1,0,11.095L48.024,81.386a7.845,7.845,0,0,1-11.095,0L2.3,46.755A7.845,7.845,0,0,1,0,41.207ZM18.306,10.46a7.845,7.845,0,1,0,7.845,7.845A7.845,7.845,0,0,0,18.306,10.46Z" fill="#2b2b5e"/>
+              </svg></div>
+            <h3>{{ 'CATEGORIAS_TITLE' | translate }}</h3>
+        </mat-card>
+
+        <mat-card class="button-card ficha sombra" (click)="exportacionRespuestas()">
+            <div class="text-left"><svg xmlns="http://www.w3.org/2000/svg" width="94.136" height="83.683" viewBox="0 0 94.136 83.683">
+                <path id="Icon_awesome-file-export" data-name="Icon awesome-file-export" d="M62.763,19.924a3.91,3.91,0,0,0-1.144-2.762l-16-16.018A3.92,3.92,0,0,0,42.839,0h-1V20.921H62.763ZM93.327,50.341,77.685,34.585a2.622,2.622,0,0,0-4.478,1.847v10.64H62.746v10.46h10.46V68.189a2.622,2.622,0,0,0,4.478,1.847L93.327,54.263A2.782,2.782,0,0,0,93.327,50.341ZM31.381,54.917v-5.23A2.623,2.623,0,0,1,34,47.072H62.763V26.151H40.534a3.934,3.934,0,0,1-3.923-3.923V0H3.923A3.913,3.913,0,0,0,0,3.923V79.761a3.913,3.913,0,0,0,3.923,3.923H58.84a3.913,3.913,0,0,0,3.923-3.923V57.532H34A2.623,2.623,0,0,1,31.381,54.917Z" fill="#2b2b5e"/>
+              </svg></div>
+            <h3>{{ 'RESPUESTAS_TITLE' | translate }}</h3>
+        </mat-card>
+
+        <mat-card class="button-card ficha sombra" (click)="exportacionDocumentos()">
+            <div class="text-left"><svg xmlns="http://www.w3.org/2000/svg" width="94.136" height="83.683" viewBox="0 0 94.136 83.683">
+                <path id="Icon_awesome-file-export" data-name="Icon awesome-file-export" d="M62.763,19.924a3.91,3.91,0,0,0-1.144-2.762l-16-16.018A3.92,3.92,0,0,0,42.839,0h-1V20.921H62.763ZM93.327,50.341,77.685,34.585a2.622,2.622,0,0,0-4.478,1.847v10.64H62.746v10.46h10.46V68.189a2.622,2.622,0,0,0,4.478,1.847L93.327,54.263A2.782,2.782,0,0,0,93.327,50.341ZM31.381,54.917v-5.23A2.623,2.623,0,0,1,34,47.072H62.763V26.151H40.534a3.934,3.934,0,0,1-3.923-3.923V0H3.923A3.913,3.913,0,0,0,0,3.923V79.761a3.913,3.913,0,0,0,3.923,3.923H58.84a3.913,3.913,0,0,0,3.923-3.923V57.532H34A2.623,2.623,0,0,1,31.381,54.917Z" fill="#2b2b5e"/>
+              </svg></div>
+            <h3>{{ 'DOCUMENTOS_TITLE' | translate }}</h3>
+        </mat-card>
+        <mat-card class="button-card ficha sombra" (click)="descargarCertificados()">
+            <div class="text-left"><svg xmlns="http://www.w3.org/2000/svg" width="94.136" height="83.683" viewBox="0 0 94.136 83.683">
+                <path id="Icon_awesome-file-export" data-name="Icon awesome-file-export" d="M62.763,19.924a3.91,3.91,0,0,0-1.144-2.762l-16-16.018A3.92,3.92,0,0,0,42.839,0h-1V20.921H62.763ZM93.327,50.341,77.685,34.585a2.622,2.622,0,0,0-4.478,1.847v10.64H62.746v10.46h10.46V68.189a2.622,2.622,0,0,0,4.478,1.847L93.327,54.263A2.782,2.782,0,0,0,93.327,50.341ZM31.381,54.917v-5.23A2.623,2.623,0,0,1,34,47.072H62.763V26.151H40.534a3.934,3.934,0,0,1-3.923-3.923V0H3.923A3.913,3.913,0,0,0,0,3.923V79.761a3.913,3.913,0,0,0,3.923,3.923H58.84a3.913,3.913,0,0,0,3.923-3.923V57.532H34A2.623,2.623,0,0,1,31.381,54.917Z" fill="#2b2b5e"/>
+              </svg></div>
+            <h3>{{ 'CERTIFICATE_TITLE' | translate }}</h3>
+        </mat-card>
+        <mat-card class="button-card ficha sombra" (click)="listaActiva()">
+            <div class="text-left"><svg xmlns="http://www.w3.org/2000/svg" width="94.136" height="83.683" viewBox="0 0 94.136 83.683">
+                <path class="customPath" id="Icon_awesome-file-export" data-name="Icon awesome-file-export" d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z" fill="#2b2b5e"/>
+              </svg></div>
+            <h3>{{ 'LISTA_DE_EVALUACIONES_ACTIVAS' | translate }}</h3>
+        </mat-card>
+
+      <mat-card class="button-card ficha sombra" (click)="userPanel()">
+        <div class="text-left"><svg  xmlns="http://www.w3.org/2000/svg" width="94.136" height="83.683" viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z"/></svg></div>
+        <h3>{{ 'PANEL_USUARIOS' | translate }}</h3>
+      </mat-card>
+
+      <mat-card class="button-card ficha sombra" (click)="statisticsTool()">
+        <div class="text-left"><svg xmlns="http://www.w3.org/2000/svg" width="94.136" height="83.683" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z"/></svg></div>
+        <h3>{{ 'ESTADISTICAS_HERRAMIENTA' | translate }}</h3>
+      </mat-card>
+
+    </div>
+</div>

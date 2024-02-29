@@ -1,0 +1,54 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.rounded-border {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+    display: inline-block;
+}
+table mat-icon{
+    cursor: pointer;
+}
+.mat-mdc-button:not(:disabled){
+    color:#fff !important;
+    top: 0;
+}
+.mat-mdc-button:not(:disabled):hover{
+    color:var(--color-secundario) !important;
+}
+
+.puntuacion {
+    font-size: 3em;
+    color: var(--color-secundario);
+    text-align: center;
+}
+hr {
+    height: 5px;
+    border: none;
+    background-color: var(--color-principal) !important; /* O el color que desees para la línea */
+}
+.alignedFilters {
+    .form-group {
+        display: inline-block;
+        margin: 0px 15px 0px 0px;
+    }
+    .mat-mdc-form-field {
+        margin-right: 10px;
+    }
+    .btn {
+        top: 0px;
+    }
+}
+.paginator {
+    border-top: 1px solid #ccc;
+}

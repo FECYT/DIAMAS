@@ -1,0 +1,18 @@
+.mat-elevation-z8 {
+    width: 100%;
+    max-width: 1000px !important;
+    margin: 20px auto;
+    overflow: auto;
+  }
+th.mat-mdc-header-cell.mdc-data-table__header-cell.cdk-header-cell.cdk-column-nombre.mat-column-nombre.ng-star-inserted {
+    width: 30%;
+}
+td.mat-mdc-cell.mdc-data-table__cell.cdk-cell.cdk-column-orden.mat-column-orden.ng-star-inserted, td.mat-mdc-cell.mdc-data-table__cell.cdk-cell.cdk-column-acciones.mat-column-acciones.ng-star-inserted {
+    text-align: center;
+}
+.mdc-data-table__table {
+    max-width: 1000px !important;
+    width: 100%;
+    min-width: auto;
+    margin: initial;
+}

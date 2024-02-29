@@ -1,0 +1,34 @@
+<div class="container">
+<app-usuario></app-usuario>
+<div class="espacio"></div>
+
+  <span *ngIf="termId">
+    <h2>{{ 'EDITAR' | translate }} {{ 'TERMINO' | translate }}</h2>
+  </span>
+
+  <span *ngIf="!termId">
+    <h2>{{ 'AGREGAR' | translate }} {{ 'TERMINO' | translate }}</h2>
+  </span>
+
+<div class="espacio"></div>
+<form class="formulario-flex" [formGroup]="formGroup" (ngSubmit)="submit()">
+    <mat-label>{{ 'NOMBRE' | translate }}</mat-label>
+    <mat-form-field appearance="outline">
+        <input matInput formControlName="categoryType" required>
+        <mat-error *ngIf="formGroup.get('categoryType')?.hasError('categoryType')">{{ 'REQUIRED_NAME' | translate }}</mat-error>
+    </mat-form-field>
+    <mat-label>{{ 'TOOLTIP' | translate }}</mat-label>
+    <mat-form-field appearance="outline">
+        <input matInput formControlName="tooltipType" required>
+        <mat-error *ngIf="formGroup.get('tooltipType')?.hasError('tooltipType')">{{ 'REQUIRED_TOOLTIP' | translate }}</mat-error>
+    </mat-form-field>
+    <mat-label>{{ 'ORDEN' | translate }}</mat-label>
+    <mat-form-field appearance="outline">
+        <input matInput type="number" min="1" max="100" formControlName="orden" required>
+        <mat-error *ngIf="formGroup.get('orden')?.hasError('required')">{{ 'REQUIRED_ORDER' | translate }}</mat-error>
+        <mat-error *ngIf="formGroup.get('orden')?.hasError('min')">{{ 'MIN_ORDER' | translate }}</mat-error>
+        <mat-error *ngIf="formGroup.get('orden')?.hasError('max')">{{ 'MAX_ORDER' | translate }}</mat-error>
+    </mat-form-field>
+    <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid">{{ 'SAVE' | translate }}</button>
+</form>
+</div>

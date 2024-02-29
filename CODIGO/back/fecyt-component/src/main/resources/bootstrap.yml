@@ -1,0 +1,81 @@
+mail:
+  host: smtp.office365.com
+  userSMTP: usuario@smtp.es
+  passwordSMTP: password_smtp
+  from: correo_remitente
+  port: 587
+web:
+  link: http://localhost:4200
+server:
+  port: 8001
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  application:
+    name: diamas-component
+  config:
+    name: application
+    location: file:./
+  datasource:
+    initialization-mode: always
+    url: ${DB_URL:jdbc:mysql://localhost:3306/nombre_bbdd?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8}
+    username: ${DB_USER:usuario_bbdd}
+    password: ${DB_PASS:password_bbdd}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 3
+  jackson:
+    serialization:
+      write-dates-as-timestamps: 'false'
+  jpa:
+    database: MYSQL
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:   
+        show-sql: true
+        format-sql: true
+        default_schema: ${DB_SCHEMA:screma_bbdd}
+  cloud:
+    config:
+      enabled: false
+logging:
+  config: classpath:logback.xml
+  file: comunes-component.log
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 9000
+        read-timeout: 60000
+eureka:
+   client:
+        enabled: false
+file:
+  upload-dir: ../../filestore
+seguridad:
+  jwt:
+    expiration: '25200'
+    header: Authorization
+    prefix: 'Bearer '
+    secret: JwtSecretKey
+    uri: /user/authUser
+  whitelist:
+  - /v2/api-docs/**
+  - /swagger-ui.html*/**
+  - /webjars/springfox-swagger-ui/**
+  - /swagger-resources/**
+  - /favicon.ico
+  - /actuator/**
+  - /user/**
+  - /usuarios/**
+  - /usuarios/forgotPassword
+  - /passwordRecover/**
+  - /api/users/changePassword
+

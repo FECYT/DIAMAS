@@ -1,0 +1,44 @@
+.borderOverriderTop{
+  position: absolute;
+  top: -25px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #eaeaea;
+  z-index: 999;
+}
+
+.borderOverriderBottom{
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #eaeaea;
+}
+.fullscreen-bg {
+  position: relative;
+  background-color: #eaeaea;
+}
+
+.floating {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  padding: 40px;
+}
+
+.upperTableContainer{
+  background-color: #f8f9fa;
+  width: 100%;
+  height: 70px;
+  border-radius: 10px 10px 0 0;
+}
+
+.hoverItem{
+  cursor: pointer;
+}
+
+.hoverItem:hover{
+  background-color: #e1e1e1;
+}

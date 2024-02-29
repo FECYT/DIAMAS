@@ -1,0 +1,36 @@
+<div class="container">
+  <app-usuario></app-usuario>
+  <div class="espacio"></div>
+  <h2>ASIGNAR EVALUADOR A <span class="nombrerepo">{{ nombreRepositorio }}</span></h2>
+  <div class="espacio"></div>
+  <div><mat-label>Evaluador</mat-label></div>
+
+<!--    <mat-form-field class="textolargo" appearance="outline">
+      <input type="text" placeholder="Buscar evaluadores" matInput [matAutocomplete]="auto" [formControl]="filterControl">
+    </mat-form-field>-->
+
+<!--    <mat-autocomplete #matAutocompleteUser #auto="matAutocomplete">
+      <mat-option *ngFor="let eval of filteredEvaluadores | async" [value]="selectedEvaluadores">
+        <div class="userOption" (click)="optionClicked($event, eval)">
+          <mat-checkbox [checked]="eval.selected">
+            {{ eval.userName }}
+          </mat-checkbox>
+        </div>
+      </mat-option>
+    </mat-autocomplete>-->
+
+    <span style="margin-left: 15px;">
+      <mat-spinner [diameter]="50" *ngIf="loading" class="spinner"></mat-spinner>
+    </span>
+
+    <div><mat-label>Evaluadores seleccionados:</mat-label></div>
+    <div *ngIf="selectedEvaluadores?.length === 0"> Ningún evaluador seleccionado</div>
+    <div *ngFor="let evaluator of selectedEvaluadores">
+      <!--{{ evaluator.userName }}-->
+    </div>
+
+  <div>
+    <button type="submit" class="btn btn-primary" (click)="guardar()">{{ (edit ? 'EDITAR' : 'GUARDAR') | translate }}
+    </button>
+  </div>
+</div>

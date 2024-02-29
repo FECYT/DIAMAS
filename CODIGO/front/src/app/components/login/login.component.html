@@ -1,0 +1,223 @@
+<div class="login-container">
+    <div class="login-box">
+
+      <!-- Spinner -->
+      <div class="spinner position-absolute absolute-centered" [class.occult]="!showSpinner">
+        <mat-spinner *ngIf="showSpinner" class="centered-spinner text-center"></mat-spinner>
+      </div>
+
+        <div class="left-panel" style="width: 800px">
+            <span *ngIf="!registerToggle">
+                <h2 class="titulo-blanco">{{'ACCESO' | translate }}</h2>
+                <p>{{'LOGIN_TEXT_1' | translate }} <a href="mailto:diamas@fecyt.es">diamas@fecyt.es</a></p>
+            </span>
+            <span  *ngIf="registerToggle">
+
+              <span class="container mt-4">
+
+                <h2 class="titulo-blanco">{{'REGISTRO' | translate }}</h2>
+                <p>{{'REGISTER_TEXT_1' | translate }} <a href="mailto:diamas@fecyt.es">diamas@fecyt.es</a></p>
+
+                <div class="bar-container mb-3">
+                  <div class="horizontal-bar"></div>
+                </div>
+
+                <h3 style="font-size: medium" class="titulo-blanco">{{'INFO_PROTECCION_DATOS' | translate }}</h3>
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th style="width: 200px" scope="col">{{'INFORMACION_BASICA' | translate }}</th>
+                      <th style="width: 600px" scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Filas con textos hardcodeados -->
+                    <tr>
+                      <td>{{'RESPONSABLE_TRATAMIENTO' | translate }}</td>
+                      <td>{{'RESPONSABLE_TRATAMIENTO_VALUE' | translate }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'FINALIDAD_TRATAMIENTO' | translate }}</td>
+                      <td>{{'FINALIDAD_TRATAMIENTO_VALUE' | translate }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'LEGITIMACION' | translate }}</td>
+                      <td>{{'LEGITIMACION_VALUE' | translate }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'DESTINATARIOS' | translate }}</td>
+                      <td>{{'DESTINATARIOS_VALUE' | translate }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'DERECHOS' | translate }}</td>
+                      <td>{{'DERECHOS_VALUE' | translate }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'PROCEDENCIA' | translate }}</td>
+                      <td>{{'PROCEDENCIA_VALUE' | translate }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'INFORMACION_ADICIONAL' | translate }}</td>
+                      <td>{{'INFORMACION_ADICIONAL_VALUE' | translate }} <a href="https://pd.fecyt.es/protecciondatos/073-01en.pdf">https://pd.fecyt.es/protecciondatos/073-01en.pdf</a></td>
+                    </tr>
+                    <!-- Agrega filas adicionales según sea necesario -->
+                  </tbody>
+                </table>
+              </span>
+
+            </span>
+        </div>
+
+        <div class="right-panel">
+
+          <span *ngIf="!registerToggle && !recoveringPass">
+            <!-- Agregar (ngSubmit)="onSubmit()" y #loginForm="ngForm" -->
+            <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+
+                <div class="form-group">
+                    <label for="email">{{'CORREO' | translate }}:</label>
+                    <!-- Agregar [(ngModel)]="email" para el two-way data binding -->
+                    <input type="email" id="email" name="email" class="form-control" [(ngModel)]="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">{{'CONTRASEÑA' | translate }}:</label>
+                    <!-- Agregar [(ngModel)]="password" para el two-way data binding -->
+                    <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required>
+                </div>
+
+              <div class="form-group">
+                     <a class="text-decoration-none text-primary" style="cursor: pointer;" (click)="showRecoverWidget()" >{{'OLVIDO_CONTRASEÑA' | translate }}</a>
+                </div>
+
+                <div class="form-group">
+                     {{'TODAVIA_NO_TIENE_CUENTA' | translate }} <a class="text-decoration-none text-primary" style="cursor: pointer;" (click)="onRegisterClick()" >{{'REGISTRESE_AHORA' | translate }}</a>
+                </div>
+
+                <div class="form-group">
+                    <app-recaptcha (captchaResponse)="handleCaptcha($event)"></app-recaptcha>
+                </div>
+
+                <div class="form-group">
+                    <!-- Deshabilitar el botón si el formulario no es válido -->
+                    <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">{{ 'ENTRAR' | translate }}</button>
+                </div>
+            </form>
+            </span>
+
+          <span *ngIf="registerToggle">
+
+            <form (ngSubmit)="onRegisterSubmit()" #registerForm="ngForm">
+
+                <div class="form-group">
+                    <label for="registerNombre">{{'NOMBRE_MINUS' | translate }}:</label>
+                    <input id="registerNombre" name="registerNombre" class="form-control" [(ngModel)]="registerNombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerApellidos">{{'APELLIDOS' | translate }}:</label>
+                    <input name="registerApellidos" id="registerApellidos" class="form-control" [(ngModel)]="registerApellidos" required>
+                </div>
+
+              <div class="d-flex flex-row">
+                <div class="form-group col">
+                    <label for="registerInstitucion">{{'NOMBRE_ISP' | translate }}:</label>
+                    <input name="registerInstitucion" id="registerInstitucion" class="form-control" [(ngModel)]="registerInstitucion" required>
+                </div>
+
+                <div class="form-group col-3">
+                    <label for="acronimoInstitucion">{{'ACRONIMO' | translate }}:</label>
+                    <input name="acronimoInstitucion" id="acronimoInstitucion" class="form-control input-uppercase" [(ngModel)]="registerAcronimo" required>
+                </div>
+              </div>
+
+                <div class="form-group">
+                    <label for="registerURL">{{'URL' | translate }}:</label>
+                    <input name="registerURL" id="registerURL" class="form-control" [(ngModel)]="registerURL" required>
+                </div>
+
+
+              <div class="d-flex flex-row" style="height: 70px">
+
+                <div class="form-group col " id="loginDeep">
+                  <label >{{'PAIS' | translate }}:ㅤ</label>
+                  <mat-select-country
+                    [itemsLoadSize]="1000"
+                    placeHolder=""
+                    (onCountrySelected)="onCountrySelected($event)">
+                  >
+                  </mat-select-country>
+                </div>
+
+                <div class="form-group col">
+                    <label for="registerAfiliacion">{{'AFILIACION_INSTITUCIONAL' | translate }}:</label>
+                    <input name="registerAfiliacion" id="registerAfiliacion" class="form-control input-uppercase" [(ngModel)]="registerAfiliacion" required>
+                </div>
+
+              </div>
+
+              <div class="form-group">
+                    <label for="email">{{'CORREO' | translate }}:</label>
+                                <!-- Agregar [(ngModel)]="email" para el two-way data binding -->
+                    <input type="email" name="email" class="form-control" [(ngModel)]="registerEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">{{'CONTRASEÑA' | translate }}:</label>
+                  <!-- Agregar [(ngModel)]="password" para el two-way data binding -->
+                    <input type="password"  name="password" class="form-control" [(ngModel)]="registerPassword" required minlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label for="repeatPassword">{{'REPETIR_CONTRASEÑA' | translate }}:</label>
+                                <!-- Agregar [(ngModel)]="password" para el two-way data binding -->
+                    <input type="password" id="repeatPassword" name="repeatPassword" class="form-control" [(ngModel)]="registerPasswordRepeat" required minlength="6">
+                </div>
+
+              <span *ngIf="registerPasswordsNotEqual" style="color: #9a0303">{{'CONTRASEÑAS_NO_COINCIDEN' | translate }}</span>
+              <span *ngIf="registerEmailInvalid" style="color: #9a0303">{{'EMAIL_INVALIDO' | translate }}</span>
+
+                <div class="form-group">
+                     <a class="text-decoration-none text-primary" style="cursor: pointer;" (click)="onRegisterClick()" >{{'VOLVER_A_INICIAR_SESION' | translate }}</a>
+                </div>
+
+                <div class="form-group">
+                    <div class="field-checkbox">
+                        <p-checkbox (ngModelChange)="onChangeCheckbox()" [ngModelOptions]="{ standalone: true }" [(ngModel)]="termsAceptados" [binary]="true"></p-checkbox>
+                        <label class="checkbox-label">{{'TERMINOS_ACEPTADOS' | translate }}</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <app-recaptcha (captchaResponse)="handleCaptcha($event)"></app-recaptcha>
+                </div>
+
+                <div class="form-group">
+                    <!-- Deshabilitar el botón si el formulario no es válido -->
+                    <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">{{'REGISTRARSE' | translate }}</button>
+                </div>
+            </form>
+
+          </span>
+
+          <span *ngIf="recoveringPass">
+
+            <div class="form-group">
+                  <label>{{'EMAIL_RECUPERACION' | translate }}:</label>
+                <input class="form-control" [(ngModel)]="recoveringEmail" required>
+            </div>
+
+            <div>
+              <a class="text-decoration-none text-primary" style="cursor: pointer;" (click)="showRecoverWidget()" >{{'VOLVER_A_INICIAR_SESION' | translate }}</a>
+            </div>
+
+            <button style="font-size: small" type="submit" class="btn btn-primary" (click)="sendRecuperacion()">{{'ENVIAR_CORREO' | translate }}</button>
+
+          </span>
+
+        </div>
+    </div>
+</div>
+
+

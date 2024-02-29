@@ -1,0 +1,9 @@
+<div matTooltip="{{ usuario?.email || 'DEFAULT' }}" class="user">
+    <!-- Muestra el rol del usuario si hay un usuario en sesión -->
+    <span [matMenuTriggerFor]="userMenu">{{ usuario?.rol || 'DEFAULT' }}</span> 
+    <mat-icon [matMenuTriggerFor]="userMenu">account_circle</mat-icon>
+
+    <mat-menu #userMenu="matMenu">
+        <button mat-menu-item (click)="cerrarSesion()">Cerrar sesión</button>
+    </mat-menu>
+</div>

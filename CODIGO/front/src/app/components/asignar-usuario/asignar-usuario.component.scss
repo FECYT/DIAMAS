@@ -1,0 +1,23 @@
+.formulario-flex {
+    display: flex;
+    flex-direction: column;
+}
+.nombrerepo{
+    text-transform: uppercase;
+}
+::ng-deep .mat-mdc-option {
+    padding: 0px !important;
+}
+::ng-deep .mdc-list-item__primary-text {
+    width: 100%;
+}
+.userOption {
+    width: 100%;
+    height: 48px;
+    ::ng-deep .mat-mdc-checkbox {
+        pointer-events: none;
+        ::ng-deep .mdc-form-field {
+            pointer-events: none;
+        }
+    }
+}

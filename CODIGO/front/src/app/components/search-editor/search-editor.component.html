@@ -1,0 +1,111 @@
+<div class="mat-elevation-z8 tabla-datos">
+    
+    <form [formGroup]="periodo">
+        <div class="form-group">
+            <mat-label>{{"NOMBRE_MINUS" | translate}}</mat-label>
+            <mat-form-field class="textomedio" appearance="outline">
+                <input [(ngModel)]="searchingTerm" (ngModelChange)="reFilterList()" matInput placeholder='{{"FILTRADO_NAME" | translate}}' formControlName="name">
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-label>{{"ESTADO" | translate}}</mat-label>
+            <mat-form-field class="textomedio" appearance="outline" >
+                <mat-select [(value)]="selectedStatus" formControlName="status">
+                    <mat-option value="Complete">{{"COMPLETO" | translate}}</mat-option>
+                    <mat-option value="Advanced">{{"Advanced" | translate}}</mat-option>
+                    <mat-option value="Basic">{{"BASIC" | translate}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-label>Rango total evaluacion</mat-label>
+            <mat-form-field class="smallText" appearance="outline">
+                <input type="number" matInput placeholder='2' formControlName="initialRangeTotal">
+            </mat-form-field>
+            to
+            <mat-form-field class="smallText" appearance="outline">
+                <input type="number" matInput placeholder='1' formControlName="endRangeTotal">
+            </mat-form-field>
+        </div>
+        
+        <div class="form-group">
+            <mat-label>Rango politicas</mat-label>
+            <mat-form-field class="smallText" appearance="outline">
+                <input type="number" matInput placeholder='2' formControlName="initialRangePolitics">
+            </mat-form-field>
+            to
+            <mat-form-field class="smallText" appearance="outline">
+                <input type="number" matInput placeholder='1' formControlName="endRangePolitics">
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-label>Rango metadatos</mat-label>
+            <mat-form-field class="smallText" appearance="outline">
+                <input type="number" matInput placeholder='2' formControlName="initialRangeMetadata">
+            </mat-form-field>
+            to
+            <mat-form-field class="smallText" appearance="outline">
+                <input type="number" matInput placeholder='1' formControlName="endRangeMetadata">
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-label>Rango interoperabilidad</mat-label>
+            <mat-form-field class="smallText" appearance="outline">
+                <input type="number" matInput placeholder='2' formControlName="initialRangeInteroperability">
+            </mat-form-field>
+            to
+            <mat-form-field class="smallText" appearance="outline">
+                <input type="number" matInput placeholder='1' formControlName="endRangeInteroperability">
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-label>Rango Logs</mat-label>
+            <mat-form-field class="smallText" appearance="outline">
+                <input type="number" matInput placeholder='2' formControlName="initialRangeLogs">
+            </mat-form-field>
+            to
+            <mat-form-field class="smallText" appearance="outline">
+                <input type="number" matInput placeholder='1' formControlName="endRangeLogs">
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-label>Rango Visibilidad</mat-label>
+            <mat-form-field class="smallText" appearance="outline">
+                <input type="number" matInput placeholder='2' formControlName="initialRangeVisibility">
+            </mat-form-field>
+            to
+            <mat-form-field class="smallText" appearance="outline">
+                <input type="number" matInput placeholder='1' formControlName="endRangeVisibility">
+            </mat-form-field>
+        </div>
+    </form>
+
+    <div>
+        <p-table [value]="userListFiltered" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            currentPageReportTemplate="{{'PAGINATION_TEXT' | translate : {first: '{first}', last: '{last}', total: '{totalRecords}'} }}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th (click)='sortBy("nombre")' class="ItemTH Hoverable">{{"NOMBRE_MINUS" | translate | uppercase }}
+                    </th>
+                    <th (click)='sortBy("apellidos")' class="ItemTH Hoverable">{{"APELLIDOS" | translate | uppercase }}
+                    </th>
+                    <th (click)='sortBy("institucion")' class="ItemTH Hoverable">{{"INSTITUCION" | translate | uppercase
+                        }}</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-user>
+                <tr>
+                    <td class="ItemTD">{{ user.nombre }}</td>
+                    <td class="ItemTD">{{ user.apellidos }}</td>
+                    <td class="ItemTD">{{ user.institucion }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</div>

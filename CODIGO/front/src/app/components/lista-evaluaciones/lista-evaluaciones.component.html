@@ -1,0 +1,194 @@
+<div class="container">
+  <app-usuario></app-usuario>
+  <div class="clear"></div>
+  <div class="espacio"></div>
+
+  <div class="d-flex flex-column">
+
+    <h2>{{ 'EVALUACIONES_ACTIVAS' | translate }}</h2>
+
+    <app-module-dropdown></app-module-dropdown>
+
+  </div>
+
+
+  <div class="espacio"></div>
+  <div class="alignedFilters">
+    <div class="form-group">
+      <mat-label>{{ 'FILTRO_REPO' | translate }}</mat-label>
+      <mat-form-field>
+        <input matInput [matAutocomplete]="auto" [(ngModel)]="activeFilter" (ngModelChange)="applyActiveFilters()"/>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let nombreDnet of filteredActiveRepos" [value]="nombreDnet">
+            {{ nombreDnet }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="espacio"></div>
+  <div class="mat-elevation-z8 tabla-datos">
+    <table mat-table [dataSource]="filteredDataSource" class="mat-elevation-z8">
+
+      <!-- Columna NOMBRE -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>{{ 'NOMBRE_REPOSITORIO' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.userRepository.repository?.institucion.nombre }}</td>
+      </ng-container>
+
+      <!-- Columna ÚLTIMA MODIFICACIÓN (Estoy asumiendo que la evaluación tiene una propiedad de fecha) -->
+      <ng-container matColumnDef="ultimaModificacion">
+        <th mat-header-cell *matHeaderCellDef>{{ 'ULTIMA_MODIFICACION' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.lastEdited | date:'yyyy/MM/dd HH:mm:ss' }}</td>
+      </ng-container>
+
+      <!-- Columna PUNTUACIÓN -->
+      <ng-container matColumnDef="puntuacion">
+        <th mat-header-cell *matHeaderCellDef>{{ 'PUNTUACION_MAYUS' | translate }}</th>
+        <td mat-cell *matCellDef="let element" class="puntuacion">{{ element.evaluationGrade }} {{ 'PORCENTAJE' |
+          translate }}</td>
+      </ng-container>
+
+      <!-- Columna EVALUACIÓN (Estoy asumiendo que la evaluación tiene una propiedad de estado) -->
+      <ng-container matColumnDef="evaluacion">
+        <th mat-header-cell *matHeaderCellDef>{{ 'AUTOEVALUACION' | translate }}</th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+          <div class="badge rounded-pill bg-{{ element.evaluationState }}">{{ 'NO_AUTOEVALUADO' | translate }}</div>
+        </td>
+      </ng-container>
+
+
+
+      <!-- Columna ACCIONES -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>{{ 'ACCIONES' | translate }}</th>
+        <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+          <mat-icon matTooltip="{{ 'HISTORIAL' | translate }}" (click)="openHistory(element)">history</mat-icon>
+          <!-- Icono de edición solo si hay evaluadores asignados -->
+          <mat-icon matTooltip="{{ 'EDITAR_EVALUADORES' | translate }}" *ngIf="element.users?.length > 0 && isAdmin()" (click)="editEvaluadores(element)">edit</mat-icon>
+          <mat-icon matTooltip="{{ 'CERRAR_EVALUACION' | translate }}" *ngIf="element.evaluationState.toLowerCase() != 'Cerrado'"
+            (click)="closeEvaluation(element, i)">done</mat-icon>
+
+          <mat-icon matTooltip="{{ 'DELETE_SELFASSESSMENT' | translate }}" (click)="deleteClicked(element,$event)">delete</mat-icon>
+          <!--            <mat-icon matTooltip="{{ 'ESTADO_INICIAL' | translate }}" *ngIf="element.evaluationState.toLowerCase() != 'Enviado'"
+                      (click)="resetStates(element.id, i)">keyboard_return</mat-icon>-->
+          <mat-icon matTooltip="{{ 'EDITAR_OBSERVACIONES' | translate }}" (click)="accesoEvaluacion(element)">arrow_forward</mat-icon>
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator #activePaginator="matPaginator" class="paginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+  <div *ngIf="isAdmin()" class="espacio"></div>
+<hr/>
+<div class="container">
+<!-- SI ES ADMINISTRADOR TAMBIÉN MOSTRARÁ UNA TABLA CON LAS EVALUACIONES CERRADAS -->
+<div *ngIf="isAdmin()" class="espacio"></div>
+<h2 *ngIf="isAdmin()">{{ 'EVALUACIONES_PASADAS' | translate }}</h2>
+<div *ngIf="isAdmin()" class="espacio"></div>
+<div *ngIf="isAdmin()" class="alignedFilters">
+  <div class="form-group">
+    <mat-label>{{ 'FILTRO_REPO' | translate }}</mat-label>
+    <mat-form-field>
+      <input matInput [matAutocomplete]="auto" [(ngModel)]="closedFilter" (ngModelChange)="applyClosedFilters()"/>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let nombreDnet of filteredClosedRepos" [value]="nombreDnet">
+          {{ nombreDnet }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <mat-label>{{ 'FILTRO_FECHA' | translate }}</mat-label>
+    <mat-form-field>
+      <input [(ngModel)]="yearDatepicker" matInput [matDatepicker]="picker" (keyup)="manualFilter()" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event)">
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <mat-label>{{ 'FORMATO' | translate }}</mat-label>
+    <mat-form-field>
+        <mat-select [(ngModel)]="formatoSeleccionado">
+            <mat-option value="csv">{{ 'CSV' | translate }}</mat-option>
+            <mat-option value="excel">{{ 'EXCEL' | translate }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+  </div>
+  <button (click)="downloadWithFilter()" class="btn btn-primary" [disabled]="yearDatepicker === '' || yearDatepicker === null || formatoSeleccionado === ''">{{ 'EXPORT' |
+    translate }}</button>
+</div>
+<div *ngIf="isAdmin()" class="espacio"></div>
+<div *ngIf="isAdmin()" class="mat-elevation-z8 tabla-datos">
+  <table mat-table [dataSource]="filteredDataSource2" class="mat-elevation-z8">
+
+    <!-- Columna NOMBRE -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef>{{ 'NOMBRE_REPOSITORIO' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.userRepository.repository?.institucion.nombre }}</td>
+    </ng-container>
+
+    <!-- Columna ÚLTIMA MODIFICACIÓN (Estoy asumiendo que la evaluación tiene una propiedad de fecha) -->
+    <ng-container matColumnDef="ultimaModificacion">
+      <th mat-header-cell *matHeaderCellDef>{{ 'ULTIMA_MODIFICACION' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.lastEdited | date:'yyyy/MM/dd HH:mm:ss' }}</td>
+    </ng-container>
+
+    <!-- Columna PUNTUACIÓN -->
+    <ng-container matColumnDef="puntuacion">
+      <th mat-header-cell *matHeaderCellDef>{{ 'PUNTUACION_MAYUS' | translate }}</th>
+      <td mat-cell *matCellDef="let element" class="puntuacion">{{ element.evaluationGrade }} {{ 'PORCENTAJE' |
+        translate }}</td>
+    </ng-container>
+
+    <!-- Columna EVALUACIÓN (Estoy asumiendo que la evaluación tiene una propiedad de estado) -->
+    <ng-container matColumnDef="evaluacion">
+      <th mat-header-cell *matHeaderCellDef>{{ 'AUTOEVALUACION' | translate }}</th>
+      <td mat-cell *matCellDef="let element" class="text-center">
+        <div class="badge rounded-pill bg-Cancelada">{{ 'CERRADO' | translate }}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="evaluadores">
+      <th mat-header-cell *matHeaderCellDef>{{ 'EVALUADORES' | translate }}</th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.users && element.users.length > 0; else assignButton">
+          <span *ngFor="let evaluator of element.users; last as isLast">
+            {{ evaluator?.userName }} <ng-container *ngIf="!isLast">, </ng-container>
+          </span>
+        </ng-container>
+        <ng-template #assignButton>
+          <!--
+            <button *ngIf="isAdmin()" mat-button (click)="assignRepository(element)">{{ 'ASIGNAR' | translate
+            }}</button>
+          -->
+          <!--<span *ngIf="isSuperEvaluator()">{{ 'SIN_EVALUADORES' | translate }}</span>-->
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Columna ACCIONES -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>{{ 'ACCIONES' | translate }}</th>
+      <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+        <mat-icon matTooltip="{{ 'HISTORIAL' | translate }}" (click)="openHistory(element)">history</mat-icon>
+        <mat-icon matTooltip="{{ 'DELETE_SELFASSESSMENT' | translate }}" (click)="deleteClicked(element,$event)">delete</mat-icon>
+        <mat-icon matTooltip="{{ 'DESCARGAR_CERTIFICADO' | translate }}" (click)="descargarCertificado(element)">download</mat-icon>
+        <mat-icon matTooltip="{{ 'ACCEDER_INFORME' | translate }}" (click)="accesoInforme(element)">arrow_forward</mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator #closedPaginator="matPaginator" class="paginator"  [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+
+</div>

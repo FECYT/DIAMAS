@@ -1,0 +1,24 @@
+<div class="container">
+    <app-usuario></app-usuario>
+    <div class="clear"></div>
+    <div class="vocabulario-container">
+        <h2>AGREGAR VOCABULARIO</h2>
+        <div class="espacio"></div>
+        <form class="formulario-flex" [formGroup]="vocabularioForm" (ngSubmit)="guardarVocabulario()">
+            <div class="form-group">
+                <mat-label>Nombre</mat-label>
+                <mat-form-field appearance="outline">
+                    <input matInput formControlName="nombre" required>
+                    <mat-error *ngIf="vocabularioForm.get('nombre')?.hasError('required')">Se requiere el nombre</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-label>Descripción</mat-label>
+                <mat-form-field appearance="outline">
+                    <textarea matInput formControlName="descripcion"></textarea>
+                </mat-form-field>
+            </div>
+          <button mat-raised-button color="primary" type="submit">GUARDAR</button>
+        </form>
+    </div>
+</div>

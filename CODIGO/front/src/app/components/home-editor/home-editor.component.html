@@ -1,0 +1,117 @@
+
+<div *ngIf="!noRepo">
+
+  <div class="container" >
+      <router-outlet></router-outlet>
+      <app-usuario></app-usuario>
+      <div class="clear"></div>
+      <div class="espacio"></div>
+  </div>
+
+  <div style="height: 40%; ">
+
+
+      <div class="container">
+
+        <h2 *ngIf="moduleId == 1">{{ 'REVISTAS' | translate }}</h2>
+        <h2 *ngIf="moduleId == 2">{{ 'SOSTENIBILIDAD' | translate }}</h2>
+
+          <app-module-dropdown></app-module-dropdown>
+
+          <h2 *ngIf="cuestionariosActivos.length > 0" >{{ 'EVALUACIONES' | translate }}</h2>
+          <div class="espacio"></div>
+
+        <div *ngIf="cuestionariosActivos.length === 0; else cuestionarios">
+              <button *ngIf="showEvaluacionesActivas" (click)="iniciarEvaluacion()" mat-raised-button color="primary" class="centered-button">{{ 'INICIAR_EVALUACION' | translate }}</button>
+              <div class="spinner"><mat-spinner *ngIf="isLoading" class="centered-spinner text-center"></mat-spinner></div>
+          </div>
+
+        <ng-template #cuestionarios>
+              <table mat-table *ngIf="cuestionariosActivos.length > 0" [dataSource]="cuestionariosActivos" class="mat-elevation-z4">
+                  <ng-container matColumnDef="nombre">
+                      <th mat-header-cell *matHeaderCellDef>{{ 'NOMBRE_REPOSITORIO' | translate }}</th>
+                      <td mat-cell *matCellDef="let element">{{ element.evaluation.userRepository.repository?.institucion.nombre }}</td>
+                  </ng-container>
+
+                <ng-container matColumnDef="edicion">
+                  <th mat-header-cell *matHeaderCellDef>{{ 'EDICIONINIFIN' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.period.description }} </td>
+                </ng-container>
+
+                  <ng-container matColumnDef="fechas">
+                      <th mat-header-cell *matHeaderCellDef>{{ 'FECHA_INICIO_FIN' | translate }}</th>
+                      <td mat-cell *matCellDef="let element">{{ element.period.startDate | date:'dd-MM-yyyy' }} / {{ element.period.finishDate | date:'dd-MM-yyyy'}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="estado">
+                      <th class="text-center" mat-header-cell *matHeaderCellDef>{{ 'ESTADO' | translate }}</th>
+                      <td class="text-center" mat-cell *matCellDef="let element" class="text-center">
+                          <div class="badge rounded-pill bg-{{element.state}}">{{ 'NO_ENVIADO' | translate }}</div>
+                      </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="resultado">
+                      <th class="text-center" mat-header-cell *matHeaderCellDef>{{ 'COMPLETADO' | translate }}</th>
+                      <td class="text-center" mat-cell *matCellDef="let element">{{ element.evaluation.evaluationGrade }}%</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="acciones">
+                      <th class="text-center" mat-header-cell *matHeaderCellDef>{{ 'ACCIONES' | translate }}</th>
+                      <td mat-cell *matCellDef="let elemento" class="text-center">
+                          <!--<mat-icon (click)="openDialog(elemento)">history</mat-icon>-->
+                          <mat-icon matTooltip="{{ 'ACCEDER_CUESTIONARIO' | translate }}"  (click)="accesoCuestionario(elemento)">arrow_forward</mat-icon>
+                      </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+              </table>
+          </ng-template>
+      </div>
+  </div>
+  <hr>
+  <div style="height: 60%;">
+
+    <div *ngIf="isLoading2" style="position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-block;">
+      <mat-spinner class="centered-spinner text-center"></mat-spinner>
+    </div>
+
+      <div *ngIf="showEvaluacionesPasadas" class="container">
+          <div class="espacio"></div>
+        <h2>{{ 'EVALUACIONES_PASADAS' | translate }}</h2>
+          <div class="espacio"></div>
+          <div *ngIf="cuestionariosWithCloseDate.length === 0; else evalPasadas">
+              <div class="alert alert-danger" role="alert">
+                  {{ 'SIN_EVALUACIONES' | translate }}
+                </div>
+          </div>
+          <ng-template #evalPasadas>
+              <mat-card class="button-card ficha sombra" (click)="accesoInforme(element3)" *ngFor="let element3 of cuestionariosWithCloseDate">
+                  <span class="fecha pull-left">{{ element3.evaluation && element3.evaluation.closeDate | date:'dd-MM-yyyy' }}</span>
+
+                <span style="margin-left: 80px">
+                    <i (click)="deleteClicked(element3,$event)" class="pi pi-trash hoverIcon"></i>
+                    <i (click)="statsClicked(element3,$event)" class="pi pi-chart-bar hoverIcon"></i>
+                  </span>
+
+                  <span class="estado pull-right badge rounded-pill bg-Cancelada">{{ 'CERRADO' | translate }}</span>
+                  <div class="clear"></div>
+                  <div class="espaciomedio"></div>
+                  <span class="puntitle">{{ 'PUNTUACION' | translate }}</span>
+                  <h1 style="font-size: xxx-large" class="puntuacion">{{ element3.evaluation && element3.evaluation.evaluationGrade }} {{ 'PORCENTAJE' | translate }}</h1>
+                  <h4 class="acceso">{{ 'ACCEDER_INFORME' | translate }} <mat-icon>arrow_forward</mat-icon></h4>
+              </mat-card>
+              <div class="spinner"><mat-spinner *ngIf="isLoading2" class="centered-spinner text-center"></mat-spinner></div>
+          </ng-template>
+      </div>
+  </div>
+
+</div>
+
+<div class="noRepoChart centerContent h1" *ngIf="noRepo">
+  <mat-icon class="textolargo me-2">error</mat-icon>
+  <span>{{ 'NO_REPO' | translate }}</span>
+</div>

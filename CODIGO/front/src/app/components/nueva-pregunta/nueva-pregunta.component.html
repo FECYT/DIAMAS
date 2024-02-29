@@ -1,0 +1,109 @@
+<div class="container">
+    <app-usuario></app-usuario>
+    <div class="espacio"></div>
+
+    <span *ngIf="editQuestion">
+      <h2>{{ 'EDITAR' | translate }} {{ 'PREGUNTA' | translate }}</h2>
+    </span>
+
+    <span *ngIf="!editQuestion">
+      <h2>{{ 'NUEVA' | translate }} {{ 'PREGUNTA' | translate }}</h2>
+    </span>
+
+    <div class="espacio"></div>
+    <form [formGroup]="preguntaForm" (ngSubmit)="guardarPregunta()">
+        <div class="form-group">
+            <mat-label>{{"TITULO" | translate}} ENG</mat-label>
+            <mat-form-field appearance="outline" class="textoxl">
+                <input matInput placeholder='{{"TITULO" | translate}}' formControlName="tituloENG" required>
+            </mat-form-field>
+        </div>
+      <div class="form-group">
+        <mat-label>{{"TITULO" | translate}} ESP</mat-label>
+        <mat-form-field appearance="outline" class="textoxl">
+          <input matInput placeholder='{{"TITULO" | translate}} ESP' formControlName="tituloESP" required>
+        </mat-form-field>
+      </div>
+        <div class="form-group">
+            <mat-label>{{"CATEGORIA" | translate}}</mat-label>
+            <mat-form-field appearance="outline">
+                <mat-select formControlName="categoria">
+                  <mat-option *ngFor="let categoria of catList" [value]="categoria">{{ categoria.categoryType }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-label>{{"TIPO" | translate}}</mat-label>
+            <mat-form-field appearance="outline">
+                <mat-select formControlName="tipo">
+                    <mat-option value="Advanced">{{"Advanced" | translate}}</mat-option>
+                    <mat-option value="Basic">{{"BASIC" | translate}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-label>{{"PESO" | translate}}</mat-label>
+            <mat-form-field appearance="outline">
+                <input matInput type="number" min="1" max="100" formControlName="peso" required>
+                <mat-error *ngIf="preguntaForm.get('peso')?.hasError('required')">{{"PESO_REQUERIDO" | translate}}</mat-error>
+                <mat-error *ngIf="preguntaForm.get('peso')?.hasError('min')">{{"PESO_MAYOR_IGUAL_1" | translate}}</mat-error>
+                <mat-error *ngIf="preguntaForm.get('peso')?.hasError('max')">{{"PESO_MAYOR_IGUAL_100" | translate}}</mat-error>
+            </mat-form-field>
+        </div>
+      <div class="form-group">
+        <mat-label>{{"ORDEN" | translate}}</mat-label>
+        <mat-form-field appearance="outline">
+          <input matInput type="number" min="1" max="100" formControlName="orden" required>
+          <mat-error *ngIf="preguntaForm.get('peso')?.hasError('required')">{{"PESO_REQUERIDO" | translate}}</mat-error>
+          <mat-error *ngIf="preguntaForm.get('peso')?.hasError('min')">{{"PESO_MAYOR_IGUAL_1" | translate}}</mat-error>
+          <mat-error *ngIf="preguntaForm.get('peso')?.hasError('max')">{{"PESO_MAYOR_IGUAL_100" | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+        <div class="form-group noMarginRight">
+            <mat-label>{{"EVALUABLE" | translate}}</mat-label>
+            <mat-slide-toggle formControlName="evaluable">
+                <span class="valorsi" *ngIf="evaluableControls[0]?.value">{{"SI" | translate}}</span>
+                <span class="valorno"*ngIf="!evaluableControls[0]?.value">{{"NO" | translate}}</span>
+            </mat-slide-toggle>
+        </div>
+      <div class="form-group noMarginRight">
+        <mat-label>{{"FICHERO_ADJ" | translate}}</mat-label>
+        <mat-slide-toggle formControlName="fileAttached">
+          <span class="valorsi" *ngIf="evaluableControls[1]?.value">{{"SI" | translate}}</span>
+          <span class="valorno"*ngIf="!evaluableControls[1]?.value">{{"NO" | translate}}</span>
+        </mat-slide-toggle>
+      </div>
+      <div class="form-group">
+        <mat-label>{{"URL_ADJ" | translate}}</mat-label>
+        <mat-slide-toggle formControlName="urlAttached">
+          <span class="valorsi" *ngIf="evaluableControls[2]?.value">{{"SI" | translate}}</span>
+          <span class="valorno"*ngIf="!evaluableControls[2]?.value">{{"NO" | translate}}</span>
+        </mat-slide-toggle>
+      </div>
+        <div class="form-group">
+            <mat-label>{{"TEXTO_AYUDA" | translate}}</mat-label>
+            <mat-form-field appearance="outline" class="textoxl">
+                <textarea matInput placeholder='{{"TEXTO_AYUDA" | translate}}' formControlName="textoAyuda"></textarea>
+            </mat-form-field>
+        </div>
+
+      <div class="form-group">
+        <mat-label>{{"TEXTO_AYUDA_CASO_NO" | translate}}</mat-label>
+        <mat-form-field appearance="outline" class="textoxl">
+          <textarea matInput placeholder='{{"TEXTO_AYUDA_CASO_NO" | translate}}' formControlName="textoAyudaNO"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group noMarginRight">
+        <mat-label>{{"NEGATIVE_RESPONSE" | translate}}</mat-label>
+        <mat-slide-toggle formControlName="hasNegativeExtraResponse">
+          <span class="valorsi" *ngIf="evaluableControls[3]?.value">{{"SI" | translate}}</span>
+          <span class="valorno"*ngIf="!evaluableControls[3]?.value">{{"NO" | translate}}</span>
+        </mat-slide-toggle>
+      </div>
+
+        <div class="mt-2">
+            <button mat-raised-button color="primary">{{ editQuestion ? ("EDITAR" | translate) : ("SAVE" | translate) }}</button>
+        </div>
+    </form>
+</div>

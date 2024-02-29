@@ -1,0 +1,229 @@
+<div id="userDeep" class="container">
+  <app-usuario></app-usuario>
+  <div class="espacio"></div>
+  <div class="clear"></div>
+
+  <h2>{{ 'USUARIOS' | translate }}</h2>
+  <div class="espacio"></div>
+  <div class="floatingLabelToggle d-flex flex-column centerContent mat-elevation-z8 tabla-datos">
+    <span class="m-2"><strong>{{"ACTIVACION_AUTOMATICA" | translate}}</strong></span>
+    <mat-slide-toggle [(ngModel)]="generalToggle" (click)="updateGeneralToggle()"></mat-slide-toggle>
+  </div>
+
+  <div class="mat-elevation-z8 tabla-datos">
+
+    <div class="upperTableContainer" style="display: flex;align-items: center;">
+
+      <div class="form-floating filterLabel">
+        <input [(ngModel)]="searchingTerm" (ngModelChange)="reFilterList()" type="string" class="form-control" id="floatingInput" placeholder="">
+        <label for="floatingInput">{{'FILTRADO_SEARCH' | translate }}</label>
+      </div>
+
+      <div class="container-fluid d-flex justify-content-end mb-3" >
+        <!--<button class="btn btn-primary" >{{'REGISTRAR_USUARIO' | translate }}</button>-->
+        <button (click)="registeringUser = true" class="btn-primary btn ">{{'REGISTRAR_USUARIO' | translate }}</button>
+      </div>
+
+    </div>
+
+    <div >
+
+      <p-table
+        [value]="repositoryListFiltered"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="{{'PAGINATION_TEXT' | translate : {first: '{first}', last: '{last}', total: '{totalRecords}'} }}"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th (click)='sortBy("activo")' class="ItemTH Hoverable">{{"ACTIVO" | translate  | uppercase }}</th>
+            <th (click)='sortBy("email")' class="ItemTH Hoverable">{{"EMAIL" | translate | uppercase }}</th>
+            <th (click)='sortBy("nombre")' class="ItemTH Hoverable">{{"NOMBRE_MINUS" | translate | uppercase }}</th>
+            <th (click)='sortBy("apellidos")' class="ItemTH Hoverable">{{"APELLIDOS" | translate | uppercase }}</th>
+            <th (click)='sortBy("institucion")' class="ItemTH Hoverable">{{"INSTITUCION" | translate | uppercase }}</th>
+            <th (click)='sortBy("roles")' class="ItemTH Hoverable">{{"ROLES" | translate | uppercase }}</th>
+            <th class="ItemTH">{{"ACCIONES" | translate | uppercase }}</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-userRepository>
+          <tr>
+            <td class="ItemTD"><mat-slide-toggle (click)="updateUserActivity(userRepository)" [(ngModel)]="userRepository.user.active"></mat-slide-toggle></td>
+            <td class="ItemTD">{{ userRepository.user.email }}</td>
+            <td class="ItemTD">{{ userRepository.user.nombre }}</td>
+            <td class="ItemTD">{{ userRepository.user.apellidos }}</td>
+            <td class="ItemTD">{{ userRepository.repository.institucion.nombre }}</td>
+            <td class="ItemTD">{{ userRepository.user.rol.join(', ') }}</td>
+            <td class="ItemTD HoverIcon" (click)="selectedUserRepositorySelected(userRepository)"><mat-icon matTooltip="{{ 'EDITAR_USUARIO' | translate }}">edit</mat-icon></td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+
+
+  </div>
+
+<div (mouseup)="registeringUser=false" class="editingUser" *ngIf="registeringUser">
+  <div class="registerCard m-3" (mouseup)="$event.stopPropagation()">
+
+    <h2 >{{ 'REGISTRAR_USUARIO' | translate }}</h2>
+
+    <form class="d-flex flex-column" (ngSubmit)="onRegisterSubmit()" #registerForm="ngForm">
+
+      <div class="form-group">
+        <label for="registerNombre">{{'NOMBRE_MINUS' | translate }}:</label>
+        <input id="registerNombre" name="registerNombre" class="form-control" [(ngModel)]="registerNombre" required>
+      </div>
+
+      <div class="form-group">
+        <label for="registerApellidos">{{'APELLIDOS' | translate }}:</label>
+        <input name="registerApellidos" id="registerApellidos" class="form-control" [(ngModel)]="registerApellidos" required>
+      </div>
+
+      <div class="d-flex flex-row">
+        <div class="form-group col">
+          <label for="registerInstitucion">{{'NOMBRE_ISP' | translate }}:</label>
+          <input name="registerInstitucion" id="registerInstitucion input-uppercase" class="form-control" [(ngModel)]="registerInstitucion" required>
+        </div>
+
+        <div class="form-group col-3">
+          <label for="acronimoInstitucion">{{'ACRONIMO' | translate }}:</label>
+          <input name="acronimoInstitucion" id="acronimoInstitucion" class="form-control input-uppercase" [(ngModel)]="registerAcronimo" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="registerURL">{{'URL' | translate }}:</label>
+        <input name="registerURL" id="registerURL" class="form-control" [(ngModel)]="registerURL" required>
+      </div>
+
+      <div class="form-group d-flex flex-column mt-2" style="margin-bottom: 0px">
+        <label >{{'PAIS' | translate }}:</label>
+        <mat-select-country
+          [itemsLoadSize]="1000"
+          placeHolder=""
+          (onCountrySelected)="onCountrySelected($event)">
+          >
+        </mat-select-country>
+      </div>
+
+      <div class="form-group ">
+        <label for="registerAfiliacion">{{'AFILIACION_INSTITUCIONAL' | translate }}:</label>
+        <input name="registerAfiliacion" id="registerAfiliacion" class="form-control input-uppercase" [(ngModel)]="registerAfiliacion" required>
+      </div>
+
+      <div class="form-group">
+        <label for="registerEmail">{{'CORREO' | translate }}:</label>
+        <input type="email" id="registerEmail" name="registerEmail" class="form-control" [(ngModel)]="registerEmail" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">{{'CONTRASEÑA' | translate }}:</label>
+        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="registerPassword" required minlength="6">
+      </div>
+
+      <div class="form-group">
+        <label for="repeatPassword">{{'REPETIR_CONTRASEÑA' | translate }}:</label>
+        <input type="password" id="repeatPassword" name="repeatPassword" class="form-control" [(ngModel)]="registerPasswordRepeat" required minlength="6">
+      </div>
+
+      <span *ngIf="registerPasswordsNotEqual" style="color: #9a0303">{{'CONTRASEÑAS_NO_COINCIDEN' | translate }}</span>
+      <span *ngIf="registerEmailInvalid" style="color: #9a0303">{{'EMAIL_INVALIDO' | translate }}</span>
+
+      <div class="form-group mb-3">
+        <!-- Deshabilitar el botón si el formulario no es válido -->
+        <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">{{'REGISTRAR_USUARIO' | translate }}</button>
+      </div>
+
+      <div class="form-group">
+        <p-button (onClick)="registeringUser = false" label="Cancelar" severity="danger"></p-button>
+      </div>
+
+
+    </form>
+  </div>
+
+</div>
+</div>
+
+<!--Menu de edición que se superpone al darle click al botón del lápiz-->
+<div (mouseup)="selectedUserRepository=undefined" class="editingUser" *ngIf="selectedUserRepository!=undefined">
+
+  <div class="editingUserCard p-5 w-50" (mouseup)="$event.stopPropagation()">
+    <form class="d-flex flex-column mb-3" (ngSubmit)="onSumbitEdit()" #editForm="ngForm">
+
+      <div class="form-group mb-3">
+        <label for="email">{{'EMAIL' | translate }}:</label>
+        <input id="email" name="email" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.user!.email" required>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="nombre">{{'NOMBRE_MINUS' | translate }}:</label>
+        <input id="nombre" name="nombre" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.user!.nombre" required>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="apellidos">{{'APELLIDOS' | translate }}:</label>
+        <input name="apellidos" id="apellidos" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.user!.apellidos" required>
+      </div>
+
+      <div class="form-group col-3">
+        <label for="acronimo">{{'ACRONIMO' | translate }}:</label>
+        <input disabled name="acronimo" id="acronimo" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.repository!.institucion!.acronimo" required>
+      </div>
+
+    <div class="form-group">
+      <label for="url">{{'URL' | translate }}:</label>
+      <input disabled name="url" id="url" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.repository!.institucion!.url" required>
+    </div>
+
+    <div class="form-group d-flex flex-column mt-2" style="margin-bottom: 0px">
+      <label >{{'PAIS' | translate }}:</label>
+      <mat-select-country
+        [itemsLoadSize]="1000"
+        placeHolder="{{userRepositoryBeingEdited!!.user!.pais}}"
+        (onCountrySelected)="onCountrySelectedEdit($event)">
+        >
+      </mat-select-country>
+    </div>
+
+    <div class="form-group ">
+      <label for="afiliacion">{{'AFILIACION_INSTITUCIONAL' | translate }}:</label>
+      <input name="afiliacion" id="afiliacion" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.user!.afiliacion_institucional" required>
+    </div>
+
+      <div class="form-group mb-3">
+        <label for="institucion">{{'INSTITUCION' | translate }}:</label>
+        <input disabled name="institucion" id="institucion" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.repository!.institucion!.nombre" required>
+      </div>
+
+      <div class="form-group mb-3" >
+        <p-multiSelect
+          [options]="roles"
+          [(ngModel)]="selectedRoles"
+          placeholder="Selecciona roles"
+          optionLabel="name"
+          display="chip"
+          [showClear]="true"
+          [ngModelOptions]="{ standalone: true }"
+          [style]="{ 'width.%': 100 }"
+        >
+        </p-multiSelect>
+      </div>
+
+      <div class="mb-5" >
+        <button class="btn btn-primary" (click)="sendPasswordRecover($event,userRepositoryBeingEdited!!.user!.email!!)">Resetear contraseña</button>
+      </div>
+
+      <div class="editingButtons">
+        <p-button (onClick)="selectedUserRepository = undefined" label="Cancelar" severity="danger"></p-button>
+        <span style="margin-left: 10px"></span>
+        <p-button [disabled]="!editForm.valid" type="submit" label="Aceptar" icon="pi pi-check" iconPos="right" severity="success"></p-button>
+      </div>
+
+    </form>
+  </div>
+</div>
+

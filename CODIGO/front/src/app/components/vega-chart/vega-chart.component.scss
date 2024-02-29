@@ -1,0 +1,72 @@
+.floating {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  padding: 40px;
+}
+
+::ng-deep .floatingGeneral {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  padding: 10px;
+
+}
+
+.fullscreen-bg {
+  position: relative;
+  background-color: #eaeaea;
+}
+
+.chipBox{
+  height: 20px;
+  min-width: 20px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.borderOverriderTop{
+  position: absolute;
+  top: -22px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #eaeaea;
+  z-index: 999;
+}
+
+.borderOverriderBottom{
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #eaeaea;
+}
+
+.datePickerStats {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+  text-align: right;
+}
+
+::ng-deep .p-button {
+  border-radius: 0 5px 5px 0 !important;
+}
+
+@media screen and (max-width: 1400px) {
+  .datePickerStats {
+    position: static;
+    transform: none;
+  }
+
+}
+
+#vegaAraña {
+  cursor: default;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;  // Alinea los elementos en el centro vertical
+}

@@ -1,0 +1,144 @@
+/* Estilo para el borde de todas las celdas */
+.table th, .table td, table th, table td {
+    border: 1px solid #e9e5e5 !important; /* Color negro, ajusta como prefieras */
+}
+
+/* Estilo para la tabla, para mostrar bordes entre filas */
+.table, table {
+    border-collapse: collapse !important; /* Esto asegura que los bordes de las celdas se muestren correctamente */
+}
+tbody, td, tfoot, th, thead, tr {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 1px !important;
+    border: 1px solid #e9e5e5 !important;
+}
+.mat-mdc-form-field {
+    --mat-mdc-form-field-floating-label-scale: 0.75;
+    display: inline !important;
+    flex-direction: column;
+    min-width: 0;
+    text-align: left;
+}
+.verticalmiddle{
+    vertical-align: middle;
+}
+h3{
+    width: fit-content;
+    display: inline-block;
+    margin-right: 20px;
+    color: #2b2b5e !important;
+}
+.badge.rounded-pill{
+    font-size: 15px;
+    .badge.rounded-pill.bg-puntuacion {
+        font-size: 20px;
+    }
+}
+
+.field-checkbox {
+  display: flex;
+  align-items: flex-start; /* Alinea verticalmente al principio */
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: flex-start; /* Alinea verticalmente al principio */
+}
+
+.category-label-container {
+  max-width: 150px; /* Ajusta este valor según sea necesario para evitar el desbordamiento */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left: 8px; /* Ajusta el margen entre el checkbox y el texto según sea necesario */
+}
+
+.checkbox-container p-radioButton {
+  margin-right: 8px; /* Ajusta el valor según sea necesario */
+}
+
+
+button.btn.btn-primary {
+    max-width: 235px;
+    margin: 10px;
+}
+ul.nav.nav-tabs.flex {
+    justify-content: space-between;
+}
+.navegacion{
+    position: relative;
+    margin-bottom: 50px;
+    mat-icon {
+        color: #2b2b5e;
+        z-index: 6000;
+    }
+    ul.nav.nav-tabs.flex, li {
+        border: none;
+    }
+}
+.nav-tabs .nav-link:hover {
+    border: none;
+}
+hr {
+    height: 5px;
+    border: none;
+    background-color: var(--color-secundario) !important;
+    opacity: 1;
+    position: relative;
+    z-index: 1;
+    top: 37px;
+    border-radius: 50px; /* para darle los extremos redondeados */
+}
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+    isolation: inherit;
+    border-color: transparent !important;
+}
+.archivo {
+    .btn.btn-primary{
+        top:0px;
+    }
+    .ml-2{
+        margin-left: 20px;
+    }
+}
+button.btn.btn-primary.pull-right {
+    float: right;
+    top:0;
+}
+.pull-left {
+    float: left;
+}
+
+.hiperLink{
+  color: blue;
+  text-decoration: none;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.certificate {
+    max-width: 236px !important;
+}
+
+.observationsClosed{
+  background-color: #f5f5f5;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999999999999999999; /* Z-index alto para estar encima de otros elementos */
+}
+
+.spinner {
+  width: 100px;
+  height: 100px;
+}

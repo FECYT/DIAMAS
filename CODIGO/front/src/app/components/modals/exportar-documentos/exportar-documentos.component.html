@@ -1,0 +1,92 @@
+<div class="container">
+    <app-usuario></app-usuario>
+    <div class="clear"></div>
+    <div class="espacio"></div>
+    <h2>{{ 'EXPORT_DOCUMENTS' | translate }}</h2>
+    <div class="espacio"></div>
+    
+    <div class="form-group">
+        <mat-label>{{ "MODULO" | translate }}</mat-label>
+        <mat-form-field appearance="outline">
+            <mat-select [(ngModel)]="selectedType" (selectionChange)="onFieldsChange()">
+              <mat-option *ngFor="let type of questionnaireTypes" [value]="type">
+                {{ cacheService.getLanguage() === 'en' ? type.en : type.es }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    
+    <div class="form-group">
+        <div style="text-align: right;">
+            <span matTooltip="{{ 'INFO_EXPORT_DOCUMENTS' | translate }}" 
+                    matTooltipPosition="above"
+                    tabindex="0">
+                <mat-icon>info</mat-icon>
+            </span>
+        </div>
+        <mat-label>Año</mat-label>
+        <mat-form-field appearance="outline">
+            <input [(ngModel)]="selectYear" matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event)">
+            </mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="espacio"></div>
+    <!-- Preguntas -->
+    <h3>{{ 'PREGUNTAS' | translate }}</h3>
+    <div class="espacio"></div>
+    <h4 *ngIf="!dataNotFound">{{ 'SELECT_YEAR' | translate }}</h4>
+    <h4 *ngIf="dataNotFound">{{ 'NO_REGISTRY' | translate }}</h4>
+    <table *ngIf="dataSource.data.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? toggleAll() : null" [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                    aria-label="Seleccionar todas las preguntas"></mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let pregunta">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(pregunta) : null"
+                    [checked]="selection.isSelected(pregunta)" aria-label="Seleccionar pregunta"></mat-checkbox>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="periodo">
+            <th mat-header-cell *matHeaderCellDef>{{"PERIODO" | translate}}</th>
+            <td mat-cell *matCellDef="let row">{{ row.description }}</td>
+        </ng-container>
+        <ng-container matColumnDef="institution">
+            <th mat-header-cell *matHeaderCellDef>{{"INSTITUCION_UPPERCASE" | translate}}</th>
+            <td mat-cell *matCellDef="let row">{{ row.institution }}</td>
+        </ng-container>
+        <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef>{{"USER_NAME" | translate}}</th>
+            <td mat-cell *matCellDef="let row">{{ row.userName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="userSurname">
+            <th mat-header-cell *matHeaderCellDef>{{"USER_SURNAME" | translate}}</th>
+            <td mat-cell *matCellDef="let row">{{ row.userSurname }}</td>
+        </ng-container>
+        <ng-container matColumnDef="fechaFin">
+            <th mat-header-cell *matHeaderCellDef>{{"FECHA_FINALTABLE" | translate}}</th>
+            <td mat-cell *matCellDef="let row">{{ row.finishDate | date:'yyyy/MM/dd' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="titulo">
+            <th mat-header-cell *matHeaderCellDef>{{ 'TITULO' | translate }}</th>
+            <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+        </ng-container>
+        <ng-container matColumnDef="categoria">
+            <th mat-header-cell *matHeaderCellDef>{{ 'CATEGORIA' | translate }}</th>
+            <td mat-cell *matCellDef="let row">{{ row.categoryType }}</td>
+        </ng-container>
+        <ng-container matColumnDef="peso">
+            <th mat-header-cell *matHeaderCellDef>{{ 'PESO' | translate }}</th>
+            <td mat-cell *matCellDef="let row" class="text-center">{{ row.weight }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div class="espacio"></div>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onSubmit()">{{ 'EXPORT' | translate }}</button>
+    </mat-card-actions>
+</div>

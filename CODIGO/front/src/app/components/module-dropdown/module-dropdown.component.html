@@ -1,0 +1,10 @@
+<span *ngIf="show">
+  <mat-label>{{ "MODULO" | translate }}</mat-label>
+<mat-form-field appearance="outline">
+  <mat-select [(ngModel)]="selectedType" (ngModelChange)="onSelectChange()">
+    <mat-option *ngFor="let type of questionnaireTypes" [value]="type">
+      {{ cacheService.getLanguage() === 'en' ? type.en : type.es }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+</span>

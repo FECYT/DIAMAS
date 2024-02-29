@@ -1,0 +1,64 @@
+.switch-container {
+    width: 100px;
+    height: 25px;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+
+
+    &.position1 .switch-circle {
+        left: 1px;
+    }
+
+    &.position2 .switch-circle {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &.position3 .switch-circle {
+        right: 1px;
+    }
+
+    .switch-circle {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        position: absolute;
+        top: -3px;
+        transition: all 0.3s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .position2 .switch-circle {
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+    }
+
+    .position3 .switch-circle {
+        right: 1px;
+        color: #fff;
+    }
+
+    span.ng-star-inserted {
+        color: #fff;
+        padding-top: 5px;
+    }
+}
+
+.switch-container.position2 {
+    background-color: #3c3c5cad !important;
+}
+
+.switch-container.position3 {
+    background-color: #469c6bab !important;
+}
+
+.switch-container {
+    margin: auto;
+}

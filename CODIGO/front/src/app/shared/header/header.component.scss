@@ -1,0 +1,94 @@
+/* Este es el color de fondo para la barra de navegación */
+.navbar {
+  background-color: white !important;
+}
+
+/* Alinear verticalmente el texto de los elementos desplegables con el de los demás elementos */
+.nav-item.dropdown {
+  align-self: center;
+}
+
+/* Estas reglas hacen que los elementos del menú se muestren en una fila */
+ul.menu.menu--main.nav.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* Este es el margen para los elementos del menú */
+ul.menu.menu--main.nav.navbar-nav li {
+  margin: 0 10px; /* Este margen puedes ajustarlo a tu preferencia */
+}
+
+/* Esta regla oculta la flecha del dropdown */
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu li {
+  position: relative;
+}
+.dropdown-menu .dropdown-submenu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: -7px;
+}
+.dropdown-menu .dropdown-submenu-left {
+  right: 100%;
+  left: auto;
+}
+.dropdown-menu > li:hover > .dropdown-submenu {
+  display: block;
+}
+
+/* Desactiva la animación del menú desplegable */
+.nav li:hover .dropdown-menu {
+  display: none;
+}
+
+/* Este es el color de fondo de los elementos de la barra de navegación cuando se pasa el mouse por encima */
+.navbar-nav > li:hover {
+  background-color: transparent; /* o el color que prefieras */
+}
+
+/* Esta regla elimina el subrayado de los enlaces de la barra de navegación */
+.navbar-nav > li > a {
+  text-decoration: none;
+}
+.caret {
+  /* Estilos generales para el elemento .caret */
+  /* ... */
+
+  /* Estilos para la flecha */
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid black; /* Puedes cambiar "black" por el color que desees */
+    margin-left: 5px; /* Ajusta el espaciado entre el contenido y la flecha */
+  }
+
+  /* Estilos adicionales para la flecha */
+  /* ... */
+
+  .noDeco {
+    text-decoration: none !important;
+    color: white !important;
+  }
+
+}
+
+.languageHover{
+  padding:5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.languageHover:hover{
+  background-color: #cccccc;
+}

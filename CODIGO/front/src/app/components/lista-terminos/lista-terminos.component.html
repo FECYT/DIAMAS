@@ -1,0 +1,59 @@
+<div class="container">
+    <router-outlet></router-outlet>
+    <app-usuario></app-usuario>
+    <div class="clear"></div>
+    <div class="espacio"></div>
+
+
+  <div class="d-flex flex-column">
+
+    <h2>{{ 'ADMINISTRAR_CATEGORIAS' | translate | uppercase }}</h2>
+
+    <app-module-dropdown></app-module-dropdown>
+
+  </div>
+
+  <a mat-raised-button color="primary" (click)="agregarTermino()">
+    <mat-icon>add</mat-icon> {{ 'AGREGAR_CATEGORÍA' | translate }}
+  </a>
+
+
+<div class="espacio"></div>
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <!-- Columna Nombre -->
+  <ng-container matColumnDef="nombre">
+    <th  mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'NOMBRE' | translate }} </th>
+    <td mat-cell *matCellDef="let row"> {{row.categoryType}} </td>
+  </ng-container>
+
+  <!-- Columna Tooltip -->
+  <ng-container matColumnDef="tooltip">
+    <th  mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'TOOLTIP' | translate }} </th>
+    <td mat-cell *matCellDef="let row"> {{row.tooltipType}} </td>
+  </ng-container>
+
+  <!-- Columna Orden -->
+  <ng-container matColumnDef="orden">
+    <th  mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'ORDEN' | translate }} </th>
+    <td mat-cell *matCellDef="let row"> {{row.orden}} </td>
+  </ng-container>
+
+ <!-- Columna Acciones -->
+ <ng-container matColumnDef="acciones">
+  <th mat-header-cell *matHeaderCellDef> {{ 'ACCIONES' | translate }} </th>
+  <td mat-cell *matCellDef="let row">
+      <mat-menu #appMenu="matMenu">
+          <button mat-menu-item (click)="editarTermino(row)"><mat-icon>edit</mat-icon> {{ 'EDITAR' | translate }}</button>
+          <button mat-menu-item (click)="deleteCategory(row.id)"><mat-icon>delete</mat-icon> {{ 'ELIMINAR' | translate }}</button>
+      </mat-menu>
+      <button mat-icon-button [matMenuTriggerFor]="appMenu">
+          <mat-icon>more_vert</mat-icon>
+      </button>
+  </td>
+</ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+</div>

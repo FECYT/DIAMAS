@@ -1,0 +1,125 @@
+.upperTableContainer{
+  background-color: #365ca9;
+  width: 100%;
+  height: 70px;
+  border-radius: 10px 10px 0 0;
+}
+
+.ItemTH {
+  background-color: #FFF !important;
+  color: #1d2027 !important;
+  text-align: left !important;
+}
+.ItemTD{
+  text-align: left !important;
+}
+
+.filterLabel{
+  width: 300px;
+  margin-left: 10px;
+  height: 50px;
+}
+
+.floatingLabelToggle{
+  background-color: #ffffff;
+  width: min-content;
+  min-width: 300px;
+  height: min-content;
+  padding:15px;
+}
+
+.Hoverable:hover{
+  background-color: #4169bd;
+  cursor: pointer
+}
+
+::ng-deep .p-paginator{
+  border-radius: 0px 0px 10px 10px;
+}
+
+.HoverIcon:hover{
+  cursor:pointer
+}
+
+.editingUser {
+  z-index: 9999999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.53);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerCard {
+  max-width: 500px;
+  text-align: left;
+  background-color: white;
+  padding: 40px 80px 40px 80px;
+  border-radius: 10px;
+}
+
+
+.editingUserCard {
+  min-width: 350px;
+  width: auto;
+  position:relative;
+  height: auto;
+  background-color: #ffffff; /* White background */
+  border-radius: 10px; /* Adjust the value for the desired level of rounding */
+  /* Add additional styles as needed */
+}
+
+
+.editingButtons {
+  position: absolute;
+  bottom: 10px; /* Adjust the bottom value for the desired margin */
+  right: 60px; /* Adjust the right value for the desired margin */
+  /* Add additional styles as needed */
+}
+
+.input-uppercase{
+  text-transform: uppercase;
+}
+
+#userDeep::ng-deep.p-button{
+  border-radius: 6px ;
+}
+
+#userDeep::ng-deep  .mat-mdc-text-field-wrapper {
+  height: 37px !important;
+  border-radius: 5px !important;
+  border-color: #2b2b5e !important;
+  border: 1px solid rgba(255, 255, 255, 0.47) !important;
+  background-color: white !important;
+}
+
+#userDeep::ng-deep .mat-mdc-input-element{
+  height: 20px !important;
+  margin-top: -60px !important;
+
+}
+
+#userDeep::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix{
+  padding-top: 10px !important;
+  padding-bottom: 0px !important;
+}
+
+#userDeep::ng-deep .mr-1[_ngcontent-ng-c2380563605]{
+  margin-bottom: 15px !important;
+}
+
+#userDeep::ng-deep .mdc-text-field {
+  border: 1px solid rgba(255, 255, 255, 0.47) !important;
+}
+
+
+
+
+
+
+
+

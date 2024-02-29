@@ -1,0 +1,142 @@
+<div class="container">
+    <router-outlet></router-outlet>
+    <app-usuario></app-usuario>
+    <div class="espacio"></div>
+
+    <span *ngIf="periodoId">
+        <h2>{{ 'EDITAR' | translate }} {{ 'PERIODO' | translate }}</h2>
+    </span>
+
+    <span *ngIf="!periodoId">
+        <h2>{{ 'NUEVA' | translate }} {{ 'PERIODO' | translate }}</h2>
+    </span>
+
+    <div class="espacio"></div>
+    <form [formGroup]="periodo" (ngSubmit)="guardarPeriodo()">
+        <div class="form-group">
+            <mat-label>{{"FECHA_INCIAL" | translate}}</mat-label>
+            <mat-form-field appearance="outline">
+                <input matInput type="date" placeholder="Fecha inicial" formControlName="startDate"
+                    (change)="startDateCheck()">
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-label>{{"FECHA_FINAL" | translate}}</mat-label>
+            <mat-form-field appearance="outline">
+                <input matInput type="date" placeholder="Fecha final" formControlName="finishDate"
+                    (change)="endDateCheck()">
+            </mat-form-field>
+            <mat-error *ngIf="periodo.get('finishDate')?.hasError('dateError')">
+                {{"ERROR_FECHA_ANTERIOR" | translate}}
+            </mat-error>
+        </div>
+        <div class="form-group">
+            <mat-label>{{"ESTADO" | translate}}</mat-label>
+            <mat-form-field class="textomedio" appearance="outline">
+                <mat-select [(value)]="selectedStatus" formControlName="status">
+                    <mat-option value="Abierto">{{"ABIERTO" | translate}}</mat-option>
+                    <mat-option value="Cerrado">{{"CERRADO" | translate}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-label>{{ "MODULO" | translate }}</mat-label>
+            <mat-form-field appearance="outline">
+                <mat-select formControlName="questionnaireType">
+                    <mat-option *ngFor="let type of questionnaireTypes" [value]="type">
+                        {{ cacheService.getLanguage() === 'en' ? type.en : type.es }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-label>{{"DESCRIPCION" | translate}}</mat-label>
+            <mat-form-field class="textolargo" appearance="outline">
+                <input matInput placeholder="Descripción" formControlName="description" maxlength="250">
+            </mat-form-field>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary" [disabled]="periodo.invalid">{{ periodoId ? ('EDITAR' |
+                translate) : ('GUARDAR' | translate) }}</button>
+        </div>
+    </form>
+    <div class="espacio"></div>
+    <hr>
+
+    <!--Spinner-->
+    <div class="spinner" [class.occult]="!showSpinner"><mat-spinner *ngIf="showSpinner"
+            class="centered-spinner text-center"></mat-spinner></div>
+
+    <!-- Preguntas -->
+    <div *ngIf="periodoId">
+        <h2>{{"PREGUNTAS" | translate}}</h2>
+        <div class="row">
+            <button mat-raised-button color="primary" aria-label="Agregar pregunta" (click)="nuevaPregunta()">
+                <mat-icon>add</mat-icon>
+                {{"AGREGAR_PREGUNTA" | translate}}
+            </button>
+            <!--
+            <button mat-icon-button>
+                <div class="text-left"><embed id="importar" type="image/svg+xml" title="Importar preguntas"
+                        alt="Importar preguntas" src="../../../assets/icon/file-import.svg" /></div>
+            </button>
+            <button mat-icon-button>
+                <div class="text-left"><embed id="exportar" type="image/svg+xml" title="Exportar preguntas"
+                        alt="Exportar preguntas" src="../../../assets/icon/file-export.svg" /></div>
+            </button>
+            -->
+        </div>
+        <div class="espacio"></div>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="orden">
+                <th mat-header-cell *matHeaderCellDef>{{"ORDEN" | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{ row.orden }}</td>
+            </ng-container>
+            <ng-container matColumnDef="titulo">
+                <th mat-header-cell *matHeaderCellDef>{{"TITULO" | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{ getLanguagedText(row.title) }}</td>
+            </ng-container>
+            <ng-container matColumnDef="categoria">
+                <th mat-header-cell *matHeaderCellDef>{{"CATEGORIA" | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{ row.catQuestion.categoryType }}</td>
+            </ng-container>
+            <ng-container matColumnDef="evaluable">
+                <th mat-header-cell *matHeaderCellDef>{{"EVALUABLE" | translate}}</th>
+                <td mat-cell *matCellDef="let row" class="text-center">
+                    <mat-icon
+                        [ngClass]="{ 'check-color': row.isWritableByEvaluator, 'close-color': !row.isWritableByEvaluator }">{{
+                        row.isWritableByEvaluator ? 'check' : 'close' }}</mat-icon>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="peso">
+                <th mat-header-cell *matHeaderCellDef>{{"PESO" | translate}}</th>
+                <td mat-cell *matCellDef="let row" class="text-center">{{ row.weight }}</td>
+            </ng-container>
+            <ng-container matColumnDef="textoAyuda">
+                <th mat-header-cell *matHeaderCellDef>{{"TEXTO_AYUDA" | translate}}</th>
+                <td mat-cell *matCellDef="let row">{{ row.helpText }}</td>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef>{{"ACCIONES" | translate}}</th>
+                <td mat-cell *matCellDef="let row" class="text-center">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="editarPregunta(row)">
+                            <mat-icon>edit</mat-icon> {{"EDITAR" | translate}}
+                        </button>
+                        <button mat-menu-item (click)="eliminarPregunta(row)">
+                            <mat-icon>delete</mat-icon> {{"ELIMINAR" | translate}}
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>

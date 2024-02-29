@@ -1,0 +1,7 @@
+<div [ngClass]="currentPos" class="switch-container" (click)="changePosition(currentPos === 'position3' ? 'position1' : currentPos === 'position1' ? 'position2' : 'position3')">
+    <div [ngStyle]="{'background-color': styleScss[currentPos]}" class="switch-circle">
+      <span *ngIf="currentPos === 'position2'">{{'NO' | translate }}</span>
+      <span *ngIf="currentPos === 'position3'">{{'SI' | translate }}</span>
+    </div>
+  </div>
+  

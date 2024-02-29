@@ -1,0 +1,60 @@
+.centered-button {
+    display: block;
+    margin: 0 auto;
+}
+table mat-icon, .acceso, mat-card{
+    cursor: pointer;
+}
+span.fecha.pull-left {
+    float: left;
+}
+span.estado.pull-right {
+    float: right;
+}
+mat-card.mat-mdc-card.mdc-card.button-card.ficha.sombra {
+    display: inline-block;
+    position:relative;
+}
+h1.puntuacion {
+    font-size: 90px;
+    color: var(--color-secundario);
+    margin: 30px 0px;
+}
+.button-card.ficha.sombra {
+    max-width: 285px;
+    min-height: 240px;
+    width: 100%;
+    margin:10px !important;
+}
+h4.acceso {
+    font-weight: 600;
+    color: var(--color-secundario);
+    position: absolute;
+    bottom: 0px;
+}
+.hoverIcon {
+  border-color: #2b2b5e;
+  padding: 3px;
+  border-radius: 5px;
+}
+.hoverIcon:hover{
+  background-color: white;
+}
+
+td.mat-mdc-cell.mdc-data-table__cell.cdk-cell.cdk-column-resultado.mat-column-resultado {
+    font-size: 50px;
+    font-weight: 800;
+    font-family: 'Montserrat';
+    color: var(--color-secundario);
+}
+hr {
+    height: 5px;
+    border: none;
+    background-color: var(--color-principal) !important; /* O el color que desees para la línea */
+}
+.puntitle{
+    margin-top:20px;
+}
+.noRepoChart{
+  height: 500px;
+}
