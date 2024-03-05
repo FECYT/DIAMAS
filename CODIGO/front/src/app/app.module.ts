@@ -18,7 +18,6 @@ import { FormsModule } from '@angular/forms';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha';
 import { RecaptchaComponent } from './recaptcha/recaptcha.component';
-import { ListaEvaluacionesComponent } from './components/lista-evaluaciones/lista-evaluaciones.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -32,7 +31,6 @@ import { GestionComponent } from './components/gestion/gestion.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { AgregarTerminoComponent } from './components/agregar-termino/agregar-termino.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AsignarUsuarioComponent } from './components/asignar-usuario/asignar-usuario.component';
 import { AdministrarCategoriasComponent } from './components/administrar-categorias/administrar-categorias.component';
 import { NuevoPeriodoComponent } from './components/nuevo-periodo/nuevo-periodo.component';
 import { NuevaPreguntaComponent } from './components/nueva-pregunta/nueva-pregunta.component';
@@ -84,6 +82,7 @@ import { DropdownModule } from "primeng/dropdown";
 import { ModuleSelectorComponent } from './components/module-selector/module-selector.component';
 import { ModuleDropdownComponent } from './components/module-dropdown/module-dropdown.component';
 import localeEs from '@angular/common/locales/es';
+import {ListaEvaluacionesComponent} from "./components/lista-evaluaciones/lista-evaluaciones.component";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -113,7 +112,6 @@ export function jwtOptionsFactory() {
     GestionComponent,
     UsuarioComponent,
     AgregarTerminoComponent,
-    AsignarUsuarioComponent,
     AdministrarCategoriasComponent,
     NuevoPeriodoComponent,
     NuevaPreguntaComponent,

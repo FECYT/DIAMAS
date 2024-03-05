@@ -40,9 +40,6 @@ public class LoginServiceImpl implements LoginService {
     private XMLResponseService xmlResponseService;
 
     @Autowired
-    private DnetService dnetService;
-
-    @Autowired
     private UserService userService;
 
     @Autowired

@@ -16,11 +16,6 @@ public interface RepositoryService {
 
     void delete(Long id);
 
-
-    RepositoryVO findByUserIdDnet(String idUserDnet);
-
-    RepositoryVO findByRepositoryIdDnet(String idRepositoryDnet);
-
     RepositoryVO findByUserId(Long idUser);
 
 

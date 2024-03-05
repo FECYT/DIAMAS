@@ -11,8 +11,4 @@ public interface AssignedEvaluatorsService {
     AssignedEvaluatorsVO findById(Long id);
     List<AssignedEvaluatorsVO> findByEvaluationId(Long id);
     AssignedEvaluatorsVO create(AssignedEvaluatorsVO vo);
-    AssignedEvaluatorsVO update(AssignedEvaluatorsVO vo);
-    void delete(Long id);
-    List<AssignedEvaluatorsVO> assignEvaluatorsToEvaluation(Long evaluationId, List<UserVO> evaluators);
-	List<AssignedEvaluatorsVO> updateAssignedEvaluators(Long evaluationId, List<UserVO> evaluators);
 }

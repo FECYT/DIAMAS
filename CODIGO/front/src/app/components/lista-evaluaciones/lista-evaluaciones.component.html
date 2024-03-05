@@ -63,7 +63,6 @@
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef>{{ 'ACCIONES' | translate }}</th>
         <td mat-cell *matCellDef="let element; let i = index" class="text-center">
-          <mat-icon matTooltip="{{ 'HISTORIAL' | translate }}" (click)="openHistory(element)">history</mat-icon>
           <!-- Icono de edición solo si hay evaluadores asignados -->
           <mat-icon matTooltip="{{ 'EDITAR_EVALUADORES' | translate }}" *ngIf="element.users?.length > 0 && isAdmin()" (click)="editEvaluadores(element)">edit</mat-icon>
           <mat-icon matTooltip="{{ 'CERRAR_EVALUACION' | translate }}" *ngIf="element.evaluationState.toLowerCase() != 'Cerrado'"
@@ -178,7 +177,6 @@
     <ng-container matColumnDef="acciones">
       <th mat-header-cell *matHeaderCellDef>{{ 'ACCIONES' | translate }}</th>
       <td mat-cell *matCellDef="let element; let i = index" class="text-center">
-        <mat-icon matTooltip="{{ 'HISTORIAL' | translate }}" (click)="openHistory(element)">history</mat-icon>
         <mat-icon matTooltip="{{ 'DELETE_SELFASSESSMENT' | translate }}" (click)="deleteClicked(element,$event)">delete</mat-icon>
         <mat-icon matTooltip="{{ 'DESCARGAR_CERTIFICADO' | translate }}" (click)="descargarCertificado(element)">download</mat-icon>
         <mat-icon matTooltip="{{ 'ACCEDER_INFORME' | translate }}" (click)="accesoInforme(element)">arrow_forward</mat-icon>

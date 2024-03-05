@@ -13,7 +13,6 @@ public class SystemLogsConverter {
     public SystemLogsVO toVO(SystemLogsEntity entity) {
         SystemLogsVO vo = new SystemLogsVO();
         vo.setId(entity.getId());
-        vo.setUserId(entity.getIdUserDNET());
         vo.setActionType(entity.getActionType());
         vo.setDateTime(entity.getDateTime());
         vo.setSourceIp(entity.getSourceIp());
@@ -34,7 +33,6 @@ public class SystemLogsConverter {
         entity.setSourceIp(vo.getSourceIp());
         entity.setStatus(vo.getStatus());
         entity.setNDeleteState(vo.getNDeleteState());
-        entity.setIdUserDNET(vo.getUserId());
         entity.setNumRepositories(vo.getNumRepositories());
         return entity;
     }

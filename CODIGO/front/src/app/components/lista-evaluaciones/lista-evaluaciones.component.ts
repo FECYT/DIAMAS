@@ -13,7 +13,6 @@ import { EvaluationActionHistoryService } from 'src/app/services/evaluation-acti
 import { QuestionModalComponent } from "../question-modal/question-modal.component";
 import { DomSanitizer } from "@angular/platform-browser";
 import { QuestionnaireService } from "../../services/questionnaire.service";
-import { DnetService } from "../../services/dnet.service";
 import { CacheService } from "../../services/cache.service";
 import { Questionnaire } from 'src/app/interfaces/questionnaire.interface';
 import { MatDatepicker } from '@angular/material/datepicker';
@@ -114,7 +113,6 @@ export class ListaEvaluacionesComponent {
     private evaluationActionHistoryService: EvaluationActionHistoryService,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private dnetService: DnetService,
     private cacheService: CacheService,
     private utilService: UtilService
   ) {
@@ -132,7 +130,7 @@ export class ListaEvaluacionesComponent {
   /** Método para obtener el historial de acciones de una evaluación
    *
    */
-  openHistory(element: any): void {
+/*  openHistory(element: any): void {
     // Llama al servicio para obtener el historial basado en el ID de la evaluación
     const subscription: Subscription = this.evaluationActionHistoryService.findActionHistoryByIdEvaluation(element.id)
       .subscribe((history: EvaluationActionHistory[]) => {
@@ -148,7 +146,7 @@ export class ListaEvaluacionesComponent {
         // No olvides desuscribirte para evitar fugas de memoria
         subscription.unsubscribe();
       });
-  }
+  }*/
 
   deleteClicked(evaluation: Evaluation, event: Event) {
 
@@ -243,20 +241,6 @@ export class ListaEvaluacionesComponent {
     const userRole = this.authService.currentUser?.rol;
 
 
-    // Ejemplo de type questionnaire
-    /*
-    this.evaluationService.findAll().subscribe(data => {
-
-      this.dataSource.data = data.filter(evaluation => evaluation.evaluationState === 'Enviado');
-
-      this.filteredDataSource.data = this.dataSource.data;
-      this.filteredDataSource.paginator = this.activePaginator;
-
-      this.dataSource2.data = data.filter(evaluation => evaluation.evaluationState === 'Cerrado');
-      this.filteredDataSource2.data = this.dataSource2.data;
-      this.filteredDataSource2.paginator = this.closedPaginator;
-    })
-    */
     // const idType = (this.cacheService.retrieveModuleFromStorage() === 'journal') ? 1 : 2;
     const idType = this.cacheService.selectedTypeId;
     if (idType !== null) {
@@ -289,7 +273,7 @@ export class ListaEvaluacionesComponent {
   }
 
   descargarCertificado(element: any) {
-    this.questionnaireService.downloadReport(element, false);
+    this.questionnaireService.downloadReport(element, false).subscribe();
   }
 
   // Función para resetear el estado del cuestionario y la evaluación

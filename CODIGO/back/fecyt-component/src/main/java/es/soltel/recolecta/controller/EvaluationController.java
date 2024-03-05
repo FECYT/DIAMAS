@@ -77,9 +77,5 @@ public class EvaluationController {
         return evaluationService.findAllWithCloseDateForRepository(repoId);
     }
 
-    @GetMapping("/findAllWithCloseDateForRepositoryDNET/{dnetRepoId}")
-    public List<EvaluationVO> findAllWithCloseDateForRepositoryDnet(@PathVariable String dnetRepoId) {
-        return evaluationService.findAllWithCloseDateForRepositoryDnet(dnetRepoId);
-    }
 
 }

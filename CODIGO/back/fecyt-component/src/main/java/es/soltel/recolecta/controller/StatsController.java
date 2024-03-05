@@ -34,36 +34,18 @@ public class StatsController {
         return service.getPuntuacionMediaGeneralByQuestionnaireId(idType,id);
     }
 
-    /*
-    @GetMapping("/getStatByCategoria/{categoria}/{fechaInicio}/{fechaFin}")
-    public StatsVO getStatByCategoria(@PathVariable String categoria,@PathVariable String fechaInicio, @PathVariable String fechaFin) {
-        return service.getStatByCategoria(Utils.parsearTildes(categoria),fechaInicio,fechaFin);
-    }
-    */
 
     @GetMapping("/getStatsByCategoria/{idType}/{fechaInicio}/{fechaFin}")
     public List<StatsVO> getStatsByCategoria(@PathVariable Long idType, @PathVariable String fechaInicio, @PathVariable String fechaFin) {
         return service.getStatsByCategoria(idType, fechaInicio,fechaFin);
     }
 
-    /*
-    @GetMapping("/getStatByCategoria/categoria/{categoria}/repositoryId/{id}/{fechaInicio}/{fechaFin}")
-    public StatsVO getStatByCategoriaAndRepositoryId(@PathVariable String categoria,@PathVariable Long id,@PathVariable String fechaInicio, @PathVariable String fechaFin) {
-        return service.getStatByCategoriaAndRepositoryId(Utils.parsearTildes(categoria),id,fechaInicio,fechaFin);
-    }
-    */
 
     @GetMapping("/getStatsByCategoria/repositoryId/{idType}/{id}/{fechaInicio}/{fechaFin}")
     public List<StatsVO> getStatsByCategoriaAndRepositoryId(@PathVariable Long idType,@PathVariable Long id,@PathVariable String fechaInicio, @PathVariable String fechaFin) {
         return service.getStatsByCategoriaAndRepositoryId(idType,id,fechaInicio,fechaFin);
     }
 
-    /*
-    @GetMapping("/getStatByCategoria/categoria/{categoria}/questionnaireId/{id}")
-    public StatsVO getStatByCategoriaAndQuestionnaireId(@PathVariable String categoria,@PathVariable Long id) {
-        return service.getStatByCategoriaAndQuestionnaireId(Utils.parsearTildes(categoria),id);
-    }*/
-    
 
     @GetMapping("/getStatsByCategoria/questionnaireId/{idType}/{id}")
     public List<StatsVO> getStatsByCategoriaAndQuestionnaireId(@PathVariable Long idType, @PathVariable Long id) {

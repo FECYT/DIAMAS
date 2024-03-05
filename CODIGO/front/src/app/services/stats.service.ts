@@ -35,10 +35,6 @@ export class StatsService {
     return this.http.get<Stats[]>(this.apiUrl+`/getStatsByCategoria/questionnaireId/${idType}/${questionnaireId}`);
   }
 
-  getStatsByRepositoryId(idType:number, id: number): Observable<StatsDivided[]> {
-    return this.http.get<StatsDivided[]>(this.apiUrl+`/getStatsByRepositoryId/questionnaireId/${idType}/${id}`);
-  }
-  
   getStatsByEvaluationId(idType:number, id: number): Observable<StatsDivided[]> {
     return this.http.get<StatsDivided[]>(this.apiUrl+`/getStatsByEvaluationId/evaluationId/${idType}/${id}`);
   }

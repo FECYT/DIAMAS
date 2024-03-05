@@ -7,7 +7,6 @@ public class AssignedEvaluatorsVO {
 
     private Long id;
     private EvaluationVO evaluation;
-    private String dnetId;
     private List<UserVO> users;
     private Integer nDeleteState;
 
@@ -26,14 +25,6 @@ public class AssignedEvaluatorsVO {
 
     public void setEvaluation(EvaluationVO evaluation) {
         this.evaluation = evaluation;
-    }
-
-    public String getDnetId() {
-        return dnetId;
-    }
-
-    public void setDnetId(String dnetId) {
-        this.dnetId = dnetId;
     }
 
     public List<UserVO> getUsers() {

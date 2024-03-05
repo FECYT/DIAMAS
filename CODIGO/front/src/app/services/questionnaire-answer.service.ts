@@ -22,11 +22,6 @@ export class QuestionnaireAnswerService {
     return this.http.put<QuestionnaireAnswer>(url, questionnaire);
   }
 
-  getByPeriodId(periodId:number): Observable<QuestionnaireAnswer[]> {
-    const url = `${this.apiUrl}periodId/${periodId}`;
-    return this.http.get<QuestionnaireAnswer[]>(url);
-  }
-
   getByEvaluationId(periodId:number): Observable<QuestionnaireAnswer[]> {
     const url = `${this.apiUrl}evaluationId/${periodId}`;
     return this.http.get<QuestionnaireAnswer[]>(url);

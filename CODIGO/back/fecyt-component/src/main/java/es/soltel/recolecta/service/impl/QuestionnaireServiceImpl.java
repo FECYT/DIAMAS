@@ -128,21 +128,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     }
 
     @Override
-    public QuestionnaireVO findActiveById(Long id) {
-        return converter.entityToVO(repository.findActiveById(id));
-    }
-
-    @Override
-    public List<QuestionnaireVO> findByUserId(Long id) {
-        return QuestionnaireConverter.ToVO(repository.findByUserId(id));
-    }
-
-    @Override
-    public QuestionnaireVO findByEvaluationId(Long id) {
-        return converter.entityToVO(repository.findByEvaluationId(id));
-    }
-
-    @Override
     public QuestionnaireVO create(QuestionnaireVO questionnaireVO) {
 
         QuestionnaireEntity entity = QuestionnaireConverter.voToEntity(questionnaireVO);
@@ -177,15 +162,22 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         newEntry.setUserId(user);
         evaluationActionHistoryServiceImpl.save(newEntry);
 
-        executorService.submit(() -> {
-            try {
-                mailService.sendMailQuestionnaireClosed(createdQuestionnaire);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
         return createdQuestionnaire;
+    }
+
+    @Override
+    public QuestionnaireVO findActiveById(Long id) {
+        return converter.entityToVO(repository.findActiveById(id));
+    }
+
+    @Override
+    public List<QuestionnaireVO> findByUserId(Long id) {
+        return QuestionnaireConverter.ToVO(repository.findByUserId(id));
+    }
+
+    @Override
+    public QuestionnaireVO findByEvaluationId(Long id) {
+        return converter.entityToVO(repository.findByEvaluationId(id));
     }
 
     @Override
@@ -211,91 +203,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         return entity;
     }
 
-    @Override
-    public void sendQuestionnaire(Long id) {
-        QuestionnaireEntity updatingQuestionnaire = repository.findByEvaluationId(id);
-        updatingQuestionnaire.setState("Enviado");
-        repository.save(updatingQuestionnaire);
-
-        // Creo la entrada en el historial
-        createAction(2L, updatingQuestionnaire, null);
-
-        // Mando el correo
-        executorService.submit(() -> {
-            try {
-                mailService.sendMailQuestionnaireToEvaluate(QuestionnaireConverter.entityToVO(updatingQuestionnaire));
-                mailService.sendMailConfirmationToResponsable(QuestionnaireConverter.entityToVO(updatingQuestionnaire));
-            } catch (Exception e) {
-
-                e.printStackTrace();
-            }
-        });
-
-        // Creo una entrada en la tabla que me permite hacer un seguimiento de si ha de
-        // cerrarse automáticamente
-        QuestionnaireToCloseVO questionnaireToClose = new QuestionnaireToCloseVO();
-        questionnaireToClose.setFecha(LocalDateTime.now(java.time.ZoneId.of("Europe/Madrid")));
-        questionnaireToClose.setQuestionnaireId(QuestionnaireConverter.entityToVO(updatingQuestionnaire));
-
-        questionnaireToCloseService.create(questionnaireToClose);
-
-    }
-
-    @Override
-    public void statusToEnObservacion(Long id, Long actionAuthor) {
-        QuestionnaireEntity questionnaire = repository.findById(id).orElse(null);
-        questionnaire.getEvaluation().setEvaluationState("En observaciones");
-        repository.save(questionnaire);
-
-        // Creo la entrada en el historial
-        createAction(3L, questionnaire, Optional.ofNullable(actionAuthor));
-
-        // Mando el correo
-        executorService.submit(() -> {
-            try {
-                mailService
-                        .sendMailQuestionnaireToEnObservaciones(QuestionnaireConverter.entityToVO(questionnaire));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-        // En este estado no puede caducar el cuestionario, así que elimino su
-        // seguimiento de la tabla
-        try {
-            questionnaireToCloseService
-                    .delete(questionnaireToCloseService.getByQuestionnaireId(questionnaire.getId()).getId());
-        } catch (Exception exception) {
-            // No hay questionnaire para borrar, esto generalmente significa que el proceso
-            // no se ha hecho bien a causa de la intervencion en el sistema por un
-            // administrador
-        }
-
-    }
-
-    @Override
-    public void sendQuestionnaireAgain(Long id) {
-        QuestionnaireEntity updatingQuestionnaire = repository.findByEvaluationId(id);
-        updatingQuestionnaire.getEvaluation().setEvaluationState("En proceso");
-
-        repository.save(updatingQuestionnaire);
-
-        // Creo la entrada en el historial
-        createAction(4L, updatingQuestionnaire, null);
-
-        // Mando el correo
-        // Creo una entrada en la tabla que me permite hacer un seguimiento de si ha de
-        // cerrarse automáticamente
-        QuestionnaireToCloseVO questionnaireToClose = new QuestionnaireToCloseVO();
-        questionnaireToClose.setFecha(LocalDateTime.now(java.time.ZoneId.of("Europe/Madrid")));
-        questionnaireToClose.setQuestionnaireId(QuestionnaireConverter.entityToVO(updatingQuestionnaire));
-
-        questionnaireToCloseService.create(questionnaireToClose);
-
-        executorService.submit(() -> mailService
-                .sendMailQuestionnaireToEvaluateAgain(QuestionnaireConverter.entityToVO(updatingQuestionnaire)));
-
-    }
 
     @Override
     public void createAction(Long id, QuestionnaireEntity questionnaire, Optional<Long> actionAuthor) {
@@ -320,12 +227,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     }
 
     @Override
-    public List<QuestionnaireVO> findQuestionnaireByDnetId(String id) {
-        /*return QuestionnaireConverter.ToVO(repository.findByDnetId(id));*/
-        return null;
-    }
-
-    @Override
     public void closeEvaluation(Long id, Long actionAuthor) {
 
         QuestionnaireVO questionnaire = QuestionnaireConverter.entityToVO(repository.findByEvaluationId(id));
@@ -346,13 +247,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         newEntry.setUserId(user);
         evaluationActionHistoryServiceImpl.save(newEntry);
 
-        executorService.submit(() -> {
-            try {
-                mailService.sendMailQuestionnaireClosed(questionnaire);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
 
     }
     
@@ -625,90 +519,10 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
             contentStream.newLineAtOffset(0, -15);
             contentStream.showText("Puntuación desglosada:");
             // Finalizar y cerrar el co
-            
-            /*
-            // Contenido nuevo, pendiente de confirmar diseño
-            // getStatsByCategoriasDivididasByQuestionnaireId
-            List<StatsDividedVO> categorias = statsServiceImpl.getStatsByCategoriasDivididasByQuestionnaireId(id);
-            // Organizar las StatsDividedVO por tipo
-            Map<String, List<StatsDividedVO>> categoriasPorTipo = categorias.stream()
-                    .collect(Collectors.groupingBy(StatsDividedVO::getType));
 
-            // Iterar sobre las categorías por tipo
-            for (Map.Entry<String, List<StatsDividedVO>> entry : categoriasPorTipo.entrySet()) {
-                String tipo = entry.getKey();
-                
-                // Mostrar el tipo una vez
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, fontSize);
-                contentStream.newLineAtOffset(0, -15);
-                contentStream.showText(tipo);
-                contentStream.setFont(PDType1Font.HELVETICA, fontSize);
-                // Iterar sobre las categorías asociadas a ese tipo
-                for (StatsDividedVO categoria : entry.getValue()) {
-                    String textoCategoria = categoria.getCategoria() + ": " + categoria.getPuntuacion();
-                    contentStream.newLineAtOffset(0, -15);
-                    contentStream.showText(textoCategoria);
-                }
-            }
-            */
-            /*
-            contentStream.newLineAtOffset(0, -leading);
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, fontSize);
-            contentStream.showText("Ranking");
-            contentStream.setFont(PDType1Font.HELVETICA, fontSize);
-            
-            List<EvaluationEntity> evaluaciones = evaluationRepository.findAll();
-
-	         // Ordena las evaluaciones por la calificación más alta y el nombre del repositorio
-            List<EvaluationEntity> evaluacionesOrdenadas = evaluaciones.stream()
-                    .sorted(Comparator.comparing(EvaluationEntity::getEvaluationGrade, Comparator.reverseOrder())
-                            .thenComparing(e -> e.getRepository().getNombre()))
-                    .collect(Collectors.toList());
-	
-	         // Agrupa las evaluaciones ordenadas por el repositorio
-	         Map<RepositoryEntity, List<EvaluationEntity>> evaluacionesPorRepositorio = evaluacionesOrdenadas.stream()
-	                 .collect(Collectors.groupingBy(EvaluationEntity::getRepository));
-	
-	         // Itera sobre las entradas del mapa
-	         for (Map.Entry<RepositoryEntity, List<EvaluationEntity>> entry : evaluacionesPorRepositorio.entrySet()) {
-	             RepositoryEntity repositorio = entry.getKey();
-
-	             // Ordena las evaluaciones para el repositorio por calificación en orden descendente
-	             List<EvaluationEntity> evaluacionesDelRepositorio = entry.getValue().stream()
-	                     .sorted(Comparator.comparing(EvaluationEntity::getEvaluationGrade, Comparator.reverseOrder()))
-	                     .collect(Collectors.toList());
-
-	             // Muestra la información de la primera evaluación en la lista (la más alta)
-	             evaluacionesDelRepositorio.stream()
-	                     .findFirst()
-	                     .ifPresent(evaluacion -> {
-	                         try {
-	                             contentStream.newLineAtOffset(0, -15);
-	                             contentStream.showText(repositorio.getNombre() + " " + evaluacion.getEvaluationGrade() + "%");
-	                             // Puedes mostrar más información según tus necesidades
-	                         } catch (IOException e) {
-	                             // Maneja la excepción adecuadamente
-	                             e.printStackTrace();
-	                         }
-	                     });
-	         }
-            
-            */
             contentStream.endText();
             // Falta idType aqui
             List<StatsDividedVO> categorias = statsServiceImpl.getStatsByCategoriasDivididasByQuestionnaireId(id, id);
-            
-            
-            /*
-            // Crear el gráfico SpiderWebPlot
-            JFreeChart spiderWebChart = createSpiderWebChart(categorias);
-            // Convertir el gráfico a una imagen y guardarla en un ByteArrayOutputStream
-            ByteArrayOutputStream chartOutputStream = new ByteArrayOutputStream();
-            ChartUtils.writeChartAsPNG(chartOutputStream, spiderWebChart, 650, 570);
-
-            // Agregar la imagen al PDF
-            contentStream.drawImage(PDImageXObject.createFromByteArray(document, chartOutputStream.toByteArray(), "Chart"), 40, 10, 500, 380);
-         	*/
             
             contentStream.close();
 
@@ -722,92 +536,10 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         }
     }
     
-    /*
-    private JFreeChart  createSpiderWebChart(List<StatsDividedVO> categorias) {
-    	// Organizar las StatsDividedVO por tipo
-        Map<String, List<StatsDividedVO>> categoriasPorTipo = categorias.stream()
-                .collect(Collectors.groupingBy(StatsDividedVO::getType));
-        
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        // Iterar sobre las categorías por tipo
-        for (Map.Entry<String, List<StatsDividedVO>> entry : categoriasPorTipo.entrySet()) {
-            String tipo = entry.getKey();
-            
-            // Iterar sobre las categorías asociadas a ese tipo
-            for (StatsDividedVO categoria : entry.getValue()) {
-            	if(categoria.getType().contentEquals("Obligatorias")) {
-            		dataset.addValue(categoria.getPuntuacion(), "Obligatorias", categoria.getCategoria() + " (" + categoria.getPuntuacion() + ")");
-            	}
-            }
-        }
-        
-        // Crear el gráfico SpiderWebPlot
-        SpiderWebPlot spiderWebPlot = new SpiderWebPlot(dataset);
-        spiderWebPlot.setStartAngle(90);
-        spiderWebPlot.setInteriorGap(0.2);
-
-        // Personalizar las etiquetas de valores
-        CategoryItemLabelGenerator labelGenerator = new StandardCategoryItemLabelGenerator("{2}", NumberFormat.getInstance());
-        spiderWebPlot.setLabelGenerator(labelGenerator);
-
-        // Establecer el contorno de la trama SpiderWeb en nulo para quitar el marco
-        spiderWebPlot.setOutlinePaint(null);
-        
-        // Crear el gráfico JFreeChart
-        JFreeChart spiderWebChart = new JFreeChart(
-                "",  // Título del gráfico
-                JFreeChart.DEFAULT_TITLE_FONT,
-                spiderWebPlot,
-                false);
-        spiderWebChart.setBackgroundPaint(spiderWebPlot.getBackgroundPaint());
-
-        spiderWebChart.getPlot().setOutlineVisible(true);
-
-        return spiderWebChart;
-    }
-    */
-    
     public List<QuestionnaireVO> getCertificatesByDate(Long idType, Date date) {
         // Utiliza el repositorio para buscar los archivos asociados a las preguntas
-        // try {
-            // List<QuestionnaireEntity> questionnaires = repository.findCertificatesByDate(date);
             return repository.findCertificatesByDate(idType, date).stream().map(QuestionnaireConverter::entityToVO).collect(Collectors.toList());
-            // if (questionnaires.isEmpty()) {
-                // return ResponseEntity.notFound().build();
-            // }
-           //  return questionnaires;
 
-            // Comprimir los archivos en un ZIP
-            /*
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            try (ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
-                for (QuestionnaireEntity questionnaire : questionnaires) {
-                    String fileName = questionnaire.getPeriod().getDescription() + " " + questionnaire.getEvaluation().getRepository().getNombre() + " " + questionnaire.getId() + ".pdf";
-                    byte[] fileData = exportCertificate(questionnaire.getId());
-                    
-	                ZipEntry zipEntry = new ZipEntry(fileName);
-	                zipOutputStream.putNextEntry(zipEntry);
-	                zipOutputStream.write(fileData);
-	                zipOutputStream.closeEntry();
-                }
-            }
-
-            // Configurar la respuesta para la descarga del ZIP
-            ByteArrayResource zipResource = new ByteArrayResource(byteArrayOutputStream.toByteArray());
-            HttpHeaders headers = new HttpHeaders();
-            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"archivos.zip\"");
-
-            return ResponseEntity.ok().headers(headers).contentLength(byteArrayOutputStream.size())
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM).body(zipResource);
-                    */
-        // }
-        /*
-        catch (IOException e) {
-            // Manejo de errores, registra el error o devuelve una respuesta de error apropiada
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-        */
     }
 
     @Override

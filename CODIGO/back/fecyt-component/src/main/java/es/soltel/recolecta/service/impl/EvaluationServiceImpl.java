@@ -34,9 +34,6 @@ public class EvaluationServiceImpl implements EvaluationService {
     private QuestionnaireService questionnaireService;
 
     @Autowired
-    private DnetService dnetService;
-
-    @Autowired
     private RepositoryService repositoryService;
 
     @Autowired
@@ -146,24 +143,6 @@ public class EvaluationServiceImpl implements EvaluationService {
 
         questionnaireService.update(QuestionnaireConverter.entityToVO(questionnaireEntity));
         return true;
-    }
-
-    /*
-    @Override
-    public List<EvaluationVO> findActiveEvaluationsOfUser(Long id) {
-        return EvaluationConverter.ToVO(evaluationRepository.findActiveEvaluationsOfUser(id));
-    }
-
-    @Override
-    public List<EvaluationVO> findAllEvaluationsWithUsers() {
-        return EvaluationConverter.ToVO(evaluationRepository.findAllEvaluationsWithUsers());
-    }
-    */
-
-    @Override
-    public List<EvaluationVO> findAllWithCloseDateForRepositoryDnet(String dnetRepoId) {
-        //return EvaluationConverter.ToVO(evaluationRepository.findByRepository_DnetId(dnetRepoId));
-        return null;
     }
 
     @Override

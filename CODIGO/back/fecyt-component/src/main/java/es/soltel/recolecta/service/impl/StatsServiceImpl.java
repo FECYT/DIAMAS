@@ -158,20 +158,6 @@ public class StatsServiceImpl implements StatsService {
     @Override
     public List<StatsVO> getStatsByCategoria(Long idType, String fechaInicio, String fechaFin) {
 
-    	/*
-        List<StatsVO> categorias = new ArrayList<>();
-
-        categorias.add(getStatByCategoria("FUNDING",fechaInicio,fechaFin));
-        categorias.add(getStatByCategoria("GOVERNANCE",fechaInicio,fechaFin));
-        categorias.add(getStatByCategoria("OPEN SCIENCE",fechaInicio,fechaFin));
-        categorias.add(getStatByCategoria("EDITION",fechaInicio,fechaFin));
-        categorias.add(getStatByCategoria("TECHNICAL",fechaInicio,fechaFin));
-        categorias.add(getStatByCategoria("VISIBILITY",fechaInicio,fechaFin));
-        categorias.add(getStatByCategoria("EDIB",fechaInicio,fechaFin));
-
-        return categorias;
-        */
-
     	List<StatsVO> categorias = new ArrayList<>();
         List<CatQuestionEntity> entities = catQuestionRepository.findByQuestionnaireType(idType);
 
@@ -506,20 +492,6 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public List<StatsDividedVO> getStatsByCategoriasDivididas(Long idType, String fechaInicio, String fechaFin) {
-        
-    	/*
-    	List<StatsDividedVO> categorias = new ArrayList<>();
-
-        categorias.add(getStatsByCategoriaDivide("FUNDING",true,fechaInicio,fechaFin));
-        categorias.add(getStatsByCategoriaDivide("GOVERNANCE",true,fechaInicio,fechaFin));
-        categorias.add(getStatsByCategoriaDivide("OPEN SCIENCE",true,fechaInicio,fechaFin));
-        categorias.add(getStatsByCategoriaDivide("EDITION",true,fechaInicio,fechaFin));
-        categorias.add(getStatsByCategoriaDivide("TECHNICAL",true,fechaInicio,fechaFin));
-        categorias.add(getStatsByCategoriaDivide("VISIBILITY",true,fechaInicio,fechaFin));
-        categorias.add(getStatsByCategoriaDivide("EDIB",true,fechaInicio,fechaFin));
-
-        return categorias;
-        */
 
     	List<StatsDividedVO> categorias = new ArrayList<>();
         List<CatQuestionEntity> entities = catQuestionRepository.findByQuestionnaireType(idType);
@@ -535,19 +507,7 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public List<StatsDividedVO> getStatsByCategoriasDivididasByRepositoryId(Long idType, Long id, String fechaInicio, String fechaFin) {
-        /*
-    	List<StatsDividedVO> categorias = new ArrayList<>();
 
-        categorias.add(getStatsByCategoriaDivideByRepositoryId("FUNDING",true,id,fechaInicio,fechaFin));
-        categorias.add(getStatsByCategoriaDivideByRepositoryId("GOVERNANCE",true,id,fechaInicio,fechaFin));
-        categorias.add(getStatsByCategoriaDivideByRepositoryId("OPEN SCIENCE",true,id,fechaInicio,fechaFin));
-        categorias.add(getStatsByCategoriaDivideByRepositoryId("EDITION",true,id,fechaInicio,fechaFin));
-        categorias.add(getStatsByCategoriaDivideByRepositoryId("TECHNICAL",true,id,fechaInicio,fechaFin));
-        categorias.add(getStatsByCategoriaDivideByRepositoryId("VISIBILITY",true,id,fechaInicio,fechaFin));
-        categorias.add(getStatsByCategoriaDivideByRepositoryId("EDIB",true,id,fechaInicio,fechaFin));
-
-        return categorias;
-        */
     	List<StatsDividedVO> categorias = new ArrayList<>();
         List<CatQuestionEntity> entities = catQuestionRepository.findByQuestionnaireType(idType);
 
@@ -734,20 +694,6 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public List<StatsDividedVO> getStatsByCategoriasDivididasByQuestionnaireId(Long idType, Long questionnaireId) {
-        
-    	/*
-    	List<StatsDividedVO> categorias = new ArrayList<>();
-
-        categorias.add(getStatsByQuestionnaireDivideByRepositoryId("FUNDING",true,questionnaireId));
-        categorias.add(getStatsByQuestionnaireDivideByRepositoryId("GOVERNANCE",true,questionnaireId));
-        categorias.add(getStatsByQuestionnaireDivideByRepositoryId("OPEN SCIENCE",true,questionnaireId));
-        categorias.add(getStatsByQuestionnaireDivideByRepositoryId("EDITION",true,questionnaireId));
-        categorias.add(getStatsByQuestionnaireDivideByRepositoryId("TECHNICAL",true,questionnaireId));
-        categorias.add(getStatsByQuestionnaireDivideByRepositoryId("VISIBILITY",true,questionnaireId));
-        categorias.add(getStatsByQuestionnaireDivideByRepositoryId("EDIB",true,questionnaireId));
-
-        return categorias;
-        */
 
     	List<StatsDividedVO> categorias = new ArrayList<>();
         List<CatQuestionEntity> entities = catQuestionRepository.findByQuestionnaireType(idType);
@@ -846,20 +792,6 @@ public class StatsServiceImpl implements StatsService {
     @Override
     public List<StatsVO> getStatsByCategoriaAndQuestionnaireId(Long idType, Long questionnaireId) {
 
-    	/*
-        List<StatsVO> categorias = new ArrayList<>();
-
-        categorias.add(getStatByCategoriaAndQuestionnaireId("FUNDING",questionnaireId));
-        categorias.add(getStatByCategoriaAndQuestionnaireId("GOVERNANCE",questionnaireId));
-        categorias.add(getStatByCategoriaAndQuestionnaireId("OPEN SCIENCE",questionnaireId));
-        categorias.add(getStatByCategoriaAndQuestionnaireId("EDITION",questionnaireId));
-        categorias.add(getStatByCategoriaAndQuestionnaireId("TECHNICAL",questionnaireId));
-        categorias.add(getStatByCategoriaAndQuestionnaireId("VISIBILITY",questionnaireId));
-        categorias.add(getStatByCategoriaAndQuestionnaireId("EDIB",questionnaireId));
-
-        return categorias;
-        */
-
     	List<StatsVO> categorias = new ArrayList<>();
         List<CatQuestionEntity> entities = catQuestionRepository.findByQuestionnaireType(idType);
 
@@ -873,20 +805,6 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public List<StatsVO> getStatsByCategoriaAndRepositoryId(Long idType, Long repositoryId, String fechaInicio, String fechaFin) {
-
-    	/*
-        List<StatsVO> categorias = new ArrayList<>();
-
-        categorias.add(getStatByCategoriaAndRepositoryId("FUNDING",repositoryId,fechaInicio,fechaFin));
-        categorias.add(getStatByCategoriaAndRepositoryId("GOVERNANCE",repositoryId,fechaInicio,fechaFin));
-        categorias.add(getStatByCategoriaAndRepositoryId("OPEN SCIENCE",repositoryId,fechaInicio,fechaFin));
-        categorias.add(getStatByCategoriaAndRepositoryId("EDITION",repositoryId,fechaInicio,fechaFin));
-        categorias.add(getStatByCategoriaAndRepositoryId("TECHNICAL",repositoryId,fechaInicio,fechaFin));
-        categorias.add(getStatByCategoriaAndRepositoryId("VISIBILITY",repositoryId,fechaInicio,fechaFin));
-        categorias.add(getStatByCategoriaAndRepositoryId("EDIB",repositoryId,fechaInicio,fechaFin));
-
-        return categorias;
-		*/
 
     	List<StatsVO> categorias = new ArrayList<>();
         List<CatQuestionEntity> entities = catQuestionRepository.findByQuestionnaireType(idType);
@@ -904,21 +822,6 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public List<StatsDividedVO> getStatsByRepositoryId(Long idType, Long repositoryId) {
-
-    	/*
-        List<StatsVO> categorias = new ArrayList<>();
-
-        categorias.add(getStatByRepositoryId("FUNDING",repositoryId));
-        categorias.add(getStatByRepositoryId("GOVERNANCE",repositoryId));
-        categorias.add(getStatByRepositoryId("OPEN SCIENCE",repositoryId));
-        categorias.add(getStatByRepositoryId("EDITION",repositoryId));
-        categorias.add(getStatByRepositoryId("TECHNICAL",repositoryId));
-        categorias.add(getStatByRepositoryId("VISIBILITY",repositoryId));
-        categorias.add(getStatByRepositoryId("EDIB",repositoryId));
-
-        return categorias;
-        */
-    	
 
     	List<StatsDividedVO> categorias = new ArrayList<>();
         List<CatQuestionEntity> entities = catQuestionRepository.findByQuestionnaireType(idType);
@@ -1041,6 +944,8 @@ public class StatsServiceImpl implements StatsService {
 
                     if (answer.getAnswer() && questionTarget.getType().equalsIgnoreCase("advanced")) totalScore += (questionTarget.getWeight() / totalWeightObligatorias) * 100;
                     else if (questionTarget.getType().equalsIgnoreCase("advanced")) totalScore += (questionTarget.getWeight() / totalWeightObligatorias) * 100 * result;
+                    else if (questionTarget.getType().equalsIgnoreCase("basic") && answer.getAnswer()) totalScore += (questionTarget.getWeight() / totalWeightRecomendadas) * 100;
+                    else if (questionTarget.getType().equalsIgnoreCase("basic")) totalScore += (questionTarget.getWeight() / totalWeightRecomendadas) * 100 * result;
                 }
 
             }

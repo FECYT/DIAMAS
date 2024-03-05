@@ -68,22 +68,6 @@ public class UsersServiceImpl implements UserService {
     }
 
     @Override
-    public UserVO findByIdDnet(String idDnet) {
-        /*
-        UserEntity entity = repository.findByDnetIdAndNDeleteStateNot(idDnet, 2);
-    
-        if (entity != null) {
-            return UserConverter.toVO(entity);
-        } else {
-            // Realizar alguna acción adecuada si la entidad es nula, como devolver un valor predeterminado o lanzar una excepción
-            return null; // O puedes devolver un valor predeterminado según la lógica de tu aplicación
-        }
-
-         */
-        return null;
-    }
-
-    @Override
     public UserVO findByEmail(String email) {
     	UserEntity user = repository.findByEmail(email);
 
@@ -94,7 +78,6 @@ public class UsersServiceImpl implements UserService {
             // Manejar el caso en el que el usuario no es encontrado (puedes devolver null o lanzar una excepción, según tus necesidades)
             return null;
         }
-        // return UserConverter.toVO(repository.findByEmail(email));
     }
 
     @Override
@@ -213,14 +196,4 @@ public class UsersServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public List<UserVO> findUsersNotInRepository(Long repositoryId) {
-
-        
-/*
-        return repository.findUsersNotInRepository(repositoryId).stream().map(UserConverter::toVO)
-                .collect(Collectors.toList());*/
-
-        return null;
-    }
 }

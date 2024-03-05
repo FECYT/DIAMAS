@@ -54,16 +54,6 @@ public class RepositoryController {
         return service.findByUserId(id);
     }
 
-    @GetMapping("userIdDnet/{idDnet}")
-    public RepositoryVO findByUserIdNet(@PathVariable String idDnet) {
-        return service.findByUserIdDnet(idDnet);
-    }
-
-    @GetMapping("repositoryIdDnet/{idDnet}")
-    public RepositoryVO findRepositoryByIdDnet(@PathVariable String idDnet) {
-        return service.findByRepositoryIdDnet(idDnet);
-    }
-
     @GetMapping("repository/userId/{id}")
     public RepositoryVO findRepositoryByUserId(@PathVariable Long id) {
         return service.findByUserId(id);

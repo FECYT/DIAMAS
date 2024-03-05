@@ -145,8 +145,10 @@ export class HerramientaComparativaComponent {
 
     })
 
+    const idType = this.cacheService.selectedTypeId;
+
     this.evaluationPeriodService.findAll().subscribe((data) => {
-      this.evaluationPeriods = data
+      this.evaluationPeriods = data.filter(item => item.questionnaireType.id === idType);
     })
 
   }
@@ -203,7 +205,6 @@ export class HerramientaComparativaComponent {
 
   fetchData() {
     const observables = this.selectedUsers.map(user => {
-      // const idType = (this.cacheService.retrieveModuleFromStorage() === 'journal') ? 1 : 2;
       const idType = this.cacheService.selectedTypeId;
       if (idType !== null) {
         return this.statsService.getStatsByUserAndPeriodId(idType, this.selectedEvaluation!!.id, user.id!!)

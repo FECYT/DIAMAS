@@ -42,19 +42,9 @@ public class MailSending {
     @Value("${mail.from}")
     private String remitente;
 
-    private Boolean debug = false;
+    private Boolean debug = true;
     private String destinatarioDebug = "ricardo.gallego@soltel.es";
 
-
-    //TODO BORRAR LOS YA NO OPERATIVOS
-    public void sendMailQuestionnaireClosed(QuestionnaireVO questionnaire) throws IOException {}
-    public void sendMailEvaluacionIniciada(QuestionnaireVO questionnaire) throws IOException {}
-    public void sendMailQuestionnaireAutomaticallyClosed(QuestionnaireVO questionnaire) throws IOException {}
-    public void sendMailQuestionnaireToEnObservaciones(QuestionnaireVO questionnaire) throws IOException {}
-    public void sendMailQuestionnaireToEvaluateAgain(QuestionnaireVO questionnaire) {}
-    public void sendMailQuestionnaireToEvaluate(QuestionnaireVO questionnaire) throws Exception {}
-    public void sendMailToAssignedEvaluator(Long evaluationId) throws IOException {}
-    public void sendMailConfirmationToResponsable(QuestionnaireVO questionnaire) throws IOException {}
 
     public void sendMailPDF(String email, QuestionnaireVO questionnaire, byte[] zip){
 

@@ -29,10 +29,7 @@ export class QuestionnaireService {
   private apiUrl = environment.host + 'api/questionnaire/'; // Ajusta la URL de tu API para Questionnaire
 
   constructor(private router: Router, private cacheService: CacheService, private translate: TranslateService, private statsService: StatsService, private http: HttpClient, private datePipe: DatePipe, private authService: AuthService, private utilService: UtilService) {
-
-
   }
-
 
   create(questionnaire: Questionnaire): Observable<Questionnaire> {
     return this.http.post<Questionnaire>(this.apiUrl + 'create', questionnaire);
@@ -43,11 +40,6 @@ export class QuestionnaireService {
     return this.http.put<Questionnaire>(url, questionnaire);
   }
 
-  sendQuestionnaire(evaluationId: number): Observable<void> {
-    const url = `${this.apiUrl}sendQuestionnaire/evaluation/${evaluationId}`;
-    return this.http.put<void>(url, null);
-  }
-
   closeEvaluation(evaluationId: number): Observable<void> {
     const userId = this.authService.currentUser!!.id;
 
@@ -55,32 +47,13 @@ export class QuestionnaireService {
     return this.http.put<void>(url, null);
   }
 
-  sendQuestionnaireAgain(evaluationId: number): Observable<void> {
-    const url = `${this.apiUrl}sendQuestionnaireAgain/evaluation/${evaluationId}`;
-    return this.http.put<void>(url, null);
-  }
-  delete(id: number): Observable<void> {
-    const url = `${this.apiUrl}delete/${id}`;
-    return this.http.delete<void>(url);
-  }
-
   findAll(): Observable<Questionnaire[]> {
     return this.http.get<Questionnaire[]>(this.apiUrl);
-  }
-
-  findById(id: number): Observable<Questionnaire> {
-    const url = `${this.apiUrl}${id}`;
-    return this.http.get<Questionnaire>(url);
   }
 
   findByEvaluationId(id: number): Observable<Questionnaire> {
     const url = `${this.apiUrl}evaluation/${id}`;
     return this.http.get<Questionnaire>(url);
-  }
-
-  findByDnetId(id: string): Observable<Questionnaire[]> {
-    const url = `${this.apiUrl}findQuestionnaire/dnetId/${id}`;
-    return this.http.get<Questionnaire[]>(url);
   }
 
   findByUserId(id: number): Observable<Questionnaire[]> {
@@ -95,6 +68,10 @@ export class QuestionnaireService {
     return this.http.put<void>(url, null);
   }
 
+  findById(id: number): Observable<Questionnaire> {
+    const url = `${this.apiUrl}${id}`;
+    return this.http.get<Questionnaire>(url);
+  }
 
 
   downloadAnswer(idType: number, startDate: Date, endDate: Date, language: string, format: string): Observable<Blob> {
@@ -110,30 +87,6 @@ export class QuestionnaireService {
         .set('idType', idType)
         .set('startDate', formattedStartDate)
         .set('endDate', formattedEndDate)
-        .set('language', language)
-        .set('format', format);
-
-      // Realiza la solicitud HTTP con responseType 'blob'
-      return this.http.get(url, {
-        params: params,
-        responseType: 'blob'
-      });
-
-    } else {
-      console.error('Las fechas formateadas son nulas.');
-      return EMPTY;
-    }
-  }
-
-  downloadAnswerFilter(idType: number, year: number, nombre: string, language: string, format: string): Observable<Blob> {
-    const url = `${this.apiUrl}exportFilter`;
-
-    if (year !== null) {
-      // Configura los parámetros de la solicitud
-      const params = new HttpParams()
-        .set('idType', idType)
-        .set('year', year)
-        .set('nombre', nombre)
         .set('language', language)
         .set('format', format);
 
@@ -173,20 +126,32 @@ export class QuestionnaireService {
     }
   }
 
-  getCertificatePDF(id: number) {
-    const url = `${this.apiUrl}certificate/${id}`;
-    return this.http.get(url, {
-      responseType: 'blob'
-    });
+  downloadAnswerFilter(idType: number, year: number, nombre: string, language: string, format: string): Observable<Blob> {
+    const url = `${this.apiUrl}exportFilter`;
+
+    if (year !== null) {
+      // Configura los parámetros de la solicitud
+      const params = new HttpParams()
+        .set('idType', idType)
+        .set('year', year)
+        .set('nombre', nombre)
+        .set('language', language)
+        .set('format', format);
+
+      // Realiza la solicitud HTTP con responseType 'blob'
+      return this.http.get(url, {
+        params: params,
+        responseType: 'blob'
+      });
+
+    } else {
+      console.error('Las fechas formateadas son nulas.');
+      return EMPTY;
+    }
   }
-
-
 
   downloadReport(evaluation: any, withCloseEvaluation: boolean): Observable<any> {
     // Generar el SVG con Vega y agregarlo al contenedor
-    // vegaAraña.width = 200;
-    // vegaAraña.height = 280;
-    // vegaAraña.padding = 0;
     let vegaChart: any;
     if (this.cacheService.getLanguage() === 'es') {
       vegaChart = new vega.View(vega.parse(vegaArañaPDF)).renderer('svg');
@@ -247,146 +212,6 @@ export class QuestionnaireService {
       return of([]);
     }
   }
-
-
-  // Función para generar el PDF
-
-/*
-  generatePDF(svg: any, evaluation: any, withCloseEvaluation: boolean) {
-    // Crear un nuevo documento PDF
-    const pdf = new jsPDF('p', 'pt', 'a4');
-
-    // Establecer márgenes izquierdo y derecho en puntos (por ejemplo, 50 puntos)
-    const marginLeft = 50;
-    let marginLeftVariable = 50
-    const textWidth = 500;
-
-    const logoUrl = 'assets/icon/cabecera.png'; // Ruta de la imagen desde la carpeta assets
-    const nombreCuestionario = evaluation.userRepository.repository.institucion.nombre; // Reemplaza con el valor real
-    const porcentaje = evaluation.evaluationGrade + '%'; // Reemplaza con el valor real
-    const fechaSistema = new Date();
-    const fechaFormateada = this.datePipe.transform(fechaSistema, 'dd \'of\' MMMM\',\' yyyy');
-
-    const lang = (this.cacheService.getLanguage() === 'en') ? "en" : "es";
-
-    const dia = fechaSistema.getDate();
-    const mes = fechaSistema.toLocaleString(lang, { month: 'long' }); // Nombre del mes
-    const anio = fechaSistema.getFullYear();
-
-    var img = new Image();
-    img.src = logoUrl;
-    pdf.addImage(img, 'JPEG', marginLeft, 10, 190, 80, undefined, 'FAST');
-
-    pdf.setTextColor(43, 43, 94);
-    pdf.setFontSize(26);
-    pdf.setFont('Helvetica', 'bold');
-    let initialTextHeight = 140;
-
-    if (evaluation.questionnaireType.id == 1) pdf.text(this.translate.instant('PDF_CERTIFICATE_EQSIP'), marginLeft, initialTextHeight);
-    else pdf.text(this.translate.instant('PDF_CERTIFICATE_EQSIP'), marginLeft, initialTextHeight);
-
-    pdf.setTextColor(0, 0, 0);
-    pdf.setFontSize(12);
-
-    var xPosition = marginLeft;
-    var yPosition = initialTextHeight;
-
-    pdf.setFont('Helvetica', 'normal');
-    yPosition = initialTextHeight + 25;
-    var texto1 = this.translate.instant('PDF_SUCCESS')
-    var widthTexto1 = pdf.getStringUnitWidth(texto1) * 12;
-    pdf.splitTextToSize(texto1, textWidth)
-    pdf.text(texto1, xPosition, yPosition);
-
-    pdf.setFont('Helvetica', 'bold');
-    xPosition += widthTexto1
-    var text2 = pdf.splitTextToSize(nombreCuestionario , textWidth)
-    var widthTexto2 = pdf.getStringUnitWidth(nombreCuestionario) * 12;
-    pdf.text(text2, xPosition, yPosition);
-
-    pdf.setFont('Helvetica', 'normal');
-    xPosition += widthTexto1 + widthTexto2
-    var dateStr = pdf.splitTextToSize(this.translate.instant('PDF_DATE') + porcentaje + this.translate.instant('PDF_PARAP') , textWidth)
-    pdf.text(dateStr, xPosition, yPosition);
-
-    var optionalApostrofe = (this.cacheService.getLanguage() === 'en') ? "'s" : "";
-
-    initialTextHeight = initialTextHeight + 55;
-    var percentageStr = pdf.splitTextToSize(this.translate.instant('PDF_PERCENTAGE') + nombreCuestionario + optionalApostrofe + this.translate.instant('PDF_NAME_QUESTIONNAIRE'), textWidth)
-    pdf.text(percentageStr, marginLeft, initialTextHeight);
-
-    initialTextHeight = initialTextHeight + 45;
-    var recognitionStr = pdf.splitTextToSize(this.translate.instant('PDF_RECOGNITION') + nombreCuestionario + optionalApostrofe + this.translate.instant('PDF_PARAP3'), textWidth)
-    pdf.text(recognitionStr, marginLeft, initialTextHeight);
-
-    const fechaFormateada2 = `${dia} ${this.translate.instant('ANTIPOSICION')} ${mes}, ${anio}`;
-
-    pdf.setFont('Helvetica', 'bold');
-    initialTextHeight = initialTextHeight + 65;
-    pdf.text(fechaFormateada2, marginLeft, initialTextHeight);
-
-    pdf.setFont('Helvetica', 'normal');
-    initialTextHeight = initialTextHeight + 45;
-    var dateStr = pdf.splitTextToSize(this.translate.instant('PDF_SIGN') , textWidth)
-    pdf.text(dateStr, marginLeft, initialTextHeight);
-
-    // Ajustar las dimensiones del PDF y agregar la imagen
-    this.promiseSVG(pdf, svg).then(() => {
-      setTimeout(() => {
-        // Crea un formulario de datos para enviar el blob como parte de la solicitud POST
-        // const formData = new FormData();
-        // formData.append('pdfBlob', pdf.output('blob'));
-
-        // Obtener el Blob directamente
-        var pdfBlob = pdf.output('blob');
-
-        // Crear un formulario para enviar el Blob como parte de la solicitud
-        var formData = new FormData();
-        formData.append('pdfFile', pdfBlob, `${evaluation.userRepository.repository.institucion.acronimo}_${evaluation.userRepository.user.nombre}_${evaluation.userRepository.user.apellidos}_${this.translate.instant('CERTIFICATE')}`);
-
-        if (withCloseEvaluation) {
-          const userId = this.authService.currentUser!!.id?.toString();
-          if (userId) {
-            formData.set('id', evaluation.id.toString());
-            formData.set('actionAuthor', userId);
-            this.http.post(this.apiUrl + 'closeevaluation-pdf', formData, { responseType: 'blob' })
-              .subscribe(
-                response => {
-                  // Guardar el blob localmente utilizando file-saver
-
-                  this.utilService.handleSuccess(this.getExportTranslation("SUCCESS_MODAL_CONTENT_CUESTIONARIO"))
-                  this.cacheService.getLanguage();
-                  if (this.cacheService.getLanguage() === 'en') {
-                    saveAs(response, 'report.zip');
-                  } else {
-                    saveAs(response, 'report.zip');
-                  }
-                  this.router.navigate(['/home-editor']);
-                },
-                error => {
-                }
-              );
-          }
-        } else {
-          // Realizar la solicitud POST
-          this.http.post(this.apiUrl + 'process-pdf', formData, { responseType: 'blob' })
-            .subscribe(
-              response => {
-                // Guardar el blob localmente utilizando file-saver
-                if (this.cacheService.getLanguage() === 'en') {
-                  saveAs(response, 'report.zip');
-                } else {
-                  saveAs(response, 'report.zip');
-                }
-              },
-              error => {
-              }
-            );
-        }
-      }, 500);
-    });
-  }
-*/
 
   async generatePDF(svg: string, evaluation: any, withCloseEvaluation: boolean) {
     const logoUrl = 'assets/icon/cabecera.png';
@@ -463,20 +288,6 @@ export class QuestionnaireService {
 
 
             const pdfFirstPageBlob = await this.getFirstPageBlob(pdfData);
-/*
-            this.http.post(this.apiUrl + 'process-pdf', formData, { responseType: 'blob' })
-              .subscribe(
-                response => {
-                  // Guardar el blob localmente utilizando file-saver
-                  if (this.cacheService.getLanguage() === 'en') {
-                    saveAs(response, 'report.zip');
-                  } else {
-                    saveAs(response, 'report.zip');
-                  }
-                },
-                error => {
-                }
-              );*/
 
             if (withCloseEvaluation) {
               const userId = this.authService.currentUser!!.id?.toString();
@@ -518,43 +329,6 @@ export class QuestionnaireService {
                 );
             }
 
-            /*
-                      // Realizar la solicitud POST
-          this.http.post(this.apiUrl + 'process-pdf', formData, { responseType: 'blob' })
-            .subscribe(
-              response => {
-                // Guardar el blob localmente utilizando file-saver
-                if (this.cacheService.getLanguage() === 'en') {
-                  saveAs(response, 'report.zip');
-                } else {
-                  saveAs(response, 'report.zip');
-                }
-              },
-              error => {
-              }
-            );
-
-             */
-
-            // Añadir el PNG al ZIP
-/*            zip.file(`${nombrefile}.png`, pdfFirstPageBlob);
-
-            // Generar el archivo ZIP
-            zip.generateAsync({ type: 'blob' })
-              .then((content) => {
-                // Crear un objeto URL para el archivo ZIP
-                const zipUrl = URL.createObjectURL(content);
-
-                // Crear un enlace para descargar el archivo ZIP
-                const link = document.createElement('a');
-                link.href = zipUrl;
-                link.download = 'report.zip'; // Nombre del archivo ZIP
-                link.click();
-
-                // Limpiar el objeto URL después de la descarga
-                URL.revokeObjectURL(zipUrl);
-              })
-              .catch(error => console.error('Error al generar el archivo ZIP:', error));*/
           }
         });
       })

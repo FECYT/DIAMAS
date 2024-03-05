@@ -13,7 +13,6 @@ public class AssignedEvaluatorsConverter {
 
         AssignedEvaluatorsVO vo = new AssignedEvaluatorsVO();
         vo.setId(entity.getId());
-        vo.setDnetId(entity.getDnetId());
         vo.setNDeleteState(entity.getNDeleteState());
 
         if (entity.getEvaluation() != null) {
@@ -32,7 +31,6 @@ public class AssignedEvaluatorsConverter {
 
         AssignedEvaluatorsEntity entity = new AssignedEvaluatorsEntity();
         entity.setId(vo.getId());
-        entity.setDnetId(vo.getDnetId());
         entity.setNDeleteState(vo.getNDeleteState());
 
         if (vo.getEvaluation() != null) {

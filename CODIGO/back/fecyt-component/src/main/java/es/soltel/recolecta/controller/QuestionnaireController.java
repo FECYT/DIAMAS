@@ -70,34 +70,6 @@ public class QuestionnaireController {
         service.delete(id);
     }
 
-    // El id corresponde al evaluationId
-    @PutMapping("sendQuestionnaire/evaluation/{id}")
-    public void sendQuestionnaire(@PathVariable Long id) {
-        service.sendQuestionnaire(id);
-    }
-
-    @PutMapping("sendQuestionnaireAgain/evaluation/{id}")
-    public void sendQuestionnaireAgain(@PathVariable Long id) {
-        service.sendQuestionnaireAgain(id);
-    }
-
-    @PutMapping("statusToEnObservacion/{id}/{actionAuthor}")
-    public void statusToEnObservacion(@PathVariable Long id, @PathVariable Long actionAuthor) {
-        service.statusToEnObservacion(id, actionAuthor);
-    }
-
-    @PutMapping("closeEvaluation/evaluation/{id}/{actionAuthor}")
-    public void closeEvaluation(@PathVariable Long id, @PathVariable Long actionAuthor) {
-        service.closeEvaluation(id, actionAuthor);
-    }
-
-    // Este endpoint busca los cuestionarios cuyo repositorio es el correspondiente
-    // al userId en user_repository
-    @GetMapping("findQuestionnaire/dnetId/{id}")
-    public List<QuestionnaireVO> findQuestionnaireByDnetId(@PathVariable String id) {
-        return service.findQuestionnaireByDnetId(id);
-    }
-
     @GetMapping("/export")
     public ResponseEntity<byte[]> exportData(
     		@RequestParam("idType") Long idType,
@@ -322,6 +294,11 @@ public class QuestionnaireController {
         try (PDDocument document = PDDocument.load(pdfFile.getInputStream())) {
             return document.getNumberOfPages();
         }
+    }
+
+    @PutMapping("closeEvaluation/evaluation/{id}/{actionAuthor}")
+    public void closeEvaluation(@PathVariable Long id, @PathVariable Long actionAuthor) {
+        service.closeEvaluation(id, actionAuthor);
     }
 
     private byte[] generatePngForPage(PDFRenderer pdfRenderer, int pageNumber) throws Exception {

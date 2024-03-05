@@ -24,7 +24,6 @@ public interface EvaluationService {
 
     List<EvaluationVO> findAllWithoutCloseDateForRepository(Long repoId);
 
-    List<EvaluationVO> findAllWithCloseDateForRepositoryDnet(String dnetRepoId);
 
     List<EvaluationVO> findAllWithCloseDateForRepository(Long repoId);
 

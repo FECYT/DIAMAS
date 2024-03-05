@@ -30,36 +30,6 @@ public interface EvaluationRepository extends JpaRepository<EvaluationEntity, Lo
     @Query("SELECT e FROM EvaluationEntity e WHERE e.userRepository.repository.id = :repoId AND e.closeDate IS NOT NULL")
     List<EvaluationEntity> findByRepositoryIdAndCloseDateIsNotNull(Long repoId);
 
-/*     @Query("SELECT ere FROM EvaluationResponseEntity ere " +
-        "JOIN FETCH ere.questionnaireQuestion qqe " +
-        "JOIN FETCH qqe.questionnaire qe " +
-        "JOIN FETCH qe.evaluation e " +
-        "WHERE e.repository.id = :repositoryId AND e.evaluationState = 'Cerrado' " +
-        "ORDER BY e.id DESC")
-    List<EvaluationResponseEntity> findLatestResponsesByRepository(@Param("repositoryId") Long repositoryId); */
-    
-    /*
-    @Query("SELECT DISTINCT e FROM EvaluationEntity e " +
-    "LEFT JOIN FETCH e.assignedEvaluators a " +
-    "LEFT JOIN FETCH e.questionnaires q " +
-    "WHERE e.evaluationState != 'Cerrado' " +
-    "AND :userId IN (SELECT u.id FROM a.user u) " +
-    "AND q.state = 'Enviado'")
-	List<EvaluationEntity> findActiveEvaluationsOfUser(@Param("userId") Long userId);
-	*/
-
-    /*
-    @Query("SELECT DISTINCT e FROM EvaluationEntity e " +
-    "LEFT JOIN FETCH e.assignedEvaluators " +
-    "JOIN e.questionnaires q " +
-    "WHERE e.evaluationState != 'Cerrado' " +
-    "AND q.state = 'Enviado'")
-     List<EvaluationEntity> findAllEvaluationsWithUsers();
-    */
-
-
-     //List<EvaluationEntity> findByRepository_DnetId(String dnetId);
-
     @Query("SELECT e FROM EvaluationEntity e WHERE e.evaluationState = 'Abierto' AND e.closeDate < :currentDate AND e.nDeleteState != 2")
     List<EvaluationEntity> findActiveEvaluationsDatePassed(@Param("currentDate") LocalDateTime currentDate);
 

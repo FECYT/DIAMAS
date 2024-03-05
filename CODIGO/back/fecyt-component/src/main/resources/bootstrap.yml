@@ -1,8 +1,8 @@
 mail:
-  host: smtp.office365.com
-  userSMTP: usuario@smtp.es
-  passwordSMTP: password_smtp
-  from: correo_remitente
+  host: smtp.host.com
+  userSMTP: user@smtp.es
+  passwordSMTP: passsword_smtp
+  from: remitente@remitente.es
   port: 587
 web:
   link: http://localhost:4200
@@ -41,7 +41,7 @@ spring:
       hibernate:   
         show-sql: true
         format-sql: true
-        default_schema: ${DB_SCHEMA:screma_bbdd}
+        default_schema: ${DB_SCHEMA:nombre_schema}
   cloud:
     config:
       enabled: false
@@ -78,4 +78,3 @@ seguridad:
   - /usuarios/forgotPassword
   - /passwordRecover/**
   - /api/users/changePassword
-

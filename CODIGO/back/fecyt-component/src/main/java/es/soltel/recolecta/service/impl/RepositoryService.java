@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import es.soltel.recolecta.entity.RepositoryEntity;
 import es.soltel.recolecta.repository.RepositoryRepository;
-import es.soltel.recolecta.service.DnetService;
 import es.soltel.recolecta.converters.RepositoryConverter;
 import es.soltel.recolecta.vo.RepositoryVO;
 
@@ -20,8 +19,6 @@ public class RepositoryService implements es.soltel.recolecta.service.Repository
     @Autowired
     private RepositoryRepository repository;
 
-    @Autowired
-    private DnetService dnetService;
 
     @Override
     public List<RepositoryVO> getAll() {
@@ -54,50 +51,6 @@ public class RepositoryService implements es.soltel.recolecta.service.Repository
             entity.setnDeleteState(2);
             repository.save(entity);
         }
-    }
-
-
-    @Override
-    public RepositoryVO findByUserIdDnet(String idUserDnet) {
-/*        RepositoryVO repositoryVO = new RepositoryVO();
-        List<RepositoryEntity> lista = repository.findByUserDnetId(idUserDnet);
-        if (lista.size() > 0) {
-            repositoryVO = RepositoryConverter.convertEntityToVO(lista.get(0));
-        }
-        return repositoryVO;*/
-        return null;
-    }
-
-    @Override
-    public RepositoryVO findByRepositoryIdDnet(String idRepositoryDnet) {
-
-/*        RepositoryVO repositoryVO = new RepositoryVO();
-        // busca en la tabla repository de la base de datos de la herramienta evaluador un repositorio con el id de dnet
-        List<RepositoryEntity> lista = repository.findByDnetId(idRepositoryDnet);
-        if (lista.size() > 0) {
-            // si entra en esta condición, significa que hay un repositorio y vamos a retornarlo.
-            return RepositoryConverter.convertEntityToVO(lista.get(0));
-
-
-        }
-        else {
-            // si entra en esta condición, significa que  no existe en la base de datos de la herramienta evaluador y vamos a comprobar si existe en DNET
-            try {
-                List<RepositoryResponse> repositorios;
-                repositorios = dnetService.getRepositoriesDNETByIdRepository(idRepositoryDnet);
-                repositoryVO.setDNetId(idRepositoryDnet);
-                repositoryVO.setnDeleteState(1);
-                repositoryVO.setNombreDnet(repositorios.get(0).getOfficialName());
-                return create(repositoryVO);
-            }
-            catch (Exception e) {
-    
-                e.printStackTrace();
-            }
-        }
-        return repositoryVO;*/
-
-        return null;
     }
 
     @Override

@@ -744,9 +744,7 @@ export class CuestionarioComponent implements OnInit {
             this.closingQuestionnaire = true
 
             this.questionnaireService.closeEvaluation(this.cuestionario.evaluation.id).subscribe((data) => {
-/*
-              this.utilService.handleSuccess(this.getExportTranslation("SUCCESS_MODAL_CONTENT_CUESTIONARIO"))
-*/
+
               this.questionnaireService.downloadReport(this.cuestionario.evaluation, true).subscribe(()=>{
 
                 this.closingQuestionnaire = false

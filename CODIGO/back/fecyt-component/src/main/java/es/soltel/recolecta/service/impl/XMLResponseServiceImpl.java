@@ -119,26 +119,6 @@ public class XMLResponseServiceImpl implements XMLResponseService {
         return values;
     }
 
-    /*
-     * @Override
-     * 
-     * @NoLogging public RepositoryResponse parseXMLToRepositoryResponse(String xml) throws JDOMException, IOException {
-     * RepositoryResponse repositoryResponse = new RepositoryResponse(); List<String> officialNames = new ArrayList<>();
-     * // Mantenido como List<String>
-     * 
-     * SAXBuilder builder = new SAXBuilder(); Document document = builder.build(new
-     * ByteArrayInputStream(xml.getBytes())); Element rootNode = document.getRootElement(); List<Element> returnElements
-     * = rootNode.getChildren("return");
-     * 
-     * for (Element returnElement : returnElements) { // Usando XPathExpression para extraer el texto entre las
-     * etiquetas <OFFICIAL_NAME> XPathExpression<String> expression =
-     * XPathFactory.instance().compile("OFFICIAL_NAME/text()", Filters.fstring()); String officialName =
-     * expression.evaluateFirst(returnElement); if (officialName != null) { // Asegurándose de que officialName no sea
-     * null antes de agregarlo a la lista officialNames.add(officialName); } }
-     * 
-     * repositoryResponse.setOfficialNames(officialNames); // Estableciendo la lista de nombres oficiales return
-     * repositoryResponse; // Retornando la respuesta del repositorio }
-     */
 
     public List<RepositoryResponse> parseXML(String xml) throws JDOMException, IOException {
         List<RepositoryResponse> responses = new ArrayList<>();

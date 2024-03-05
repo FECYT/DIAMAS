@@ -14,19 +14,6 @@ import es.soltel.recolecta.anottation.NoLogging;
 
 @Service
 public class RequestHttpServiceImpl {
-    /*
-     * @NoLogging public StringBuilder get(String url) throws Exception { return executeRequest(new HttpGet(url)); }
-     * 
-     * @NoLogging public String post(String url, String jsonPayload) throws Exception { HttpPost postRequest = new
-     * HttpPost(url); if (jsonPayload != null) { postRequest.setEntity(new StringEntity(jsonPayload, "UTF-8"));
-     * postRequest.setHeader("Content-Type", "application/json"); } return executeRequest(postRequest); }
-     */
-    /*
-     * @NoLogging public String put(String url, String jsonPayload) throws Exception { HttpPut putRequest = new
-     * HttpPut(url); if (jsonPayload != null) { putRequest.setEntity(new StringEntity(jsonPayload, "UTF-8"));
-     * putRequest.setHeader("Content-Type", "application/json"); } return executeRequest(putRequest); }
-     */
-    // Puedes agregar más métodos para DELETE, PATCH, etc.
 
     @NoLogging
     private StringBuilder executeRequest(HttpUriRequest request) throws Exception {

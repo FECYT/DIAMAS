@@ -1,0 +1,9 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Mon Mar 04 09:50:21 CET 2024
+https\://repo.spring.io/release/.error=Could not transfer artifact com.google.api\:gax-bom\:pom\:1.35.1 from/to spring-releases (https\://repo.spring.io/release)\: Not authorized , ReasonPhrase\:.
+https\://ecosistema.soltel.es/nexus/repository/maven-releases/.error=
+https\://repo.maven.apache.org/maven2/.lastUpdated=1709542221877
+https\://repo.spring.io/libs-milestone-local/.lastUpdated=1709542221425
+@default-spring-releases-https\://repo.spring.io/release/.lastUpdated=1709542221782
+https\://ecosistema.soltel.es/nexus/repository/maven-releases/.lastUpdated=1709542220916
+https\://repo.spring.io/libs-milestone-local/.error=

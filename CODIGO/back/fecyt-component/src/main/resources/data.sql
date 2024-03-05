@@ -348,12 +348,3 @@ VALUES
 (140,14,0,0,'',1,1,7.5,140,'Basic',1,'',true),
 (141,14,0,0,'',1,1,7.6,141,'Basic',1,'',true);
 
-INSERT IGNORE INTO `institucion`(`id`, `acronimo`, `n_delete_state`, `nombre`, `url`) VALUES (1,'SOLTEL',1,'Soltel','www.soltel.es'), (2,'FECYT',NULL,'FECYT','www.fecyt.es');
-
-INSERT IGNORE INTO `repository`(`id`, `n_delete_state`, `institucion_id`) VALUES (1,1,1), (2,1,2);
-
-
-
-INSERT IGNORE INTO `user_repository`(`id`, `n_delete_state`, `repository_id`, `user_id`) VALUES (1,1,1,1), (2,1,2,2);
-
-INSERT IGNORE INTO `rol_relation`(`rol_id`, `user_id`) VALUES (1,1), (1,2);

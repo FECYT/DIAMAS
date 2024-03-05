@@ -19,10 +19,6 @@ public class SystemLogsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @Column(name = "user_id")
-    private String idUserDNET;
-
     @Column(name = "action_type")
     private String actionType;
 
@@ -47,15 +43,6 @@ public class SystemLogsEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-
-    public String getIdUserDNET() {
-        return idUserDNET;
-    }
-
-    public void setIdUserDNET(String idUserDNET) {
-        this.idUserDNET = idUserDNET;
     }
 
     public String getActionType() {

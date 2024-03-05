@@ -20,8 +20,6 @@ public class AssignedEvaluatorsEntity {
     private EvaluationEntity evaluation;
 
 
-    private String dnetId;
-
     @ManyToOne(fetch = FetchType.EAGER)
     private UserEntity user;
 
@@ -41,14 +39,6 @@ public class AssignedEvaluatorsEntity {
 
     public void setEvaluation(EvaluationEntity evaluation) {
         this.evaluation = evaluation;
-    }
-
-    public String getDnetId() {
-        return dnetId;
-    }
-
-    public void setDnetId(String dnetId) {
-        this.dnetId = dnetId;
     }
 
     public UserEntity getUser() {

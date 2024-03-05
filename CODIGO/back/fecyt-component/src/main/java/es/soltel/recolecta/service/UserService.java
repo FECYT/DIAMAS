@@ -28,11 +28,7 @@ public interface UserService {
 
     void delete(Long id);
 
-    List<UserVO> findUsersNotInRepository(Long repositoryId);
-
     UserVO createAsincrono(UserVO user);
-
-    UserVO findByIdDnet(String idDnet);
 
     UserVO findByEmail(String email);
 

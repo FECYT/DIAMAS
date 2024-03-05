@@ -61,11 +61,6 @@ public class UserController {
         return service.create(user);
     }
 
-    @GetMapping("/findUsersNotInRepository/{repositoryId}")
-    public List<UserVO> findUsersNotInRepository(@PathVariable Long repositoryId) {
-        return service.findUsersNotInRepository(repositoryId);
-    }
-
     @PutMapping
      public UserVO update(@RequestBody UserVO user) {
          return service.update(user);

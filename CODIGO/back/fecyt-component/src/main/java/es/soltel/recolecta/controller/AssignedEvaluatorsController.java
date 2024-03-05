@@ -55,7 +55,6 @@ public class AssignedEvaluatorsController {
             if (!groupedEvaluators.containsKey(evaluationId)) {
                 AssignedEvaluatorsVO groupedEvaluator = new AssignedEvaluatorsVO();
                 groupedEvaluator.setEvaluation(evaluator.getEvaluation());
-                groupedEvaluator.setDnetId(evaluator.getDnetId());
                 groupedEvaluator.setNDeleteState(evaluator.getNDeleteState());
                 groupedEvaluator.setUsers(new ArrayList<>());
                 groupedEvaluators.put(evaluationId, groupedEvaluator);
@@ -80,21 +79,4 @@ public class AssignedEvaluatorsController {
         return new ArrayList<>(groupedEvaluators.values());
     }
 
-    @PostMapping("/evaluation/{evaluationId}")
-    public List<AssignedEvaluatorsVO> assignEvaluatorsToEvaluation(@PathVariable Long evaluationId,
-            @RequestBody List<UserVO> evaluators) {
-        // Lógica para asignar evaluadores a la evaluación con el ID evaluationId
-        // Usa el servicio para manejar la lógica de negocio y devuelve el resultado
-        // como AssignedEvaluatorsVO
-        return service.assignEvaluatorsToEvaluation(evaluationId, evaluators);
-    }
-
-    @PutMapping("/evaluation/edit/{evaluationId}")
-    public List<AssignedEvaluatorsVO> updateAssignedEvaluators(@PathVariable Long evaluationId,
-            @RequestBody List<UserVO> evaluators) {
-        // Lógica para asignar evaluadores a la evaluación con el ID evaluationId
-        // Usa el servicio para manejar la lógica de negocio y devuelve el resultado
-        // como AssignedEvaluatorsVO
-        return service.updateAssignedEvaluators(evaluationId, evaluators);
-    }
 }

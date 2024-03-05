@@ -36,16 +36,6 @@ export class QuestionService {
     return this.http.get<Question>(url);
   }
 
-  /**
-   * Verifica si una categoría tiene preguntas asociadas.
-   * @param id - El ID de la categoría.
-   * @returns Observable<boolean> - Un observable que emite un booleano indicando si la categoría tiene preguntas asociadas.
-   */
-  hasQuestionsByid(id: number): Observable<boolean> {
-    // Asume que el endpoint de tu API para verificar es: /question/hasQuestionsByCategory/{id}
-    const url = `${this.apiUrl}/hasQuestionsByCategory/${id}`;
-    return this.http.get<boolean>(url);
-  }
 
   getQuestionsByPeriodId(id:number): Observable<Question[]>{
     const url = `${this.apiUrl}/evaluationPeriod/${id}`;
@@ -57,14 +47,5 @@ export class QuestionService {
     return this.http.get<Question[]>(url);
   }
 
-  insertQuestionSet(questions:Question[]): Observable<Question[]>{
-    const url = `${this.apiUrl}/insertQuestionSet`;
-    return this.http.post<Question[]>(url, questions);
-  }
-
-  getQuestionsByQuestionnaires(questionnaires: Questionnaire[]): Observable<Question[]>{
-    const url = `${this.apiUrl}/questionnaires`;
-    return this.http.post<Question[]>(url, questionnaires);
-  }
 
 }

@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { InicioComponent } from './components/inicio/inicio.component';
-import { ListaEvaluacionesComponent } from './components/lista-evaluaciones/lista-evaluaciones.component';
 import { GestionComponent } from './components/gestion/gestion.component';
 import { AgregarTerminoComponent } from './components/agregar-termino/agregar-termino.component';
-import { AsignarUsuarioComponent } from './components/asignar-usuario/asignar-usuario.component';
 import { AdministrarCategoriasComponent } from './components/administrar-categorias/administrar-categorias.component';
 import { NuevoPeriodoComponent } from './components/nuevo-periodo/nuevo-periodo.component';
 import { NuevaPreguntaComponent } from './components/nueva-pregunta/nueva-pregunta.component';
@@ -27,6 +25,7 @@ import {RecoverPasswordComponent} from "./components/recover-password/recover-pa
 import { SearchEditorComponent } from './components/search-editor/search-editor.component';
 import {HerramientaComparativaComponent} from "./components/herramienta-comparativa/herramienta-comparativa.component";
 import {ModuleSelectorComponent} from "./components/module-selector/module-selector.component";
+import {ListaEvaluacionesComponent} from "./components/lista-evaluaciones/lista-evaluaciones.component";
 
 
 
@@ -34,7 +33,6 @@ const routes: Routes = [
   { path: '', component: InicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'listaEvaluacionesActiva', component: ListaEvaluacionesComponent, canActivate: [AuthGuard], data: { roles: ['EVALUADOR', 'SUPER EVALUADOR', 'ADMINISTRADOR', 'EDITOR'] } },
-  { path: 'asignar-usuario', component: AsignarUsuarioComponent, canActivate: [AuthGuard], data: { roles: ['ADMINISTRADOR', 'SUPER EVALUADOR'] } },
   { path: 'gestion', component: GestionComponent, canActivate: [AuthGuard], data: { roles: ['ADMINISTRADOR'] } },
   { path: 'agregarTermino', component: AgregarTerminoComponent, canActivate: [AuthGuard], data: { roles: ['ADMINISTRADOR'] } },
   { path: 'agregarTermino/:id', component: AgregarTerminoComponent, canActivate: [AuthGuard], data: { roles: ['ADMINISTRADOR'] } },

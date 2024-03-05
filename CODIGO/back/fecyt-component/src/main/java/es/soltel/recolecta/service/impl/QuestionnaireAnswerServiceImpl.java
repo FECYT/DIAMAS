@@ -144,6 +144,12 @@ public class QuestionnaireAnswerServiceImpl implements QuestionnaireAnswerServic
             else if (question.getType().equalsIgnoreCase("basic")) weightsMapRecomendadas.merge(question.getCatQuestion().getId().toString(), question.getWeight().doubleValue(), Double::sum);
         }
 
+        if (weightsMapObligatorias.size() < weightsMapRecomendadas.size()) {
+            fillMissingKeys(weightsMapObligatorias, weightsMapRecomendadas);
+        } else if (weightsMapRecomendadas.size() < weightsMapObligatorias.size()) {
+            fillMissingKeys(weightsMapRecomendadas, weightsMapObligatorias);
+        }
+
         // Ordenar la lista según getNegativeExtraPoint()
         allAnswers.sort(Comparator.comparingInt(answer -> answer.getNegativeExtraPoint() != null ? answer.getNegativeExtraPoint() : 0));
 
@@ -186,7 +192,7 @@ public class QuestionnaireAnswerServiceImpl implements QuestionnaireAnswerServic
                         scoreRecomendadas.merge(questionTarget.getCatQuestion().getId().toString(), (questionTarget.getWeight() / weightsMapRecomendadas.get(questionTarget.getCatQuestion().getId().toString())) * 100, Double::sum);
                     } else{
                         if (answer.getNegativeExtraPoint()==null) answer.setNegativeExtraPoint(0);
-                        scoreRecomendadas.merge(questionTarget.getCatQuestion().getId().toString(), (questionTarget.getWeight() * ((double) answer.getNegativeExtraPoint() /100) / weightsMapObligatorias.get(questionTarget.getCatQuestion().getId().toString()) ) * 100, Double::sum);
+                        scoreRecomendadas.merge(questionTarget.getCatQuestion().getId().toString(), (questionTarget.getWeight() * ((double) answer.getNegativeExtraPoint() /100) / weightsMapRecomendadas.get(questionTarget.getCatQuestion().getId().toString()) ) * 100, Double::sum);
                     }
                 }
 
@@ -235,6 +241,14 @@ public class QuestionnaireAnswerServiceImpl implements QuestionnaireAnswerServic
         }
 
         return updatedVOs;
+    }
+
+    private static void fillMissingKeys(Map<String, Double> smallerMap, Map<String, Double> largerMap) {
+        for (String key : largerMap.keySet()) {
+            if (!smallerMap.containsKey(key)) {
+                smallerMap.put(key, 0.0);
+            }
+        }
     }
 
     @Override

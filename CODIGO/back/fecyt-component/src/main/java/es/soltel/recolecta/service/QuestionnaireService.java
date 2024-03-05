@@ -27,18 +27,9 @@ public interface QuestionnaireService {
 
     void delete(Long id);
 
-    void closeEvaluation(Long id, Long actionAuthor);
-    
     void closeEvaluationPDF(Long id, Long actionAuthor, byte[] zip);
 
-    void sendQuestionnaire(Long id);
-
-    void sendQuestionnaireAgain(Long id);
-
-    void statusToEnObservacion(Long id, Long actionAuthor);
-
-    List<QuestionnaireVO> findQuestionnaireByDnetId(String id);
-
+    void closeEvaluation(Long id, Long actionAuthor);
     byte[] exportData(Long idType, Date startDate, Date endDate, String language, String format);
     
     byte[] exportDataFilter(Long idType, Long year, String nombre, String language, String format);

@@ -113,16 +113,6 @@ public class QuestionServiceImpl implements QuestionService {
         return dtos;
     }
 
-    /* 
-    @Override
-    public List<QuestionVO> getQuestionsByEvaluationId(Long id) {
-    	List<QuestionVO> entities = QuestionConverter.ToVO(questionRepository.findByEvaluationId(id));
-    	return entities.stream()
-                .filter(entity -> entity.getnDeleteState() != 2)
-                .collect(Collectors.toList());
-    }
-    */
-
     @Override
     public List<QuestionVO> insertQuestionSet(List<QuestionVO> questions) {
         List<QuestionEntity> questionEntities = QuestionConverter.vosToEntities(questions);

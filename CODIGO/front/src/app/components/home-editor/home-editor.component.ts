@@ -18,7 +18,6 @@ import { Repository } from '../../interfaces/repository.interface';
 import { Question } from '../../interfaces/question.interface';
 import { QuestionService } from '../../services/question.service';
 import { QuestionnaireAnswerService } from '../../services/questionnaire-answer.service';
-import { DnetService } from 'src/app/services/dnet.service';
 import { QuestionModalComponent } from "../question-modal/question-modal.component";
 import { DomSanitizer } from "@angular/platform-browser";
 import { CacheService } from "../../services/cache.service";
@@ -66,7 +65,6 @@ export class HomeEditorComponent implements OnInit {
     private translateService: TranslateService,
     private sanitizer: DomSanitizer,
     private router: Router,
-    private dnetService: DnetService,
     private repositoryService: RepositoryService,
     private authService: AuthService,
     private dialog: MatDialog,

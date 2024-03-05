@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Evaluation } from '../interfaces/evaluation.interface';
 import { MatTableDataSource } from '@angular/material/table';
-import { Evaluacion } from '../components/lista-evaluaciones/lista-evaluaciones.component';
 import { SharedDataService } from './shared-data.service';
 import { EvaluationActionHistoryService } from './evaluation-action-history.service';
 import { Repository } from '../interfaces/repository.interface';

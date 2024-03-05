@@ -20,7 +20,7 @@ public class TestController {
     @Autowired
     private MailSending mailSending;
 
-    @GetMapping
+/*    @GetMapping
     public void testMails() throws Exception {
 
         QuestionnaireVO questionnaire = questionnaireService.findByEvaluationId(1L);
@@ -29,7 +29,7 @@ public class TestController {
         mailSending.sendMailUsuarioCambiarContraseña("antonio.gutierrez@soltel.es","asdasd");
         mailSending.sendMailPDF("antonio.gutierrez@soltel.es",questionnaire,null);
 
-    }
+    }*/
 
 
 }
