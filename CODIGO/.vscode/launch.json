@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DiamasComponentApplication",
+            "request": "launch",
+            "mainClass": "es.soltel.recolecta.DiamasComponentApplication",
+            "projectName": "herramientaevaluador-component"
+        },
+        {
+            "type": "java",
             "name": "HerramientaevaluadorComponentApplication",
             "request": "launch",
             "mainClass": "es.soltel.recolecta.HerramientaevaluadorComponentApplication",

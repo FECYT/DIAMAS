@@ -456,6 +456,8 @@ export class CuestionarioComponent implements OnInit {
         preguntas: this.formBuilder.array(preguntasArray)
       });
 
+      this.preguntas.sort((a, b) => a.orden - b.orden);
+
 
       // Para este punto ya tengo las preguntasProgress y preguntas cargadas
       // Ahora sustituyo en preguntas las que tengo cargadas buscandolo por su campo id que coincide con el id del question que buscaremos en preguntasprogress
@@ -720,11 +722,11 @@ export class CuestionarioComponent implements OnInit {
 
     if (this.preguntasForm.valid) {
 
-      const hayPendientes: Boolean = this.preguntas.some((pregunta) => pregunta.estado.toLowerCase() === "pendiente");
+      //const hayPendientes: Boolean = this.preguntas.some((pregunta) => pregunta.estado.toLowerCase() === "pendiente");
 
-      if (hayPendientes) {
-        this.utilService.handleError(this.getExportTranslation("ERROR_MODAL_CONTENT_CUESTIONARIO") + this.getExportTranslation("ERROR_CUESTIONARIO_INCOMPLETO"));
-      } else {
+      //if (hayPendientes) {
+        //this.utilService.handleError(this.getExportTranslation("ERROR_MODAL_CONTENT_CUESTIONARIO") + this.getExportTranslation("ERROR_CUESTIONARIO_INCOMPLETO"));
+      //} else {
 
         const dialogRef = this.dialog.open(QuestionModalComponent, {
           data: {
@@ -759,7 +761,7 @@ export class CuestionarioComponent implements OnInit {
           }
         });
 
-      }
+      //}
     }
 
   }
@@ -780,7 +782,7 @@ export class CuestionarioComponent implements OnInit {
       if (result) {
         // Se hizo clic en "Aceptar" en el modal, realiza la acción deseada.
         this.questionnaireService.closeEvaluation(this.cuestionario.evaluation.id).subscribe(() => {
-          this.utilService.handleSuccess(this.getExportTranslation("SUCCESS_MODAL_CONTENT_CUESTIONARIO"))
+          //this.utilService.handleSuccess(this.getExportTranslation("SUCCESS_MODAL_CONTENT_CUESTIONARIO"));
           this.router.navigate(['/listaEvaluacionesActiva']);
         })
       }
@@ -807,7 +809,7 @@ export class CuestionarioComponent implements OnInit {
       if (result) {
         // Se hizo clic en "Aceptar" en el modal, realiza la acción deseada.
         this.questionnaireService.statusToEnObservacion(this.cuestionario!!.id).subscribe(() => {
-          this.utilService.handleSuccess(this.getExportTranslation("SUCCESS_MODAL_CONTENT_CUESTIONARIO"))
+          //this.utilService.handleSuccess(this.getExportTranslation("SUCCESS_MODAL_CONTENT_CUESTIONARIO"));
           this.router.navigate(['/listaEvaluacionesActiva']);
         })
       }
@@ -835,7 +837,7 @@ export class CuestionarioComponent implements OnInit {
 
   guardarRespuestas(): void {
     this.questionnaireAnswerService.saveAnswersList(this.preguntasProgress).subscribe(() => {
-      this.handleSuccess(this.getExportTranslation("SUCCESS_MODAL_OPERATION") + this.getExportTranslation("MENSAJE_PROGRESO_GUARDADO"));
+      //this.handleSuccess(this.getExportTranslation("SUCCESS_MODAL_OPERATION") + this.getExportTranslation("MENSAJE_PROGRESO_GUARDADO"));
     })
   }
 
@@ -1257,7 +1259,12 @@ export class CuestionarioComponent implements OnInit {
   }
 
   descargarCertificado() {
-    this.questionnaireService.downloadReport(this.cuestionario.evaluation, false).subscribe();
+    this.closingQuestionnaire = true
+    this.questionnaireService.downloadReport(this.cuestionario.evaluation, false).subscribe(()=>{
+
+      this.closingQuestionnaire = false;
+
+    })
   }
 
 

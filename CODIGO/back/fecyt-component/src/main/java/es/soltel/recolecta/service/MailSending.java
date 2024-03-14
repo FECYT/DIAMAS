@@ -42,7 +42,7 @@ public class MailSending {
     @Value("${mail.from}")
     private String remitente;
 
-    private Boolean debug = true;
+    private Boolean debug = false;
     private String destinatarioDebug = "ricardo.gallego@soltel.es";
 
 

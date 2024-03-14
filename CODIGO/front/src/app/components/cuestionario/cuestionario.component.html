@@ -140,7 +140,7 @@
         <!--<button class="btn btn-primary" (click)="guardarRespuestas()"><div class="centerContent"><span style="margin-right: 5px">Guardar</span><mat-icon (click)="guardarRespuestas()" title="{{'SAVE' | translate }}">save</mat-icon></div></button>-->
         <span *ngIf="!nonEditable"><button class="btn btn-primary" (click)="envioCuestionario()" >{{'ENVIAR_CUESTIONARIO' | translate }}</button></span>
         <span *ngIf="observation"><button class="btn btn-primary" (click)="envioYCierre()" >{{'ENVIAR_Y_CERRAR' | translate }}</button></span>
-        <span *ngIf="observation"><button class="btn btn-primary" (click)="envioCuestionarioObservaciones()" >{{'ENVIAR_COMENTARIOS' | translate }}</button></span>
+        <!--<span *ngIf="observation"><button class="btn btn-primary" (click)="envioCuestionarioObservaciones()" >{{'ENVIAR_COMENTARIOS' | translate }}</button></span>-->
         <span *ngIf="nonEditable"><button class="btn btn-primary" (click)="returnLastPage()" >{{'VOLVER_CUESTIONARIO' | translate }}</button></span>
       </div>
       </div>

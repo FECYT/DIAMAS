@@ -38,10 +38,7 @@
                   <td mat-cell *matCellDef="let element">{{ element.period.description }} </td>
                 </ng-container>
 
-                  <ng-container matColumnDef="fechas">
-                      <th mat-header-cell *matHeaderCellDef>{{ 'FECHA_INICIO_FIN' | translate }}</th>
-                      <td mat-cell *matCellDef="let element">{{ element.period.startDate | date:'dd-MM-yyyy' }} / {{ element.period.finishDate | date:'dd-MM-yyyy'}}</td>
-                  </ng-container>
+                 
 
                   <ng-container matColumnDef="estado">
                       <th class="text-center" mat-header-cell *matHeaderCellDef>{{ 'ESTADO' | translate }}</th>
@@ -100,8 +97,8 @@
                   <span class="estado pull-right badge rounded-pill bg-Cancelada">{{ 'CERRADO' | translate }}</span>
                   <div class="clear"></div>
                   <div class="espaciomedio"></div>
-                  <span class="puntitle">{{ 'PUNTUACION' | translate }}</span>
-                  <h1 style="font-size: xxx-large" class="puntuacion">{{ element3.evaluation && element3.evaluation.evaluationGrade }} {{ 'PORCENTAJE' | translate }}</h1>
+                  <span class="puntitle" *ngIf="moduleId == 1">{{ 'PUNTUACION' | translate }}</span>
+                  <h1 style="font-size: xxx-large" class="puntuacion" *ngIf="moduleId == 1">{{ element3.evaluation && element3.evaluation.evaluationGrade }} {{ 'PORCENTAJE' | translate }}</h1>
                   <h4 class="acceso">{{ 'ACCEDER_INFORME' | translate }} <mat-icon>arrow_forward</mat-icon></h4>
               </mat-card>
               <div class="spinner"><mat-spinner *ngIf="isLoading2" class="centered-spinner text-center"></mat-spinner></div>

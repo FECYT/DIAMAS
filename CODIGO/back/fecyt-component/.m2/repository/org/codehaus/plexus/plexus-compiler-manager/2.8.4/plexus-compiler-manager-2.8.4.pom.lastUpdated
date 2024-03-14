@@ -1,0 +1,7 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Thu Mar 07 11:54:15 CET 2024
+https\://ecosistema.soltel.es/nexus/repository/maven-releases/.error=
+0789a1126c0be3e90bbe2d9017123aaecb1ad02f@default-snapshots-https\://ecosistema.soltel.es/nexus/repository/maven-snapshots/.lastUpdated=1709808855063
+https\://ecosistema.soltel.es/nexus/repository/maven-snapshots/.error=Could not transfer artifact org.codehaus.plexus\:plexus-compiler-manager\:pom\:2.8.4 from/to snapshots (https\://ecosistema.soltel.es/nexus/repository/maven-snapshots/)\: Failed to transfer file\: https\://ecosistema.soltel.es/nexus/repository/maven-snapshots/org/codehaus/plexus/plexus-compiler-manager/2.8.4/plexus-compiler-manager-2.8.4.pom. Return code is\: 400 , ReasonPhrase\:Repository version policy\: SNAPSHOT does not allow version\: 2.8.4.
+https\://repo.maven.apache.org/maven2/.lastUpdated=1709808855108
+https\://ecosistema.soltel.es/nexus/repository/maven-releases/.lastUpdated=1709808855013

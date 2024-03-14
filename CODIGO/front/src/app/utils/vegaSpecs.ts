@@ -255,8 +255,8 @@ export const vegaArañaEN: Spec ={
       "value": "all",
       "bind" : {
         "input": "select",
-        "options": ["all", "Advanced", "Basic"],
-        "labels": ["All", "Advanced", "Basic"]
+        "options": ["all", "Desired", "Required"],
+        "labels": ["All", "Desired", "Required"]
       }
     }
   ],
@@ -320,7 +320,7 @@ export const vegaArañaEN: Spec ={
     {
       "name": "color",
       "type": "ordinal",
-      "domain": ["Advanced", "Basic"],
+      "domain": ["Desired", "Required"],
       "range": ["#1f77b4", "#ff7f0e"]
     }
   ],
@@ -709,8 +709,8 @@ export const vegaArañaPDFEN: Spec ={
       "value": "all",
       "bind" : {
         "input": "select",
-        "options": ["all", "Advanced", "Basic"],
-        "labels": ["Todas", "Advanced", "Basic"]
+        "options": ["all", "Desired", "Required"],
+        "labels": ["All", "Desired", "Required"]
       }
     }
   ],
@@ -797,7 +797,7 @@ export const vegaArañaPDFEN: Spec ={
       "name": "categories",
       "zindex": 1,
       "from": {
-        "facet": {"data": "table", "name": "facet", "groupby": ["type"]}
+        "facet": {"data": "table", "name": "facet", "groupby": ["type"]} 
       },
 
       "marks": [

@@ -51,7 +51,7 @@ export class UtilService {
   handleInfo(info: any): void {
     this.dialog.open(SuccessModalComponent, {
       data: {
-        title: 'Información',
+        title: 'Info',
         content: this.sanitizeHtml(info),
       },
       width: '50%',

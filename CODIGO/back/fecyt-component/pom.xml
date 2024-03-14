@@ -38,13 +38,6 @@
 			<version>0.4.8</version>
 		</dependency>
 
-
-		<dependency>
-		    <groupId>eu.dnetlib</groupId>
-		    <artifactId>uoa-domain</artifactId>
-		    <version>0.0.42</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.mindrot</groupId>
 			<artifactId>jbcrypt</artifactId>

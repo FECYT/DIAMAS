@@ -73,29 +73,30 @@
     <form class="d-flex flex-column" (ngSubmit)="onRegisterSubmit()" #registerForm="ngForm">
 
       <div class="form-group">
-        <label for="registerNombre">{{'NOMBRE_MINUS' | translate }}:</label>
+        <label for="registerNombre">{{'NOMBRE_MINUS' | translate }}<span class="required-indicator">*</span>:</label>
         <input id="registerNombre" name="registerNombre" class="form-control" [(ngModel)]="registerNombre" required>
+        <span class="required-indicator">*</span>
       </div>
 
       <div class="form-group">
-        <label for="registerApellidos">{{'APELLIDOS' | translate }}:</label>
+        <label for="registerApellidos">{{'APELLIDOS' | translate }}<span class="required-indicator">*</span>:</label>
         <input name="registerApellidos" id="registerApellidos" class="form-control" [(ngModel)]="registerApellidos" required>
       </div>
 
       <div class="d-flex flex-row">
         <div class="form-group col">
-          <label for="registerInstitucion">{{'NOMBRE_ISP' | translate }}:</label>
+          <label for="registerInstitucion">{{'NOMBRE_ISP' | translate }}<span class="required-indicator">*</span>:</label>
           <input name="registerInstitucion" id="registerInstitucion input-uppercase" class="form-control" [(ngModel)]="registerInstitucion" required>
         </div>
 
         <div class="form-group col-3">
-          <label for="acronimoInstitucion">{{'ACRONIMO' | translate }}:</label>
+          <label for="acronimoInstitucion">{{'ACRONIMO' | translate }}<span class="required-indicator">*</span>:</label>
           <input name="acronimoInstitucion" id="acronimoInstitucion" class="form-control input-uppercase" [(ngModel)]="registerAcronimo" required>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="registerURL">{{'URL' | translate }}:</label>
+        <label for="registerURL">{{'URL' | translate }}<span class="required-indicator">*</span>:</label>
         <input name="registerURL" id="registerURL" class="form-control" [(ngModel)]="registerURL" required>
       </div>
 
@@ -110,22 +111,22 @@
       </div>
 
       <div class="form-group ">
-        <label for="registerAfiliacion">{{'AFILIACION_INSTITUCIONAL' | translate }}:</label>
+        <label for="registerAfiliacion">{{'AFILIACION_INSTITUCIONAL' | translate }}<span class="required-indicator">*</span>:</label>
         <input name="registerAfiliacion" id="registerAfiliacion" class="form-control input-uppercase" [(ngModel)]="registerAfiliacion" required>
       </div>
 
       <div class="form-group">
-        <label for="registerEmail">{{'CORREO' | translate }}:</label>
+        <label for="registerEmail">{{'CORREO' | translate }}<span class="required-indicator">*</span>:</label>
         <input type="email" id="registerEmail" name="registerEmail" class="form-control" [(ngModel)]="registerEmail" required>
       </div>
 
       <div class="form-group">
-        <label for="password">{{'CONTRASEÑA' | translate }}:</label>
+        <label for="password">{{'CONTRASEÑA' | translate }}<span class="required-indicator">*</span>:</label>
         <input type="password" id="password" name="password" class="form-control" [(ngModel)]="registerPassword" required minlength="6">
       </div>
 
       <div class="form-group">
-        <label for="repeatPassword">{{'REPETIR_CONTRASEÑA' | translate }}:</label>
+        <label for="repeatPassword">{{'REPETIR_CONTRASEÑA' | translate }}<span class="required-indicator">*</span>:</label>
         <input type="password" id="repeatPassword" name="repeatPassword" class="form-control" [(ngModel)]="registerPasswordRepeat" required minlength="6">
       </div>
 
@@ -155,27 +156,27 @@
     <form class="d-flex flex-column mb-3" (ngSubmit)="onSumbitEdit()" #editForm="ngForm">
 
       <div class="form-group mb-3">
-        <label for="email">{{'EMAIL' | translate }}:</label>
+        <label for="email">{{'EMAIL' | translate }}<span class="required-indicator">*</span>:</label>
         <input id="email" name="email" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.user!.email" required>
       </div>
 
       <div class="form-group mb-3">
-        <label for="nombre">{{'NOMBRE_MINUS' | translate }}:</label>
+        <label for="nombre">{{'NOMBRE_MINUS' | translate }}<span class="required-indicator">*</span>:</label>
         <input id="nombre" name="nombre" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.user!.nombre" required>
       </div>
 
       <div class="form-group mb-3">
-        <label for="apellidos">{{'APELLIDOS' | translate }}:</label>
+        <label for="apellidos">{{'APELLIDOS' | translate }}<span class="required-indicator">*</span>:</label>
         <input name="apellidos" id="apellidos" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.user!.apellidos" required>
       </div>
 
-      <div class="form-group col-3">
-        <label for="acronimo">{{'ACRONIMO' | translate }}:</label>
+      <div class="form-group col">
+        <label for="acronimo">{{'ACRONIMO' | translate }}<span class="required-indicator">*</span>:</label>
         <input disabled name="acronimo" id="acronimo" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.repository!.institucion!.acronimo" required>
       </div>
 
     <div class="form-group">
-      <label for="url">{{'URL' | translate }}:</label>
+      <label for="url">{{'URL' | translate }}<span class="required-indicator">*</span>:</label>
       <input disabled name="url" id="url" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.repository!.institucion!.url" required>
     </div>
 
@@ -190,12 +191,12 @@
     </div>
 
     <div class="form-group ">
-      <label for="afiliacion">{{'AFILIACION_INSTITUCIONAL' | translate }}:</label>
+      <label for="afiliacion">{{'AFILIACION_INSTITUCIONAL' | translate }}<span class="required-indicator">*</span>:</label>
       <input name="afiliacion" id="afiliacion" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.user!.afiliacion_institucional" required>
     </div>
 
       <div class="form-group mb-3">
-        <label for="institucion">{{'INSTITUCION' | translate }}:</label>
+        <label for="institucion">{{'INSTITUCION' | translate }}<span class="required-indicator">*</span>:</label>
         <input disabled name="institucion" id="institucion" class="form-control" [(ngModel)]="userRepositoryBeingEdited!!.repository!.institucion!.nombre" required>
       </div>
 

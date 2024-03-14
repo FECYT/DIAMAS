@@ -172,9 +172,15 @@ export class QuestionnaireService {
             if (this.cacheService.getLanguage() === 'es') {
               // Si el idioma es español, cambia el tipo según la condición
               if (type === 'Advanced') {
-                type = 'Avanzado';
+                type = 'Deseado';
               } else if (type === 'Basic') {
-                type = 'Básico'
+                type = 'Requerido'
+              }
+            }else{
+              if (type === 'Advanced') {
+                type = 'Desired';
+              } else if (type === 'Basic') {
+                type = 'Required'
               }
             }
             return {
@@ -215,8 +221,8 @@ export class QuestionnaireService {
 
   async generatePDF(svg: string, evaluation: any, withCloseEvaluation: boolean) {
     const logoUrl = 'assets/icon/cabecera.png';
-    const nombreCuestionario = evaluation.userRepository.repository.institucion.nombre;
-    const porcentaje = evaluation.evaluationGrade + '%';
+    const nombreCuestionario = evaluation.questionnaireType.id == 1 ? evaluation.userRepository.repository.institucion.nombre : "";
+    const porcentaje = evaluation.questionnaireType.id == 1 ? evaluation.evaluationGrade + '%': "";
     const fechaSistema = new Date();
     const fechaFormateada = this.datePipe.transform(fechaSistema, 'dd \'of\' MMMM\',\' yyyy');
     var optionalApostrofe = (this.cacheService.getLanguage() === 'en') ? "'s" : "";
@@ -224,8 +230,15 @@ export class QuestionnaireService {
     const dia = fechaSistema.getDate();
     const mes = fechaSistema.toLocaleString(lang, { month: 'long' });
     const anio = fechaSistema.getFullYear();
-    const fechaFormateada2 = `${dia} ${this.translate.instant('ANTIPOSICION')} ${mes}, ${anio}`;
-    const titulo = evaluation.questionnaireType.id == 1 ? this.translate.instant('PDF_CERTIFICATE_EQSIP') : this.translate.instant('PDF_CERTIFICATE_EQSIP');
+    const fechaFormateada2 = evaluation.questionnaireType.id == 1 ? `${dia} ${this.translate.instant('ANTIPOSICION')} ${mes}, ${anio}` : "";
+    const titulo = evaluation.questionnaireType.id == 1 ? this.translate.instant('PDF_CERTIFICATE_EQSIP') : this.translate.instant('PDF_CERRTIFICATE_SUSTAINABILITY');
+    const texto1 = evaluation.questionnaireType.id == 1 ? this.translate.instant('PDF_SUCCESS') : this.translate.instant('PDF_SUCCESS_SUS');
+    const texto2 = evaluation.questionnaireType.id == 1 ? this.translate.instant('PDF_DATE') : " ";
+    const texto22 = evaluation.questionnaireType.id == 1 ? this.translate.instant('PDF_ALIGNED') : " ";
+    const texto3 = evaluation.questionnaireType.id == 1 ? this.translate.instant('PDF_PARAP') : " ";
+    const texto4 = evaluation.questionnaireType.id == 1 ? this.translate.instant('PDF_PERCENTAGE') : this.translate.instant('PDF_PERCENTAGE_SUS');
+    const texto6 = evaluation.questionnaireType.id == 1 ? this.translate.instant('PDF_RECOGNITION') : this.translate.instant('PDF_RECOGNITION_SUS');
+    const texto7 = evaluation.questionnaireType.id == 1 ? this.translate.instant('PDF_GIVEN') : this.translate.instant('PDF_GIVEN_SUS');
 
     const pdfWidth = 793;
     const pdfHeight = 1122;
@@ -242,16 +255,18 @@ export class QuestionnaireService {
       .then(response => response.text())
       .then(async (html) => {
         html = html.replace('{TITULO}', titulo);
-        html = html.replace('{TEXTO1}', this.translate.instant(this.translate.instant('PDF_SUCCESS')));
+        html = html.replace('{TEXTO1}', texto1);
         html = html.replace('{NOMBRE}', nombreCuestionario);
-        html = html.replace('{TEXTO2}', this.translate.instant('PDF_DATE'));
+        html = html.replace('{TEXTO2}', texto2);
+        html = html.replace('{NOMBRE2}', nombreCuestionario);
+        html = html.replace('{TEXTO22}', texto22);
         html = html.replace('{PORCENTAJE}', porcentaje);
-        html = html.replace('{TEXTO3}', this.translate.instant('PDF_PARAP'));
-        html = html.replace('{TEXTO4}', this.translate.instant('PDF_PERCENTAGE'));
+        html = html.replace('{TEXTO3}', texto3);
+        html = html.replace('{TEXTO4}', texto4);
         html = html.replaceAll('{NOMBRESPECIAL}', nombreCuestionario + optionalApostrofe);
         html = html.replace('{TEXTO5}', this.translate.instant('PDF_NAME_QUESTIONNAIRE'));
-        html = html.replace('{TEXTO6}', this.translate.instant('PDF_RECOGNITION'));
-        html = html.replace('{TEXTO7}', this.translate.instant('PDF_PARAP3'));
+        html = html.replace('{TEXTO6}', texto6);
+        html = html.replace('{TEXTO7}', texto7);
         html = html.replace('{FECHA}', fechaFormateada2);
         html = html.replace('{TEXTO8}', this.translate.instant('PDF_SIGN'));
 
@@ -299,7 +314,7 @@ export class QuestionnaireService {
                     response => {
                       // Guardar el blob localmente utilizando file-saver
 
-                      this.utilService.handleSuccess(this.getExportTranslation("SUCCESS_MODAL_CONTENT_CUESTIONARIO"))
+                      //this.utilService.handleSuccess(this.getExportTranslation("SUCCESS_MODAL_CONTENT_CUESTIONARIO"))
                       this.cacheService.getLanguage();
                       if (this.cacheService.getLanguage() === 'en') {
                         saveAs(response, 'report.zip');
@@ -430,9 +445,9 @@ export class QuestionnaireService {
             if (this.cacheService.getLanguage() === 'es') {
               // Si el idioma es español, cambia el tipo según la condición
               if (type === 'Advanced') {
-                type = 'Avanzado';
+                type = 'Deseado';
               } else if (type === 'Basic') {
-                type = 'Básico'
+                type = 'Requerido'
               }
             }
             return {

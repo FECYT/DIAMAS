@@ -76,13 +76,13 @@
             <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
 
                 <div class="form-group">
-                    <label for="email">{{'CORREO' | translate }}:</label>
+                    <label for="email">{{'CORREO' | translate }}<span class="required-indicator">*</span>:</label>
                     <!-- Agregar [(ngModel)]="email" para el two-way data binding -->
                     <input type="email" id="email" name="email" class="form-control" [(ngModel)]="email" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">{{'CONTRASEÑA' | translate }}:</label>
+                    <label for="password">{{'CONTRASEÑA' | translate }}<span class="required-indicator">*</span>:</label>
                     <!-- Agregar [(ngModel)]="password" para el two-way data binding -->
                     <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required>
                 </div>
@@ -111,29 +111,29 @@
             <form (ngSubmit)="onRegisterSubmit()" #registerForm="ngForm">
 
                 <div class="form-group">
-                    <label for="registerNombre">{{'NOMBRE_MINUS' | translate }}:</label>
+                    <label for="registerNombre">{{'NOMBRE_MINUS' | translate }}<span class="required-indicator">*</span>:</label>
                     <input id="registerNombre" name="registerNombre" class="form-control" [(ngModel)]="registerNombre" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="registerApellidos">{{'APELLIDOS' | translate }}:</label>
+                    <label for="registerApellidos">{{'APELLIDOS' | translate }}<span class="required-indicator">*</span>:</label>
                     <input name="registerApellidos" id="registerApellidos" class="form-control" [(ngModel)]="registerApellidos" required>
                 </div>
 
               <div class="d-flex flex-row">
                 <div class="form-group col">
-                    <label for="registerInstitucion">{{'NOMBRE_ISP' | translate }}:</label>
+                    <label for="registerInstitucion">{{'NOMBRE_ISP' | translate }}<span class="required-indicator">*</span>:</label>
                     <input name="registerInstitucion" id="registerInstitucion" class="form-control" [(ngModel)]="registerInstitucion" required>
                 </div>
 
-                <div class="form-group col-3">
-                    <label for="acronimoInstitucion">{{'ACRONIMO' | translate }}:</label>
+                <div class="form-group col">
+                    <label for="acronimoInstitucion">{{'ACRONIMO' | translate }}<span class="required-indicator">*</span>:</label>
                     <input name="acronimoInstitucion" id="acronimoInstitucion" class="form-control input-uppercase" [(ngModel)]="registerAcronimo" required>
                 </div>
               </div>
 
                 <div class="form-group">
-                    <label for="registerURL">{{'URL' | translate }}:</label>
+                    <label for="registerURL">{{'URL' | translate }}<span class="required-indicator">*</span>:</label>
                     <input name="registerURL" id="registerURL" class="form-control" [(ngModel)]="registerURL" required>
                 </div>
 
@@ -151,26 +151,26 @@
                 </div>
 
                 <div class="form-group col">
-                    <label for="registerAfiliacion">{{'AFILIACION_INSTITUCIONAL' | translate }}:</label>
+                    <label for="registerAfiliacion">{{'AFILIACION_INSTITUCIONAL' | translate }}<span class="required-indicator">*</span>:</label>
                     <input name="registerAfiliacion" id="registerAfiliacion" class="form-control input-uppercase" [(ngModel)]="registerAfiliacion" required>
                 </div>
 
               </div>
 
               <div class="form-group">
-                    <label for="email">{{'CORREO' | translate }}:</label>
+                    <label for="email">{{'CORREO' | translate }}<span class="required-indicator">*</span>:</label>
                                 <!-- Agregar [(ngModel)]="email" para el two-way data binding -->
                     <input type="email" name="email" class="form-control" [(ngModel)]="registerEmail" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">{{'CONTRASEÑA' | translate }}:</label>
+                    <label for="password">{{'CONTRASEÑA' | translate }}<span class="required-indicator">*</span>:</label>
                   <!-- Agregar [(ngModel)]="password" para el two-way data binding -->
                     <input type="password"  name="password" class="form-control" [(ngModel)]="registerPassword" required minlength="6">
                 </div>
 
                 <div class="form-group">
-                    <label for="repeatPassword">{{'REPETIR_CONTRASEÑA' | translate }}:</label>
+                    <label for="repeatPassword">{{'REPETIR_CONTRASEÑA' | translate }}<span class="required-indicator">*</span>:</label>
                                 <!-- Agregar [(ngModel)]="password" para el two-way data binding -->
                     <input type="password" id="repeatPassword" name="repeatPassword" class="form-control" [(ngModel)]="registerPasswordRepeat" required minlength="6">
                 </div>
@@ -185,7 +185,7 @@
                 <div class="form-group">
                     <div class="field-checkbox">
                         <p-checkbox (ngModelChange)="onChangeCheckbox()" [ngModelOptions]="{ standalone: true }" [(ngModel)]="termsAceptados" [binary]="true"></p-checkbox>
-                        <label class="checkbox-label">{{'TERMINOS_ACEPTADOS' | translate }}</label>
+                        <label class="checkbox-label">{{'TERMINOS_ACEPTADOS' | translate }}<span class="required-indicator">*</span></label>
                     </div>
                 </div>
 
@@ -204,7 +204,7 @@
           <span *ngIf="recoveringPass">
 
             <div class="form-group">
-                  <label>{{'EMAIL_RECUPERACION' | translate }}:</label>
+                  <label>{{'EMAIL_RECUPERACION' | translate }}<span class="required-indicator">*</span>:</label>
                 <input class="form-control" [(ngModel)]="recoveringEmail" required>
             </div>
 

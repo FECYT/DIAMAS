@@ -44,14 +44,7 @@ export class HomeEditorComponent implements OnInit {
   isLoading2: boolean = false;
   showEvaluacionesPasadas = false
   public informeAccedido: boolean = false;
-  displayedColumns: string[] = [
-    'nombre',
-    'edicion',
-    'fechas',
-    'estado',
-    'resultado',
-    'acciones',
-  ];
+  displayedColumns: string[] = [];
 
   currentUser = this.authService.currentUser;
 
@@ -86,7 +79,28 @@ export class HomeEditorComponent implements OnInit {
 
 
     this.moduleId = this.cacheService.selectedTypeId!!
+    
+    this.inicializarColumnas();
 
+  }
+  inicializarColumnas() {
+
+    if (this.moduleId === 2) {
+      this.displayedColumns = [
+        'nombre',
+        'edicion',
+        'estado',
+        'acciones',
+      ];
+    } else {
+      this.displayedColumns = [
+        'nombre',
+        'edicion',
+        'estado',
+        'resultado',
+        'acciones',
+      ];
+    }
   }
 
   getExportTranslation(key: string): string {
@@ -258,8 +272,8 @@ export class HomeEditorComponent implements OnInit {
           if (!period) {
             // Comprobar si period es null o indefinido
             console.error('No se encontró un período válido.');
-            this.utilService.handleError(
-              this.getExportTranslation("ERROR_MODAL_CONTENT") + this.getExportTranslation("MENSAJE_PERIODO_NO_INICIADO")
+            this.utilService.handleInfo(
+              this.getExportTranslation("MENSAJE_PERIODO_NO_INICIADO")
             );
 
             return;

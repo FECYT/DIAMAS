@@ -1,0 +1,7 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Thu Mar 07 11:45:29 CET 2024
+https\://ecosistema.soltel.es/nexus/repository/maven-releases/.error=
+0789a1126c0be3e90bbe2d9017123aaecb1ad02f@default-snapshots-https\://ecosistema.soltel.es/nexus/repository/maven-snapshots/.lastUpdated=1709808328583
+https\://ecosistema.soltel.es/nexus/repository/maven-snapshots/.error=Could not transfer artifact org.sonatype.plexus\:plexus-build-api\:jar\:0.0.7 from/to snapshots (https\://ecosistema.soltel.es/nexus/repository/maven-snapshots/)\: Failed to transfer file\: https\://ecosistema.soltel.es/nexus/repository/maven-snapshots/org/sonatype/plexus/plexus-build-api/0.0.7/plexus-build-api-0.0.7.jar. Return code is\: 400 , ReasonPhrase\:Repository version policy\: SNAPSHOT does not allow version\: 0.0.7.
+https\://repo.maven.apache.org/maven2/.lastUpdated=1709808329171
+https\://ecosistema.soltel.es/nexus/repository/maven-releases/.lastUpdated=1709808327954

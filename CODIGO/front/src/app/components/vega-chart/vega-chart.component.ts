@@ -271,51 +271,51 @@ export class VegaChartComponent {
         this.dataArrayBarras.push({
           "key": category.categoryType,
           "value": this.datosAdvanced.find(item => item.categoria === category.categoryType)?.puntuacion,
-          "category": "Avanzado"
+          "category": "Deseado"
         });
 
         this.dataArrayBarras.push({
           "key": category.categoryType,
           "value": this.datosBasic.find(item => item.categoria === category.categoryType)?.puntuacion,
-          "category": "Básico"
+          "category": "Requerido"
         });
 
         this.dataArrayBarrasEN.push({
           "key": category.categoryType,
           "value": this.datosAdvanced.find(item => item.categoria === category.categoryType)?.puntuacion,
-          "category": "Advanced"
+          "category": "Desired"
         });
 
         this.dataArrayBarrasEN.push({
           "key": category.categoryType,
           "value": this.datosBasic.find(item => item.categoria === category.categoryType)?.puntuacion,
-          "category": "Basic"
+          "category": "Required"
         });
 
         // Para vegaAraña
         this.dataArrayAraña.push({
           "category": category.categoryType,
           "value": this.datosAdvanced.find(item => item.categoria === category.categoryType)?.puntuacion,
-          "type": "Avanzado"
+          "type": "Deseado"
         });
 
         this.dataArrayAraña.push({
           "category": category.categoryType,
           "value": this.datosBasic.find(item => item.categoria === category.categoryType)?.puntuacion,
-          "type": "Básico"
+          "type": "Requerido"
         });
 
         // Para vegaAraña
         this.dataArrayArañaEN.push({
           "category": category.categoryType,
           "value": this.datosAdvanced.find(item => item.categoria === category.categoryType)?.puntuacion,
-          "type": "Advanced"
+          "type": "Desired"
         });
 
         this.dataArrayArañaEN.push({
           "category": category.categoryType,
           "value": this.datosBasic.find(item => item.categoria === category.categoryType)?.puntuacion,
-          "type": "Basic"
+          "type": "Required"
         });
 
       });
@@ -454,5 +454,5 @@ export class VegaChartComponent {
     });
 
   }
-
+  
 }
