@@ -1,7 +1,8 @@
 # DIAMAS
 
-Este paquete contiene:
-- Código de la herramienta
-- BBDD
-- Manual de despliegue
-- Manual de usuario
+This package contains:
+
+- Tool code
+- Database
+- Deployment manual
+- User manual
